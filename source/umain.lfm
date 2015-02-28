@@ -46,6 +46,7 @@ object fMain: TfMain
       Align = alClient
       DefaultItemHeight = 18
       TabOrder = 1
+      OnSelectionChanged = tvMainSelectionChanged
     end
     object Label2: TLabel
       Left = 0
@@ -113,22 +114,63 @@ object fMain: TfMain
     ClientHeight = 571
     ClientWidth = 531
     TabOrder = 3
-    object Memo1: TMemo
-      Left = 8
-      Height = 512
-      Top = 48
-      Width = 510
-      Anchors = [akTop, akLeft, akRight, akBottom]
-      Lines.Strings = (
-        'Memo1'
-      )
+    object pcPages: TPageControl
+      Left = 0
+      Height = 571
+      Top = 0
+      Width = 531
+      ActivePage = tsSelected
+      Align = alClient
+      TabIndex = 0
       TabOrder = 0
+      object tsSelected: TTabSheet
+        Caption = 'Gerät'
+        ClientHeight = 538
+        ClientWidth = 525
+        TabVisible = False
+        object Memo1: TMemo
+          Left = 8
+          Height = 522
+          Top = 8
+          Width = 510
+          Anchors = [akTop, akLeft, akRight, akBottom]
+          Lines.Strings = (
+            'Memo1'
+          )
+          ScrollBars = ssAutoVertical
+          TabOrder = 0
+        end
+      end
+      object Kommando: TTabSheet
+        Caption = 'Kommando'
+        ClientHeight = 538
+        ClientWidth = 525
+        OnEnter = KommandoEnter
+        object eCommand: TEdit
+          Left = 0
+          Height = 25
+          Top = 0
+          Width = 525
+          Align = alTop
+          OnKeyPress = eCommandKeyPress
+          TabOrder = 0
+        end
+        object mCommand: TMemo
+          Left = 0
+          Height = 513
+          Top = 25
+          Width = 525
+          Align = alClient
+          ReadOnly = True
+          TabOrder = 1
+        end
+      end
     end
   end
   object ActionList1: TActionList
     Images = ImageList1
     left = 280
-    top = 16
+    top = 88
     object acConnect: TAction
       Caption = 'verbinden'
       ImageIndex = 0
@@ -141,7 +183,7 @@ object fMain: TfMain
   end
   object ImageList1: TImageList
     left = 312
-    top = 16
+    top = 88
     Bitmap = {
       4C69020000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00DCAA

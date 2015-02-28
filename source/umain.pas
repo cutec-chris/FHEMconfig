@@ -30,22 +30,30 @@ type
     acConnect: TAction;
     acDisconnect: TAction;
     ActionList1: TActionList;
+    eCommand: TEdit;
     eSearch: TEdit;
     eServer: TComboBox;
     ImageList1: TImageList;
     Label2: TLabel;
     Label3: TLabel;
+    mCommand: TMemo;
     Memo1: TMemo;
+    pcPages: TPageControl;
     Panel1: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
     Panel4: TPanel;
     bConnect: TSpeedButton;
     Splitter1: TSplitter;
+    tsSelected: TTabSheet;
+    Kommando: TTabSheet;
     tvMain: TTreeView;
     procedure acConnectExecute(Sender: TObject);
+    procedure eCommandKeyPress(Sender: TObject; var Key: char);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure KommandoEnter(Sender: TObject);
+    procedure tvMainSelectionChanged(Sender: TObject);
   private
     { private declarations }
     Server:THTTPSend;
@@ -59,6 +67,8 @@ var
   fMain: TfMain;
 
 implementation
+
+uses Utils;
 
 {$R *.lfm}
 
@@ -77,6 +87,15 @@ begin
   Refresh;
 end;
 
+procedure TfMain.eCommandKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key = #13 then
+    begin
+      mCommand.Text:=ExecCommand(eCommand.Text);
+      eCommand.Text:='';
+    end;
+end;
+
 procedure TfMain.FormCreate(Sender: TObject);
 begin
   Server := THTTPSend.Create;
@@ -87,6 +106,21 @@ begin
   Server.Free;
 end;
 
+procedure TfMain.KommandoEnter(Sender: TObject);
+begin
+  eCommand.SetFocus;
+end;
+
+procedure TfMain.tvMainSelectionChanged(Sender: TObject);
+begin
+  if Assigned(tvMain.Selected.Data) then
+    begin
+      Memo1.Text:=ExecCommand('list '+TDevice(tvMain.Selected.Data).Name);
+      tsSelected.TabVisible:=True;
+      pcPages.ActivePage:=tsSelected;
+    end;
+end;
+
 function TfMain.ExecCommand(aCommand: string): string;
 var
   sl: TStringList;
@@ -94,7 +128,7 @@ begin
   result := '';
   sl := TStringList.Create;
   Server.Clear;
-  if Server.HTTPMethod('GET','http://'+eServer.Text+':8083/fhem?XHR=1&cmd='+aCommand) then
+  if Server.HTTPMethod('GET','http://'+eServer.Text+':8083/fhem?XHR=1&cmd='+HTTPEncode(aCommand)) then
     begin
       if Server.ResultCode=200 then
         begin

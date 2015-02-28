@@ -35,7 +35,7 @@
         <PackageName Value="LCL"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="2">
+    <Units Count="3">
       <Unit0>
         <Filename Value="fhemcontrol.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -48,6 +48,11 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
       </Unit1>
+      <Unit2>
+        <Filename Value="Utils.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Utils"/>
+      </Unit2>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
