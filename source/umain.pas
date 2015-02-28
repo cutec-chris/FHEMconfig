@@ -36,6 +36,7 @@ type
     { private declarations }
     Server:THTTPSend;
     function ExecCommand(aCommand : string) : string;
+    procedure Refresh;
   public
     { public declarations }
   end;
@@ -51,7 +52,7 @@ implementation
 
 procedure TfMain.acConnectExecute(Sender: TObject);
 begin
-  Memo1.Text:=ExecCommand('list');
+  Refresh;
 end;
 
 procedure TfMain.FormCreate(Sender: TObject);
@@ -70,6 +71,7 @@ var
 begin
   result := '';
   sl := TStringList.Create;
+  Server.Clear;
   if Server.HTTPMethod('GET','http://'+eServer.Text+':8083/fhem?XHR=1&cmd='+aCommand) then
     begin
       if Server.ResultCode=200 then
@@ -79,6 +81,26 @@ begin
         end;
     end;
   sl.Free
+end;
+
+procedure TfMain.Refresh;
+var
+  sl: TStringList;
+  i: Integer;
+begin
+  sl := TStringList.Create;
+  sl.Text:=ExecCommand('list');
+  i := 0;
+  while i < sl.Count do
+    if trim(sl[i])='' then sl.Delete(i)
+    else inc(i);
+  if copy(lowercase(sl[0]),0,4)='type' then sl.Delete(0);
+  for i := 0 to sl.Count-1 do
+    begin
+      if (copy(sl[i],0,1)<>' ') and (copy(sl[i],length(sl[i]),1)=':') then
+        tvMain.Items.Add(nil,copy(sl[i],0,length(sl[i])-1));
+    end;
+  sl.Free;
 end;
 
 end.
