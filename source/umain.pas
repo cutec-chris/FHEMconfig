@@ -50,12 +50,16 @@ type
   TfMain = class(TForm)
     acConnect: TAction;
     acDisconnect: TAction;
+    acSave: TAction;
+    acAdd: TAction;
     ActionList1: TActionList;
+    bConnect: TSpeedButton;
+    bConnect1: TSpeedButton;
+    bConnect2: TSpeedButton;
     eCommand: TEdit;
     eSearch: TEdit;
     eServer: TComboBox;
     ImageList1: TImageList;
-    Label2: TLabel;
     Label3: TLabel;
     lbLog: TListBox;
     mCommand: TMemo;
@@ -64,8 +68,6 @@ type
     Panel1: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
-    Panel4: TPanel;
-    bConnect: TSpeedButton;
     Splitter1: TSplitter;
     tsLog: TTabSheet;
     tsSelected: TTabSheet;
