@@ -45,7 +45,6 @@ object fGeneric: TfGeneric
       Strings.Strings = (
         ''
       )
-      OnGetPickList = vAttributesGetPickList
       ColWidths = (
         200
         356

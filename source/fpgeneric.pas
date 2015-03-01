@@ -27,11 +27,10 @@ type
     vAttributes: TValueListEditor;
     vReadings: TValueListEditor;
     vInternals: TValueListEditor;
-    procedure vAttributesGetPickList(Sender: TObject; const KeyName: string;
-      Values: TStrings);
   private
     { private declarations }
-    FValues : string;
+    FAttrValues : string;
+    procedure RefreshFValues;
   public
     { public declarations }
     procedure ProcessList(aList: TStrings); override;
@@ -43,12 +42,12 @@ implementation
 
 { TfGeneric }
 
-procedure TfGeneric.vAttributesGetPickList(Sender: TObject;
-  const KeyName: string; Values: TStrings);
+procedure TfGeneric.RefreshFValues;
 begin
-  if FValues='' then
+  if FAttrValues='' then
     begin
-      FValues := ExecCommand('list '+FName+' ?');
+      FAttrValues := ExecCommand('attr '+FName+' ?');
+      FAttrValues := copy(FAttrValues,pos('one of ',FAttrValues)+7,length(FAttrValues));
     end;
 end;
 
@@ -59,6 +58,8 @@ var
   bList: TValueListEditor;
   aStr: String;
   aTime: String;
+  aVal: String;
+  tmp: String;
 function GetCategory : string;
 begin
   Result := '';
@@ -78,8 +79,20 @@ begin
       TPanel(bList.Parent).Visible:=False;
     end;
 end;
+procedure SelectEditor;
+begin
+  if (pos(aVal+':',FAttrValues)>0) and Assigned(bList.ItemProps[aVal]) then
+    begin
+      bList.ItemProps[aVal].EditStyle:=esPickList;
+      tmp := copy(FAttrValues,pos(aVal+':',FAttrValues),length(FAttrValues));
+      tmp := copy(tmp,pos(':',tmp)+1,length(tmp));
+      tmp := copy(tmp,0,pos(' ',tmp)-1);
+      bList.ItemProps[aVal].PickList.CommaText:=tmp;
+    end;
+end;
 
 begin
+  RefreshFValues;
   eName.Text:=FName;
   bList:=nil;
   for i := 0 to aList.Count-1 do
@@ -119,10 +132,16 @@ begin
                   aStr := trim(copy(aStr,pos(' ',aStr)+1,length(aStr)));
                   aTime := aTime+' '+copy(aStr,0,pos(' ',aStr)-1);
                   aStr := trim(copy(aStr,pos(' ',aStr)+1,length(aStr)));
-                  bList.Values[copy(aStr,0,pos(' ',aStr)-1)]:=trim(copy(aStr,pos(' ',aStr)+1,length(aStr)));//+' ('+aTime+')';
+                  aVal := copy(aStr,0,pos(' ',aStr)-1);
+                  bList.Values[aVal]:=trim(copy(aStr,pos(' ',aStr)+1,length(aStr)));//+' ('+aTime+')';
+                  SelectEditor;
                 end
               else
-                bList.Values[copy(aStr,0,pos(' ',aStr)-1)]:=trim(copy(aStr,pos(' ',aStr)+1,length(aStr)));
+                begin
+                  aVal := copy(aStr,0,pos(' ',aStr)-1);
+                  bList.Values[aVal]:=trim(copy(aStr,pos(' ',aStr)+1,length(aStr)));
+                  SelectEditor;
+                end;
             end;
         end;
     end;
