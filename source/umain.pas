@@ -88,7 +88,6 @@ type
     LastLogTime : TDateTime;
     function ExecCommand(aCommand : string) : string;
     procedure Refresh;
-    procedure RefreshLog;
   public
     { public declarations }
   end;
@@ -114,6 +113,11 @@ var
   tmp : string;
   cnt: Integer;
 begin
+  if Terminated then
+    begin
+      FLog.Abort;
+      exit;
+    end;
   if Reason=HR_CanRead then
     while FLog.Document.Size > FPos do
       begin
@@ -182,6 +186,7 @@ begin
       LogThread.Terminate;
       LogThread.WaitFor;
       FreeAndNil(LogThread);
+      lbLog.Clear;
     end;
   if not Assigned(LogThread) then
     begin
@@ -215,6 +220,7 @@ end;
 procedure TfMain.FormCreate(Sender: TObject);
 begin
   Server := THTTPSend.Create;
+  Server.Timeout:=500;
   LastLogTime:=Now();
 end;
 
@@ -337,7 +343,7 @@ begin
   while i < sl.Count do
     if trim(sl[i])='' then sl.Delete(i)
     else inc(i);
-  if copy(lowercase(sl[0]),0,4)='type' then sl.Delete(0);
+  if (sl.Count>0) and (copy(lowercase(sl[0]),0,4)='type') then sl.Delete(0);
   for i := 0 to sl.Count-1 do
     begin
       if (copy(sl[i],0,1)<>' ') and (copy(sl[i],length(sl[i]),1)=':') then
@@ -358,26 +364,6 @@ begin
     end;
   tvMain.EndUpdate;
   sl.Free;
-end;
-
-procedure TfMain.RefreshLog;
-var
-  sl: TStringList;
-  url: String;
-begin
-  {
-  Log.Clear;
-  //Log.Timeout:=100;
-  //url := 'http://'+eServer.Text+':8083/fhem?XHR=1&inform=type=raw&timestamp='+IntToStr(DateTimeToUnix(LastLogTime))+'000';
-  url := 'http://'+eServer.Text+':8083/fhem?XHR=1&inform=type=raw;filter=.*&timestamp=1425206171258';
-  Log.HTTPMethod('GET',url);
-  sl := TStringList.Create;
-  if Log.ResultCode=200 then
-    begin
-      sl.LoadFromStream(Log.Document);
-    end;
-  sl.Free;
-  }
 end;
 
 end.
