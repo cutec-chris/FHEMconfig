@@ -37,6 +37,7 @@ var
   aCat: String;
   bList: TValueListEditor;
   aStr: String;
+  aTime: String;
 function GetCategory : string;
 begin
   Result := '';
@@ -68,7 +69,18 @@ begin
         begin
           aStr := trim(aList[i]);
           if trim(copy(aStr,0,pos(' ',aStr)-1))<>'' then
-            bList.Values[copy(aStr,0,pos(' ',aStr)-1)]:=trim(copy(aStr,pos(' ',aStr)+1,length(aStr)));
+            begin
+              if bList = vReadings then
+                begin
+                  aTime := copy(aStr,0,pos(' ',aStr)-1);
+                  aStr := trim(copy(aStr,pos(' ',aStr)+1,length(aStr)));
+                  aTime := aTime+' '+copy(aStr,0,pos(' ',aStr)-1);
+                  aStr := trim(copy(aStr,pos(' ',aStr)+1,length(aStr)));
+                  bList.Values[copy(aStr,0,pos(' ',aStr)-1)]:=trim(copy(aStr,pos(' ',aStr)+1,length(aStr)));//+' ('+aTime+')';
+                end
+              else
+                bList.Values[copy(aStr,0,pos(' ',aStr)-1)]:=trim(copy(aStr,pos(' ',aStr)+1,length(aStr)));
+            end;
         end;
     end;
 end;
