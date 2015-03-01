@@ -3,6 +3,7 @@ object fMain: TfMain
   Height = 576
   Top = 163
   Width = 800
+  ActiveControl = pcPages
   Caption = 'FHEMcontrol'
   ClientHeight = 576
   ClientWidth = 800
@@ -35,6 +36,10 @@ object fMain: TfMain
       Top = 59
       Width = 264
       Align = alTop
+      Font.Color = clSilver
+      OnEnter = eSearchEnter
+      OnExit = eSearchExit
+      ParentFont = False
       TabOrder = 0
       Text = '<Suche>'
     end
@@ -119,9 +124,9 @@ object fMain: TfMain
       Height = 571
       Top = 0
       Width = 531
-      ActivePage = tsSelected
+      ActivePage = Kommando
       Align = alClient
-      TabIndex = 0
+      TabIndex = 1
       TabOrder = 0
       object tsSelected: TTabSheet
         Caption = 'Gerät'
@@ -134,11 +139,15 @@ object fMain: TfMain
           Top = 8
           Width = 510
           Anchors = [akTop, akLeft, akRight, akBottom]
+          Font.Name = 'courier'
+          Font.Pitch = fpFixed
           Lines.Strings = (
             'Memo1'
           )
-          ScrollBars = ssAutoVertical
+          ParentFont = False
+          ScrollBars = ssAutoBoth
           TabOrder = 0
+          WordWrap = False
         end
       end
       object Kommando: TTabSheet
@@ -161,8 +170,13 @@ object fMain: TfMain
           Top = 25
           Width = 525
           Align = alClient
+          Font.Name = 'courier'
+          Font.Pitch = fpFixed
+          ParentFont = False
           ReadOnly = True
+          ScrollBars = ssAutoBoth
           TabOrder = 1
+          WordWrap = False
         end
       end
     end

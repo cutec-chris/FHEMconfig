@@ -50,6 +50,8 @@ type
     tvMain: TTreeView;
     procedure acConnectExecute(Sender: TObject);
     procedure eCommandKeyPress(Sender: TObject; var Key: char);
+    procedure eSearchEnter(Sender: TObject);
+    procedure eSearchExit(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure KommandoEnter(Sender: TObject);
@@ -69,6 +71,9 @@ var
 implementation
 
 uses Utils;
+
+resourcestring
+  strSearch                       = '<suche>';
 
 {$R *.lfm}
 
@@ -94,6 +99,18 @@ begin
       mCommand.Text:=ExecCommand(eCommand.Text);
       eCommand.Text:='';
     end;
+end;
+
+procedure TfMain.eSearchEnter(Sender: TObject);
+begin
+  eSearch.Clear;
+  eSearch.Font.Color:=clDefault;
+end;
+
+procedure TfMain.eSearchExit(Sender: TObject);
+begin
+  eSearch.Text:=strSearch;
+  eSearch.Font.Color:=clSilver;
 end;
 
 procedure TfMain.FormCreate(Sender: TObject);
