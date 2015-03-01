@@ -27,8 +27,11 @@ type
     vAttributes: TValueListEditor;
     vReadings: TValueListEditor;
     vInternals: TValueListEditor;
+    procedure vAttributesGetPickList(Sender: TObject; const KeyName: string;
+      Values: TStrings);
   private
     { private declarations }
+    FValues : string;
   public
     { public declarations }
     procedure ProcessList(aList: TStrings); override;
@@ -39,6 +42,15 @@ implementation
 {$R *.lfm}
 
 { TfGeneric }
+
+procedure TfGeneric.vAttributesGetPickList(Sender: TObject;
+  const KeyName: string; Values: TStrings);
+begin
+  if FValues='' then
+    begin
+      FValues := ExecCommand('list '+FName+' ?');
+    end;
+end;
 
 procedure TfGeneric.ProcessList(aList: TStrings);
 var
@@ -68,6 +80,7 @@ begin
 end;
 
 begin
+  eName.Text:=FName;
   bList:=nil;
   for i := 0 to aList.Count-1 do
     begin

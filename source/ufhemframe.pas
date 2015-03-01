@@ -8,14 +8,34 @@ uses
   Classes, SysUtils, Forms, contnrs;
 
 type
+  { TDevice }
+
+  TDevice = class
+  private
+    FFound: Boolean;
+    FName: string;
+    fStatus: string;
+    procedure SetStatus(AValue: string);
+  public
+    property Status : string read fStatus write SetStatus;
+    property Name : string read FName write FName;
+    property Found : Boolean read FFound write FFound;
+  end;
 
   { TFHEMFrame }
 
   TFHEMFrame = class(TFrame)
   private
-    function GetDeviceType: string;virtual;abstract;
+    FDevice: TDevice;
+    procedure SetDevice(AValue: TDevice);
+    procedure SetName(AValue: string);
   protected
+    FName: string;
+    function ExecCommand(aCmd : string) : string;
+    function GetDeviceType: string;virtual;abstract;
   public
+    property Name : string read FName write SetName;
+    property Device : TDevice read FDevice write SetDevice;
     property DeviceType : string read GetDeviceType;
     procedure ProcessList(aList : TStrings);virtual;
   end;
@@ -29,7 +49,7 @@ var
 
 implementation
 
-uses fpGeneric;
+uses fpGeneric,uMain;
 
 procedure RegisterFrame(aFrame: TFHEMFrameClass);
 begin
@@ -53,7 +73,33 @@ begin
     Result := fpGeneric.TfGeneric;
 end;
 
+{ TDevice }
+
+procedure TDevice.SetStatus(AValue: string);
+begin
+  if fStatus=AValue then Exit;
+  fStatus:=AValue;
+end;
+
 { TFHEMFrame }
+
+procedure TFHEMFrame.SetDevice(AValue: TDevice);
+begin
+  if FDevice=AValue then Exit;
+  FDevice:=AValue;
+  FName := FDevice.Name;
+end;
+
+procedure TFHEMFrame.SetName(AValue: string);
+begin
+  if FName=AValue then Exit;
+  FName:=AValue;
+end;
+
+function TFHEMFrame.ExecCommand(aCmd: string): string;
+begin
+  Result := fMain.ExecCommand(aCmd);
+end;
 
 procedure TFHEMFrame.ProcessList(aList: TStrings);
 begin

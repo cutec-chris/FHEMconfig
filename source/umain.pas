@@ -9,21 +9,6 @@ uses
   StdCtrls, ComCtrls, ActnList, ValEdit, Buttons,blcksock,httpsend,uFhemFrame;
 
 type
-
-  { TDevice }
-
-  TDevice = class
-  private
-    FFound: Boolean;
-    FName: string;
-    fStatus: string;
-    procedure SetStatus(AValue: string);
-  public
-    property Status : string read fStatus write SetStatus;
-    property Name : string read FName write FName;
-    property Found : Boolean read FFound write FFound;
-  end;
-
   TInfoEvent = procedure(aInfo : string) of object;
   { TLogThread }
 
@@ -88,10 +73,10 @@ type
     Server:THTTPSend;
     LogThread : TLogThread;
     LastLogTime : TDateTime;
-    function ExecCommand(aCommand : string) : string;
     procedure Refresh;
   public
     { public declarations }
+    function ExecCommand(aCommand : string) : string;
   end;
 
 var
@@ -168,14 +153,6 @@ begin
       sleep(10);
     end;
   FLog.Free;
-end;
-
-{ TDevice }
-
-procedure TDevice.SetStatus(AValue: string);
-begin
-  if fStatus=AValue then Exit;
-  fStatus:=AValue;
 end;
 
 { TfMain }
@@ -257,6 +234,7 @@ begin
           FFrame := aFrameClass.Create(Self);
           FFrame.Parent := tsSelected;
           FFrame.Align:=alClient;
+          FFrame.Device:=TDevice(tvMain.Selected.Data);
           sl := TStringList.Create;
           sl.Text := ExecCommand('list '+TDevice(tvMain.Selected.Data).Name);
           FFrame.ProcessList(sl);
