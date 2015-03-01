@@ -1,0 +1,7 @@
+object Frame1: TFrame1
+  Left = 459
+  Height = 380
+  Top = 208
+  Width = 573
+  LCLVersion = '1.5'
+end

@@ -1,0 +1,99 @@
+object fGeneric: TfGeneric
+  Left = 545
+  Height = 512
+  Top = 219
+  Width = 574
+  ClientHeight = 512
+  ClientWidth = 574
+  Color = clWhite
+  LCLVersion = '1.5'
+  object Label1: TLabel
+    Left = 0
+    Height = 15
+    Top = 0
+    Width = 574
+    Align = alTop
+    Caption = 'Attributes'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object vAttributes: TValueListEditor
+    Left = 0
+    Height = 137
+    Top = 15
+    Width = 574
+    Align = alTop
+    FixedCols = 0
+    RowCount = 2
+    TabOrder = 0
+    TitleStyle = tsNative
+    Strings.Strings = (
+      ''
+    )
+    ColWidths = (
+      64
+      508
+    )
+  end
+  object vReadings: TValueListEditor
+    Left = 0
+    Height = 137
+    Top = 167
+    Width = 574
+    Align = alTop
+    FixedCols = 0
+    RowCount = 2
+    TabOrder = 1
+    TitleStyle = tsNative
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goAlwaysShowEditor, goThumbTracking]
+    Strings.Strings = (
+      ''
+    )
+    ColWidths = (
+      64
+      508
+    )
+  end
+  object Label2: TLabel
+    Left = 0
+    Height = 15
+    Top = 152
+    Width = 574
+    Align = alTop
+    Caption = 'Readings'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object Label3: TLabel
+    Left = 0
+    Height = 15
+    Top = 304
+    Width = 574
+    Align = alTop
+    Caption = 'Internals'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object vInternals: TValueListEditor
+    Left = 0
+    Height = 137
+    Top = 319
+    Width = 574
+    Align = alTop
+    FixedCols = 0
+    RowCount = 2
+    TabOrder = 2
+    TitleStyle = tsNative
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goAlwaysShowEditor, goThumbTracking]
+    Strings.Strings = (
+      ''
+    )
+    ColWidths = (
+      64
+      508
+    )
+  end
+end
