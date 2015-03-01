@@ -3,9 +3,9 @@ program fhemcontrol;
 {$mode objfpc}{$H+}
 
 uses
-  {$IFDEF UNIX}{$IFDEF UseCThreads}
+  {$IFDEF UNIX}
   cthreads,
-  {$ENDIF}{$ENDIF}
+  {$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, uMain, Utils, laz_synapse, uFhemFrame, fPresence, fpGeneric
   { you can add units after this };

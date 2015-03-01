@@ -24,6 +24,27 @@ type
     property Found : Boolean read FFound write FFound;
   end;
 
+  TInfoEvent = procedure(aInfo : string) of object;
+  { TLogThread }
+
+  TLogThread = class(TThread)
+    procedure FLogSockStatus(Sender: TObject; Reason: THookSocketReason;
+      const Value: String);
+  private
+    FOnInfo: TInfoEvent;
+    FPos : Integer;
+    FBuffer : string;
+    FInfo : string;
+    FLog: THTTPSend;
+    FServer: String;
+    procedure Info;
+  public
+    constructor Create(aServer: string);
+    procedure Execute; override;
+    property Server : string read FServer;
+    property OnInfo : TInfoEvent read FOnInfo write FOnInfo;
+  end;
+
   { TfMain }
 
   TfMain = class(TForm)
@@ -36,7 +57,7 @@ type
     ImageList1: TImageList;
     Label2: TLabel;
     Label3: TLabel;
-    ListBox1: TListBox;
+    lbLog: TListBox;
     mCommand: TMemo;
     Memo1: TMemo;
     pcPages: TPageControl;
@@ -46,7 +67,6 @@ type
     Panel4: TPanel;
     bConnect: TSpeedButton;
     Splitter1: TSplitter;
-    LogTimer: TTimer;
     tsLog: TTabSheet;
     tsSelected: TTabSheet;
     Kommando: TTabSheet;
@@ -58,12 +78,13 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure KommandoEnter(Sender: TObject);
-    procedure LogTimerTimer(Sender: TObject);
+    procedure LogThreadInfo(aInfo: string);
     procedure tvMainSelectionChanged(Sender: TObject);
   private
     { private declarations }
     FFrame: TFHEMFrame;
-    Server,Log:THTTPSend;
+    Server:THTTPSend;
+    LogThread : TLogThread;
     LastLogTime : TDateTime;
     function ExecCommand(aCommand : string) : string;
     procedure Refresh;
@@ -84,6 +105,65 @@ resourcestring
 
 {$R *.lfm}
 
+{ TLogThread }
+
+procedure TLogThread.FLogSockStatus(Sender: TObject; Reason: THookSocketReason;
+  const Value: String);
+var
+  aStr: String;
+  tmp : string;
+  cnt: Integer;
+begin
+  if Reason=HR_CanRead then
+    while FLog.Document.Size > FPos do
+      begin
+        FLog.Document.Position:=FPos;
+        cnt := FLog.Document.Size-FPos;
+        if cnt>255 then
+          cnt := 255;
+        Setlength(tmp,cnt);
+        cnt := FLog.Document.Read(tmp[1],cnt);
+        FPos := FPos+cnt;
+        FBuffer:=FBuffer+copy(tmp,0,cnt);
+      end;
+  while pos(#10,FBuffer)>0 do
+    begin
+      FInfo := copy(FBuffer,0,pos(#10,FBuffer)-1);
+      FBuffer := copy(FBuffer,pos(#10,FBuffer)+1,length(FBuffer));
+      Synchronize(@Info);
+    end;
+end;
+
+procedure TLogThread.Info;
+begin
+  if Assigned(FOnInfo) then
+    FOnInfo(FInfo);
+end;
+
+constructor TLogThread.Create(aServer : string);
+begin
+  FServer := aServer;
+  FPos := 0;
+  FLog := THTTPSend.Create;
+  inherited Create(False);
+end;
+
+procedure TLogThread.Execute;
+var
+  aStr: String;
+  url: String;
+begin
+  url := 'http://'+FServer+':8083/fhem?XHR=1&inform=type=raw;filter=.*';
+  FLog.Sock.OnStatus:=@FLogSockStatus;
+  FLog.KeepAlive:=True;
+  FLog.HTTPMethod('GET',url);
+  while not Terminated do
+    begin
+      sleep(10);
+    end;
+  FLog.Free;
+end;
+
 { TDevice }
 
 procedure TDevice.SetStatus(AValue: string);
@@ -97,7 +177,18 @@ end;
 procedure TfMain.acConnectExecute(Sender: TObject);
 begin
   Refresh;
-  RefreshLog;
+  if Assigned(LogThread) and (LogThread.Server<>eServer.Text) then
+    begin
+      LogThread.Terminate;
+      LogThread.WaitFor;
+      FreeAndNil(LogThread);
+    end;
+  if not Assigned(LogThread) then
+    begin
+      LogThread := TLogThread.Create(eServer.Text);
+      LogThread.OnInfo:=@LogThreadInfo;
+      tsLog.TabVisible:=True;
+    end;
 end;
 
 procedure TfMain.eCommandKeyPress(Sender: TObject; var Key: char);
@@ -124,13 +215,11 @@ end;
 procedure TfMain.FormCreate(Sender: TObject);
 begin
   Server := THTTPSend.Create;
-  Log := THTTPSend.Create;
   LastLogTime:=Now();
 end;
 
 procedure TfMain.FormDestroy(Sender: TObject);
 begin
-  FreeAndNil(Log);
   Server.Free;
 end;
 
@@ -139,9 +228,11 @@ begin
   eCommand.SetFocus;
 end;
 
-procedure TfMain.LogTimerTimer(Sender: TObject);
+procedure TfMain.LogThreadInfo(aInfo: string);
 begin
-  RefreshLog;
+  lbLog.AddItem(StringReplace(aInfo,'<br>','',[]),nil);
+  lbLog.ItemIndex:=lbLog.Count-1;
+  lbLog.MakeCurrentVisible;
 end;
 
 procedure TfMain.tvMainSelectionChanged(Sender: TObject);
@@ -273,7 +364,8 @@ procedure TfMain.RefreshLog;
 var
   sl: TStringList;
   url: String;
-begin exit;
+begin
+  {
   Log.Clear;
   //Log.Timeout:=100;
   //url := 'http://'+eServer.Text+':8083/fhem?XHR=1&inform=type=raw&timestamp='+IntToStr(DateTimeToUnix(LastLogTime))+'000';
@@ -285,6 +377,7 @@ begin exit;
       sl.LoadFromStream(Log.Document);
     end;
   sl.Free;
+  }
 end;
 
 end.

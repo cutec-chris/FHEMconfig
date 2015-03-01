@@ -184,7 +184,7 @@ object fMain: TfMain
         ClientHeight = 538
         ClientWidth = 525
         TabVisible = False
-        object ListBox1: TListBox
+        object lbLog: TListBox
           Left = 0
           Height = 538
           Top = 0
@@ -282,11 +282,5 @@ object fMain: TfMain
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00
     }
-  end
-  object LogTimer: TTimer
-    Enabled = False
-    OnTimer = LogTimerTimer
-    left = 344
-    top = 88
   end
 end

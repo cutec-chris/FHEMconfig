@@ -7,96 +7,181 @@ object fGeneric: TfGeneric
   ClientWidth = 574
   Color = clWhite
   LCLVersion = '1.5'
-  object Label1: TLabel
+  object Panel1: TPanel
+    Left = 8
+    Height = 161
+    Top = 64
+    Width = 558
+    Align = alTop
+    BorderSpacing.Around = 8
+    BevelOuter = bvNone
+    Caption = 'Panel1'
+    ClientHeight = 161
+    ClientWidth = 558
+    TabOrder = 0
+    object Label1: TLabel
+      Left = 0
+      Height = 15
+      Top = 0
+      Width = 558
+      Align = alTop
+      Caption = 'Attribute'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object vAttributes: TValueListEditor
+      Left = 0
+      Height = 146
+      Top = 15
+      Width = 558
+      Align = alClient
+      DefaultColWidth = 200
+      FixedCols = 0
+      RowCount = 2
+      TabOrder = 0
+      TitleStyle = tsNative
+      Strings.Strings = (
+        ''
+      )
+      ColWidths = (
+        200
+        356
+      )
+    end
+  end
+  object Panel2: TPanel
+    Left = 8
+    Height = 127
+    Top = 233
+    Width = 558
+    Align = alTop
+    BorderSpacing.Around = 8
+    BevelOuter = bvNone
+    Caption = 'Panel2'
+    ClientHeight = 127
+    ClientWidth = 558
+    TabOrder = 1
+    object vReadings: TValueListEditor
+      Left = 0
+      Height = 112
+      Top = 15
+      Width = 558
+      Align = alClient
+      DefaultColWidth = 200
+      FixedCols = 0
+      RowCount = 2
+      TabOrder = 0
+      TitleStyle = tsNative
+      Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goAlwaysShowEditor, goThumbTracking]
+      Strings.Strings = (
+        ''
+      )
+      ColWidths = (
+        200
+        356
+      )
+    end
+    object Label2: TLabel
+      Left = 0
+      Height = 15
+      Top = 0
+      Width = 558
+      Align = alTop
+      Caption = 'gelesene Werte'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+  end
+  object Panel3: TPanel
+    Left = 8
+    Height = 136
+    Top = 368
+    Width = 558
+    Align = alClient
+    BorderSpacing.Around = 8
+    BevelOuter = bvNone
+    Caption = 'Panel3'
+    ClientHeight = 136
+    ClientWidth = 558
+    TabOrder = 2
+    object Label3: TLabel
+      Left = 0
+      Height = 15
+      Top = 0
+      Width = 558
+      Align = alTop
+      Caption = 'Interne Werte'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object vInternals: TValueListEditor
+      Left = 0
+      Height = 121
+      Top = 15
+      Width = 558
+      Align = alClient
+      DefaultColWidth = 200
+      FixedCols = 0
+      RowCount = 2
+      TabOrder = 0
+      TitleStyle = tsNative
+      Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goAlwaysShowEditor, goThumbTracking]
+      Strings.Strings = (
+        ''
+      )
+      ColWidths = (
+        200
+        356
+      )
+    end
+  end
+  object Panel4: TPanel
     Left = 0
-    Height = 15
+    Height = 56
     Top = 0
     Width = 574
     Align = alTop
-    Caption = 'Attributes'
-    Font.Style = [fsBold]
-    ParentColor = False
-    ParentFont = False
-  end
-  object vAttributes: TValueListEditor
-    Left = 0
-    Height = 137
-    Top = 15
-    Width = 574
-    Align = alTop
-    DefaultColWidth = 200
-    FixedCols = 0
-    RowCount = 2
-    TabOrder = 0
-    TitleStyle = tsNative
-    Strings.Strings = (
-      ''
-    )
-    ColWidths = (
-      200
-      372
-    )
-  end
-  object vReadings: TValueListEditor
-    Left = 0
-    Height = 137
-    Top = 167
-    Width = 574
-    Align = alTop
-    DefaultColWidth = 200
-    FixedCols = 0
-    RowCount = 2
-    TabOrder = 1
-    TitleStyle = tsNative
-    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goAlwaysShowEditor, goThumbTracking]
-    Strings.Strings = (
-      ''
-    )
-    ColWidths = (
-      200
-      372
-    )
-  end
-  object Label2: TLabel
-    Left = 0
-    Height = 15
-    Top = 152
-    Width = 574
-    Align = alTop
-    Caption = 'Readings'
-    Font.Style = [fsBold]
-    ParentColor = False
-    ParentFont = False
-  end
-  object Label3: TLabel
-    Left = 0
-    Height = 15
-    Top = 304
-    Width = 574
-    Align = alTop
-    Caption = 'Internals'
-    Font.Style = [fsBold]
-    ParentColor = False
-    ParentFont = False
-  end
-  object vInternals: TValueListEditor
-    Left = 0
-    Height = 137
-    Top = 319
-    Width = 574
-    Align = alTop
-    DefaultColWidth = 200
-    FixedCols = 0
-    RowCount = 2
-    TabOrder = 2
-    TitleStyle = tsNative
-    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goAlwaysShowEditor, goThumbTracking]
-    Strings.Strings = (
-      ''
-    )
-    ColWidths = (
-      200
-      372
-    )
+    BevelOuter = bvNone
+    ClientHeight = 56
+    ClientWidth = 574
+    TabOrder = 3
+    object Label4: TLabel
+      Left = 8
+      Height = 15
+      Top = 8
+      Width = 35
+      Caption = 'Name'
+      ParentColor = False
+    end
+    object eName: TEdit
+      Left = 8
+      Height = 25
+      Top = 24
+      Width = 376
+      Anchors = [akTop, akLeft, akRight]
+      TabOrder = 0
+    end
+    object Label5: TLabel
+      Left = 390
+      Height = 15
+      Top = 8
+      Width = 176
+      Anchors = [akTop, akRight]
+      AutoSize = False
+      Caption = 'Raum'
+      ParentColor = False
+    end
+    object cbRoom: TComboBox
+      Left = 390
+      Height = 27
+      Top = 24
+      Width = 176
+      Anchors = [akTop, akRight]
+      ItemHeight = 0
+      TabOrder = 1
+    end
   end
 end
