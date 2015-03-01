@@ -24,6 +24,7 @@ object fGeneric: TfGeneric
     Top = 15
     Width = 574
     Align = alTop
+    DefaultColWidth = 200
     FixedCols = 0
     RowCount = 2
     TabOrder = 0
@@ -32,8 +33,8 @@ object fGeneric: TfGeneric
       ''
     )
     ColWidths = (
-      64
-      508
+      200
+      372
     )
   end
   object vReadings: TValueListEditor
@@ -42,6 +43,7 @@ object fGeneric: TfGeneric
     Top = 167
     Width = 574
     Align = alTop
+    DefaultColWidth = 200
     FixedCols = 0
     RowCount = 2
     TabOrder = 1
@@ -51,8 +53,8 @@ object fGeneric: TfGeneric
       ''
     )
     ColWidths = (
-      64
-      508
+      200
+      372
     )
   end
   object Label2: TLabel
@@ -83,6 +85,7 @@ object fGeneric: TfGeneric
     Top = 319
     Width = 574
     Align = alTop
+    DefaultColWidth = 200
     FixedCols = 0
     RowCount = 2
     TabOrder = 2
@@ -92,8 +95,8 @@ object fGeneric: TfGeneric
       ''
     )
     ColWidths = (
-      64
-      508
+      200
+      372
     )
   end
 end

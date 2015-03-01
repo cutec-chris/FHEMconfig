@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, ComCtrls, ActnList, ValEdit, Buttons,blcksock,httpsend;
+  StdCtrls, ComCtrls, ActnList, ValEdit, Buttons,blcksock,httpsend,uFhemFrame;
 
 type
 
@@ -36,6 +36,7 @@ type
     ImageList1: TImageList;
     Label2: TLabel;
     Label3: TLabel;
+    ListBox1: TListBox;
     mCommand: TMemo;
     Memo1: TMemo;
     pcPages: TPageControl;
@@ -45,6 +46,8 @@ type
     Panel4: TPanel;
     bConnect: TSpeedButton;
     Splitter1: TSplitter;
+    LogTimer: TTimer;
+    tsLog: TTabSheet;
     tsSelected: TTabSheet;
     Kommando: TTabSheet;
     tvMain: TTreeView;
@@ -55,12 +58,16 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure KommandoEnter(Sender: TObject);
+    procedure LogTimerTimer(Sender: TObject);
     procedure tvMainSelectionChanged(Sender: TObject);
   private
     { private declarations }
-    Server:THTTPSend;
+    FFrame: TFHEMFrame;
+    Server,Log:THTTPSend;
+    LastLogTime : TDateTime;
     function ExecCommand(aCommand : string) : string;
     procedure Refresh;
+    procedure RefreshLog;
   public
     { public declarations }
   end;
@@ -70,7 +77,7 @@ var
 
 implementation
 
-uses Utils;
+uses Utils,synautil,dateutils;
 
 resourcestring
   strSearch                       = '<suche>';
@@ -90,6 +97,7 @@ end;
 procedure TfMain.acConnectExecute(Sender: TObject);
 begin
   Refresh;
+  RefreshLog;
 end;
 
 procedure TfMain.eCommandKeyPress(Sender: TObject; var Key: char);
@@ -116,10 +124,13 @@ end;
 procedure TfMain.FormCreate(Sender: TObject);
 begin
   Server := THTTPSend.Create;
+  Log := THTTPSend.Create;
+  LastLogTime:=Now();
 end;
 
 procedure TfMain.FormDestroy(Sender: TObject);
 begin
+  FreeAndNil(Log);
   Server.Free;
 end;
 
@@ -128,13 +139,32 @@ begin
   eCommand.SetFocus;
 end;
 
+procedure TfMain.LogTimerTimer(Sender: TObject);
+begin
+  RefreshLog;
+end;
+
 procedure TfMain.tvMainSelectionChanged(Sender: TObject);
+var
+  aFrameClass: TFHEMFrameClass;
+  sl: TStringList;
 begin
   if Assigned(tvMain.Selected.Data) then
     begin
-      Memo1.Text:=ExecCommand('list '+TDevice(tvMain.Selected.Data).Name);
-      tsSelected.TabVisible:=True;
-      pcPages.ActivePage:=tsSelected;
+      FreeAndNil(FFrame);
+      aFrameClass := FindFrame(TDevice(tvMain.Selected.Data).Name);
+      if aFrameClass<>nil then
+        begin
+          FFrame := aFrameClass.Create(Self);
+          FFrame.Parent := tsSelected;
+          FFrame.Align:=alClient;
+          sl := TStringList.Create;
+          sl.Text := ExecCommand('list '+TDevice(tvMain.Selected.Data).Name);
+          FFrame.ProcessList(sl);
+          sl.Free;
+          tsSelected.TabVisible:=True;
+          pcPages.ActivePage:=tsSelected;
+        end;
     end;
 end;
 
@@ -236,6 +266,24 @@ begin
         AddDevice(sl[i]);
     end;
   tvMain.EndUpdate;
+  sl.Free;
+end;
+
+procedure TfMain.RefreshLog;
+var
+  sl: TStringList;
+  url: String;
+begin exit;
+  Log.Clear;
+  //Log.Timeout:=100;
+  //url := 'http://'+eServer.Text+':8083/fhem?XHR=1&inform=type=raw&timestamp='+IntToStr(DateTimeToUnix(LastLogTime))+'000';
+  url := 'http://'+eServer.Text+':8083/fhem?XHR=1&inform=type=raw;filter=.*&timestamp=1425206171258';
+  Log.HTTPMethod('GET',url);
+  sl := TStringList.Create;
+  if Log.ResultCode=200 then
+    begin
+      sl.LoadFromStream(Log.Document);
+    end;
   sl.Free;
 end;
 

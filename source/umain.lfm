@@ -124,9 +124,9 @@ object fMain: TfMain
       Height = 571
       Top = 0
       Width = 531
-      ActivePage = Kommando
+      ActivePage = tsLog
       Align = alClient
-      TabIndex = 1
+      TabIndex = 2
       TabOrder = 0
       object tsSelected: TTabSheet
         Caption = 'Gerät'
@@ -177,6 +177,23 @@ object fMain: TfMain
           ScrollBars = ssAutoBoth
           TabOrder = 1
           WordWrap = False
+        end
+      end
+      object tsLog: TTabSheet
+        Caption = 'Log'
+        ClientHeight = 538
+        ClientWidth = 525
+        TabVisible = False
+        object ListBox1: TListBox
+          Left = 0
+          Height = 538
+          Top = 0
+          Width = 525
+          Align = alClient
+          ItemHeight = 0
+          ScrollWidth = 523
+          TabOrder = 0
+          TopIndex = -1
         end
       end
     end
@@ -265,5 +282,11 @@ object fMain: TfMain
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00
     }
+  end
+  object LogTimer: TTimer
+    Enabled = False
+    OnTimer = LogTimerTimer
+    left = 344
+    top = 88
   end
 end
