@@ -59,6 +59,7 @@ type
     Kommando: TTabSheet;
     tvMain: TTreeView;
     procedure acConnectExecute(Sender: TObject);
+    procedure acSaveExecute(Sender: TObject);
     procedure eCommandKeyPress(Sender: TObject; var Key: char);
     procedure eSearchEnter(Sender: TObject);
     procedure eSearchExit(Sender: TObject);
@@ -173,6 +174,15 @@ begin
       LogThread.OnInfo:=@LogThreadInfo;
       tsLog.TabVisible:=True;
     end;
+end;
+
+procedure TfMain.acSaveExecute(Sender: TObject);
+var
+  Result: String;
+begin
+  Result := ExecCommand('save');
+  if Result = '' then
+    acSave.Enabled:=False;
 end;
 
 procedure TfMain.eCommandKeyPress(Sender: TObject; var Key: char);

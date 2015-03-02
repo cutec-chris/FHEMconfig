@@ -213,6 +213,7 @@ object fMain: TfMain
       Enabled = False
       Hint = 'Speichert die getätigten Einstellungen'
       ImageIndex = 2
+      OnExecute = acSaveExecute
     end
     object acAdd: TAction
       Caption = 'Neu'

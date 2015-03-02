@@ -32,6 +32,7 @@ type
   protected
     FName: string;
     function ExecCommand(aCmd : string) : string;
+    procedure Change;
     function GetDeviceType: string;virtual;abstract;
   public
     property Name : string read FName write SetName;
@@ -99,6 +100,11 @@ end;
 function TFHEMFrame.ExecCommand(aCmd: string): string;
 begin
   Result := fMain.ExecCommand(aCmd);
+end;
+
+procedure TFHEMFrame.Change;
+begin
+  fMain.acSave.Enabled:=True;
 end;
 
 procedure TFHEMFrame.ProcessList(aList: TStrings);

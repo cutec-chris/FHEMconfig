@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, ValEdit, ExtCtrls,
-  uFhemFrame;
+  uFhemFrame, Grids;
 
 type
 
@@ -27,6 +27,8 @@ type
     vAttributes: TValueListEditor;
     vReadings: TValueListEditor;
     vInternals: TValueListEditor;
+    procedure vAttributesValidateEntry(sender: TObject; aCol, aRow: Integer;
+      const OldValue: string; var NewValue: String);
   private
     { private declarations }
     FAttrValues : string;
@@ -41,6 +43,23 @@ implementation
 {$R *.lfm}
 
 { TfGeneric }
+
+procedure TfGeneric.vAttributesValidateEntry(sender: TObject; aCol,
+  aRow: Integer; const OldValue: string; var NewValue: String);
+var
+  Item: TItemProp;
+  Result: String;
+  aKey: String;
+begin
+  if OldValue=NewValue then exit;
+  Item := TValueListEditor(Sender).ItemProps[aRow-1];
+  if Assigned(Item) then
+    begin
+      aKey := TValueListEditor(Sender).Keys[aRow];
+      Result := ExecCommand('attr '+FName+' '+aKey+' '+NewValue);
+      if Result = '' then Change;
+    end;
+end;
 
 procedure TfGeneric.RefreshFValues;
 begin
@@ -81,14 +100,17 @@ begin
 end;
 procedure SelectEditor;
 begin
-  if (pos(aVal+':',FAttrValues)>0) and Assigned(bList.ItemProps[aVal]) then
-    begin
-      bList.ItemProps[aVal].EditStyle:=esPickList;
-      tmp := copy(FAttrValues,pos(aVal+':',FAttrValues),length(FAttrValues));
-      tmp := copy(tmp,pos(':',tmp)+1,length(tmp));
-      tmp := copy(tmp,0,pos(' ',tmp)-1);
-      bList.ItemProps[aVal].PickList.CommaText:=tmp;
-    end;
+  try
+    if (pos(aVal+':',FAttrValues)>0) and Assigned(bList.ItemProps[aVal]) then
+      begin
+        bList.ItemProps[aVal].EditStyle:=esPickList;
+        tmp := copy(FAttrValues,pos(aVal+':',FAttrValues),length(FAttrValues));
+        tmp := copy(tmp,pos(':',tmp)+1,length(tmp));
+        tmp := copy(tmp,0,pos(' ',tmp)-1);
+        bList.ItemProps[aVal].PickList.CommaText:=tmp;
+      end;
+  except
+  end;
 end;
 
 begin
