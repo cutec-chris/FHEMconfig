@@ -24,21 +24,20 @@ object fMain: TfMain
     TabOrder = 0
     object Label3: TLabel
       Left = 8
-      Height = 15
+      Height = 13
       Top = 8
-      Width = 39
+      Width = 33
       Caption = 'Server'
       ParentColor = False
     end
     object eServer: TComboBox
       Left = 8
-      Height = 27
+      Height = 21
       Hint = 'geben Sie hier die IP oder den Namen des Servers ein und klicken Sie auf verbinden'
       Top = 24
       Width = 159
-      ItemHeight = 0
+      ItemHeight = 13
       TabOrder = 0
-      Text = '192.168.1.103'
     end
     object bConnect: TSpeedButton
       Left = 168
@@ -78,7 +77,7 @@ object fMain: TfMain
     TabOrder = 1
     object eSearch: TEdit
       Left = 0
-      Height = 25
+      Height = 21
       Top = 0
       Width = 264
       Align = alTop
@@ -91,11 +90,11 @@ object fMain: TfMain
     end
     object tvMain: TTreeView
       Left = 0
-      Height = 495
-      Top = 25
+      Height = 499
+      Top = 21
       Width = 264
       Align = alClient
-      DefaultItemHeight = 18
+      DefaultItemHeight = 16
       TabOrder = 1
       OnSelectionChanged = tvMainSelectionChanged
     end
@@ -149,23 +148,23 @@ object fMain: TfMain
       end
       object Kommando: TTabSheet
         Caption = 'Kommando'
-        ClientHeight = 487
-        ClientWidth = 525
+        ClientHeight = 494
+        ClientWidth = 523
         OnEnter = KommandoEnter
         object eCommand: TEdit
           Left = 0
-          Height = 25
+          Height = 21
           Top = 0
-          Width = 525
+          Width = 523
           Align = alTop
           OnKeyPress = eCommandKeyPress
           TabOrder = 0
         end
         object mCommand: TMemo
           Left = 0
-          Height = 462
-          Top = 25
-          Width = 525
+          Height = 473
+          Top = 21
+          Width = 523
           Align = alClient
           Font.Name = 'courier'
           Font.Pitch = fpFixed
@@ -190,7 +189,6 @@ object fMain: TfMain
           ItemHeight = 0
           ScrollWidth = 523
           TabOrder = 0
-          TopIndex = -1
         end
       end
     end

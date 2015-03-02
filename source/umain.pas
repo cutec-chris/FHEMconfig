@@ -75,6 +75,8 @@ type
     LogThread : TLogThread;
     LastLogTime : TDateTime;
     procedure Refresh;
+    procedure SaveConfig;
+    procedure FindConfig;
   public
     { public declarations }
     function ExecCommand(aCommand : string) : string;
@@ -210,11 +212,14 @@ procedure TfMain.FormCreate(Sender: TObject);
 begin
   Server := THTTPSend.Create;
   Server.Timeout:=500;
-  LastLogTime:=Now();
+  FindConfig;
 end;
 
 procedure TfMain.FormDestroy(Sender: TObject);
 begin
+  LogThread.Terminate;
+  LogThread.WaitFor;
+  LogThread.Free;
   Server.Free;
 end;
 
@@ -277,8 +282,9 @@ procedure TfMain.Refresh;
 var
   sl: TStringList;
   i: Integer;
-  Category : TTreeNode;
+  Category : TTreeNode = nil;
   b: Integer;
+  Node: TTreeNode;
 
   procedure SelectCategory(aCat : string);
   var
@@ -343,8 +349,9 @@ begin
               b := 0;
               while b<Category.Count do
                 begin
-                  if TDevice(Category.Items[b].Data).Found then inc(b)
-                  else Category.Items[b].Free;
+                  Node := Category.Items[b];
+                  if TDevice(Node.Data).Found then inc(b)
+                  else Node.Free;
                 end;
             end;
           SelectCategory(copy(sl[i],0,length(sl[i])-1))
@@ -353,7 +360,41 @@ begin
         AddDevice(sl[i]);
     end;
   tvMain.EndUpdate;
+  if tvMain.Items.Count>0 then
+    SaveConfig;
   sl.Free;
+end;
+
+procedure TfMain.SaveConfig;
+var
+  sl: TStringList;
+begin
+  sl := TStringList.Create;
+  sl.Add(eServer.Text);
+  sl.SaveToFile(ValidateFileName(eServer.Text)+'.fhem.conf');
+  sl.Free;
+end;
+
+procedure TfMain.FindConfig;
+var
+  searchResult: TSearchRec;
+  sl: TStringList;
+begin
+  sl := TStringList.Create;
+  eServer.Clear;
+  if FindFirst('*.fhem.conf', faAnyFile, searchResult) = 0 then
+    begin
+      repeat
+        if copy(searchResult.Name,0,1)<>'.' then
+          begin
+            sl.LoadFromFile(searchResult.Name);
+            eServer.Items.Add(sl[0]);
+          end;
+      until FindNext(searchResult) <> 0;
+      FindClose(searchResult);
+    end;
+  sl.Free;
+  if eServer.Items.Count=1 then eServer.ItemIndex:=0;
 end;
 
 end.
