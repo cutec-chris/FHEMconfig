@@ -10,7 +10,7 @@ object fGeneric: TfGeneric
   object Panel1: TPanel
     Left = 8
     Height = 161
-    Top = 64
+    Top = 112
     Width = 558
     Align = alTop
     BorderSpacing.Around = 8
@@ -54,7 +54,7 @@ object fGeneric: TfGeneric
   object Panel2: TPanel
     Left = 8
     Height = 127
-    Top = 233
+    Top = 281
     Width = 558
     Align = alTop
     BorderSpacing.Around = 8
@@ -97,14 +97,14 @@ object fGeneric: TfGeneric
   end
   object Panel3: TPanel
     Left = 8
-    Height = 136
-    Top = 368
+    Height = 88
+    Top = 416
     Width = 558
     Align = alClient
     BorderSpacing.Around = 8
     BevelOuter = bvNone
     Caption = 'Panel3'
-    ClientHeight = 136
+    ClientHeight = 88
     ClientWidth = 558
     TabOrder = 2
     object Label3: TLabel
@@ -120,7 +120,7 @@ object fGeneric: TfGeneric
     end
     object vInternals: TValueListEditor
       Left = 0
-      Height = 121
+      Height = 73
       Top = 15
       Width = 558
       Align = alClient
@@ -141,12 +141,12 @@ object fGeneric: TfGeneric
   end
   object Panel4: TPanel
     Left = 0
-    Height = 56
+    Height = 104
     Top = 0
     Width = 574
     Align = alTop
     BevelOuter = bvNone
-    ClientHeight = 56
+    ClientHeight = 104
     ClientWidth = 574
     TabOrder = 3
     object Label4: TLabel
@@ -183,6 +183,63 @@ object fGeneric: TfGeneric
       Anchors = [akTop, akRight]
       ItemHeight = 0
       TabOrder = 1
+    end
+    object cbSet: TComboBox
+      Left = 8
+      Height = 27
+      Top = 72
+      Width = 152
+      ItemHeight = 0
+      OnSelect = cbSetSelect
+      TabOrder = 2
+    end
+    object eSet: TEdit
+      Left = 200
+      Height = 25
+      Top = 72
+      Width = 168
+      Anchors = [akTop, akLeft, akRight]
+      TabOrder = 3
+    end
+    object cbGet: TComboBox
+      Left = 376
+      Height = 27
+      Top = 72
+      Width = 190
+      Anchors = [akTop, akRight]
+      ItemHeight = 0
+      OnSelect = cbGetSelect
+      TabOrder = 4
+    end
+    object Label6: TLabel
+      Left = 8
+      Height = 15
+      Top = 56
+      Width = 82
+      Caption = 'Wert setzen'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object Label7: TLabel
+      Left = 376
+      Height = 15
+      Top = 56
+      Width = 190
+      Anchors = [akTop, akRight]
+      AutoSize = False
+      Caption = 'Wert lesen'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object SpeedButton1: TSpeedButton
+      Left = 164
+      Height = 25
+      Hint = 'hier klicken um dne Wert zu setzen'
+      Top = 72
+      Width = 31
+      Caption = '<'
     end
   end
 end

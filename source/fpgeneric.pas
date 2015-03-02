@@ -5,8 +5,8 @@ unit fpGeneric;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, ValEdit, ExtCtrls,
-  uFhemFrame, Grids;
+  Classes, SysUtils, FileUtil, DividerBevel, Forms, Controls, StdCtrls, ValEdit,
+  ExtCtrls, uFhemFrame, Grids, Buttons;
 
 type
 
@@ -14,24 +14,34 @@ type
 
   TfGeneric = class(TFHEMFrame)
     cbRoom: TComboBox;
+    cbSet: TComboBox;
+    cbGet: TComboBox;
+    eSet: TEdit;
     eName: TEdit;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
     Panel1: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
     Panel4: TPanel;
+    SpeedButton1: TSpeedButton;
     vAttributes: TValueListEditor;
     vReadings: TValueListEditor;
     vInternals: TValueListEditor;
+    procedure cbGetSelect(Sender: TObject);
+    procedure cbSetSelect(Sender: TObject);
     procedure vAttributesValidateEntry(sender: TObject; aCol, aRow: Integer;
       const OldValue: string; var NewValue: String);
   private
     { private declarations }
     FAttrValues : string;
+    FGetValues : string;
+    FSetValues : string;
     procedure RefreshFValues;
   public
     { public declarations }
@@ -61,12 +71,39 @@ begin
     end;
 end;
 
+procedure TfGeneric.cbGetSelect(Sender: TObject);
+var
+  tmp: String;
+begin
+  tmp := ExecCommand('get '+FName+' '+cbGet.Text);
+  if pos(#10,tmp)>0 then tmp := copy(tmp,0,pos(#10,tmp)-1);
+  eSet.Text:=tmp;
+end;
+
+procedure TfGeneric.cbSetSelect(Sender: TObject);
+begin
+  eSet.Text:='';
+  eSet.SetFocus;
+end;
+
 procedure TfGeneric.RefreshFValues;
 begin
   if FAttrValues='' then
     begin
       FAttrValues := ExecCommand('attr '+FName+' ?');
       FAttrValues := copy(FAttrValues,pos('one of ',FAttrValues)+7,length(FAttrValues));
+    end;
+  if FGetValues='' then
+    begin
+      FGetValues := ExecCommand('get '+FName+' ?');
+      FGetValues := copy(FGetValues,pos('one of ',FGetValues)+7,length(FGetValues));
+      if pos(#10,FGetValues)>0 then FGetValues := copy(FGetValues,0,pos(#10,FGetValues)-1);
+    end;
+  if FSetValues='' then
+    begin
+      FSetValues := ExecCommand('set '+FName+' ?');
+      FSetValues := copy(FSetValues,pos('one of ',FSetValues)+7,length(FSetValues));
+      if pos(#10,FSetValues)>0 then FSetValues := copy(FSetValues,0,pos(#10,FSetValues)-1);
     end;
 end;
 
@@ -116,6 +153,26 @@ end;
 begin
   RefreshFValues;
   eName.Text:=FName;
+  tmp := FGetValues+' ';
+  cbGet.Clear;
+  while pos(' ',tmp)>0 do
+    begin
+      aVal := copy(tmp,0,pos(' ',tmp)-1);
+      tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
+      if pos(':',aVal)>0 then
+        aVal := copy(aVal,0,pos(':',aVal)-1);
+      cbGet.Items.Add(aVal);
+    end;
+  tmp := FSetValues+' ';
+  cbSet.Clear;
+  while pos(' ',tmp)>0 do
+    begin
+      aVal := copy(tmp,0,pos(' ',tmp)-1);
+      tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
+      if pos(':',aVal)>0 then
+        aVal := copy(aVal,0,pos(':',aVal)-1);
+      cbSet.Items.Add(aVal);
+    end;
   bList:=nil;
   for i := 0 to aList.Count-1 do
     begin
