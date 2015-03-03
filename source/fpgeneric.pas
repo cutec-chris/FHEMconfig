@@ -184,6 +184,9 @@ begin
   cbSet.Visible:=cbSet.Items.Count>0;
   bSet.Visible:=cbSet.Visible;
   lSet.Visible:=cbSet.Visible;
+  if (not cbSet.Visible) and (not cbGet.Visible) then
+    panel4.Height:=56
+  else Panel4.Height:=104;
   bList:=nil;
   for i := 0 to aList.Count-1 do
     begin
