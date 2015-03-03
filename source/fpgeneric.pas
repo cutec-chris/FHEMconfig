@@ -104,8 +104,8 @@ begin
   if FSetValues='' then
     begin
       FSetValues := ExecCommand('set '+FName+' ?');
-      if pos('implemented',FGetValues)>0 then
-        FGetValues:='';
+      if pos('implemented',FSetValues)>0 then
+        FSetValues:='';
       FSetValues := copy(FSetValues,pos('one of ',FSetValues)+7,length(FSetValues));
       FSetValues:=StringReplace(FSetValues,#10,'',[rfReplaceAll]);
     end;
