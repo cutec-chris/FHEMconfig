@@ -63,6 +63,7 @@ type
     procedure eCommandKeyPress(Sender: TObject; var Key: char);
     procedure eSearchEnter(Sender: TObject);
     procedure eSearchExit(Sender: TObject);
+    procedure eServerSelect(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure KommandoEnter(Sender: TObject);
@@ -149,11 +150,12 @@ var
 begin
   url := 'http://'+FServer+':8083/fhem?XHR=1&inform=type=raw;filter=.*';
   FLog.Sock.OnStatus:=@FLogSockStatus;
+  FLog.Timeout:=15000;
   FLog.KeepAlive:=True;
-  FLog.HTTPMethod('GET',url);
   while not Terminated do
     begin
-      sleep(10);
+      FLog.HTTPMethod('GET',url);
+      sleep(1000);
     end;
   FLog.Free;
 end;
@@ -208,16 +210,24 @@ begin
   eSearch.Font.Color:=clSilver;
 end;
 
+procedure TfMain.eServerSelect(Sender: TObject);
+begin
+  tvMain.Items.Clear;
+end;
+
 procedure TfMain.FormCreate(Sender: TObject);
 begin
   Server := THTTPSend.Create;
-  Server.Timeout:=500;
+  Server.Timeout:=2500;
   FindConfig;
 end;
 
 procedure TfMain.FormDestroy(Sender: TObject);
 begin
+  Hide;
+  Application.ProcessMessages;
   LogThread.Terminate;
+  LogThread.FLog.Abort;
   LogThread.WaitFor;
   LogThread.Free;
   Server.Free;
@@ -240,7 +250,7 @@ var
   aFrameClass: TFHEMFrameClass;
   sl: TStringList;
 begin
-  if Assigned(tvMain.Selected.Data) then
+  if Assigned(tvMain.Selected) and Assigned(tvMain.Selected.Data) then
     begin
       FreeAndNil(FFrame);
       aFrameClass := FindFrame(TDevice(tvMain.Selected.Data).Name);

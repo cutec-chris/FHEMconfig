@@ -211,7 +211,7 @@ object fGeneric: TfGeneric
       OnSelect = cbGetSelect
       TabOrder = 4
     end
-    object Label6: TLabel
+    object lSet: TLabel
       Left = 8
       Height = 15
       Top = 56
@@ -221,7 +221,7 @@ object fGeneric: TfGeneric
       ParentColor = False
       ParentFont = False
     end
-    object Label7: TLabel
+    object lGet: TLabel
       Left = 376
       Height = 15
       Top = 56
@@ -233,12 +233,12 @@ object fGeneric: TfGeneric
       ParentColor = False
       ParentFont = False
     end
-    object SpeedButton1: TSpeedButton
+    object bSet: TSpeedButton
       Left = 164
-      Height = 25
+      Height = 24
       Hint = 'hier klicken um dne Wert zu setzen'
       Top = 72
-      Width = 31
+      Width = 28
       Caption = '<'
     end
   end

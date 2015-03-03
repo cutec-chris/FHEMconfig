@@ -23,13 +23,13 @@ type
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
-    Label6: TLabel;
-    Label7: TLabel;
+    lSet: TLabel;
+    lGet: TLabel;
     Panel1: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
     Panel4: TPanel;
-    SpeedButton1: TSpeedButton;
+    bSet: TSpeedButton;
     vAttributes: TValueListEditor;
     vReadings: TValueListEditor;
     vInternals: TValueListEditor;
@@ -96,14 +96,18 @@ begin
   if FGetValues='' then
     begin
       FGetValues := ExecCommand('get '+FName+' ?');
+      if pos('implemented',FGetValues)>0 then
+        FGetValues:='';
       FGetValues := copy(FGetValues,pos('one of ',FGetValues)+7,length(FGetValues));
-      if pos(#10,FGetValues)>0 then FGetValues := copy(FGetValues,0,pos(#10,FGetValues)-1);
+      FGetValues:=StringReplace(FGetValues,#10,'',[rfReplaceAll]);
     end;
   if FSetValues='' then
     begin
       FSetValues := ExecCommand('set '+FName+' ?');
+      if pos('implemented',FGetValues)>0 then
+        FGetValues:='';
       FSetValues := copy(FSetValues,pos('one of ',FSetValues)+7,length(FSetValues));
-      if pos(#10,FSetValues)>0 then FSetValues := copy(FSetValues,0,pos(#10,FSetValues)-1);
+      FSetValues:=StringReplace(FSetValues,#10,'',[rfReplaceAll]);
     end;
 end;
 
@@ -161,8 +165,11 @@ begin
       tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
       if pos(':',aVal)>0 then
         aVal := copy(aVal,0,pos(':',aVal)-1);
-      cbGet.Items.Add(aVal);
+      if aVal<>'' then
+        cbGet.Items.Add(aVal);
     end;
+  cbGet.Visible:=cbGet.Items.Count>0;
+  lGet.Visible:=cbGet.Visible;
   tmp := FSetValues+' ';
   cbSet.Clear;
   while pos(' ',tmp)>0 do
@@ -171,8 +178,12 @@ begin
       tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
       if pos(':',aVal)>0 then
         aVal := copy(aVal,0,pos(':',aVal)-1);
-      cbSet.Items.Add(aVal);
+      if aVal<>'' then
+        cbSet.Items.Add(aVal);
     end;
+  cbSet.Visible:=cbSet.Items.Count>0;
+  bSet.Visible:=cbSet.Visible;
+  lSet.Visible:=cbSet.Visible;
   bList:=nil;
   for i := 0 to aList.Count-1 do
     begin
