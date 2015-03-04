@@ -198,6 +198,7 @@ object fMain: TfMain
         ClientHeight = 547
         ClientWidth = 656
         OnShow = tsConfigShow
+        TabVisible = False
         inline eConfig: TSynMemo
           Cursor = crIBeam
           Left = 0

@@ -87,6 +87,7 @@ type
     function Refresh: Boolean;
     procedure SaveConfig;
     procedure FindConfig;
+    function BuildConnStr(aServer : string) : string;
   public
     { public declarations }
     function ExecCommand(aCommand: string; aServer: string): string;
@@ -160,7 +161,7 @@ var
   aStr: String;
   url: String;
 begin
-  url := ConnType+FServer+':8083/fhem?XHR=1&inform=type=raw;filter=.*';
+  url := FServer+'/fhem?XHR=1&inform=type=raw;filter=.*';
   FLog.Sock.OnStatus:=@FLogSockStatus;
   FLog.Timeout:=15000;
   FLog.KeepAlive:=True;
@@ -195,7 +196,7 @@ begin
     begin
       if not Assigned(LogThread) then
         begin
-          LogThread := TLogThread.Create(eServer.Text);
+          LogThread := TLogThread.Create(BuildConnStr(eServer.Text));
           LogThread.ConnType:=ConnType;
           LogThread.OnInfo:=@LogThreadInfo;
           tsLog.TabVisible:=True;
@@ -244,7 +245,7 @@ end;
 procedure TfMain.FormCreate(Sender: TObject);
 begin
   Server := THTTPSend.Create;
-  Server.Timeout:=2500;
+  Server.Timeout:=10000;
   Server.Sock.OnStatus:=@ServerSockStatus;
   ConnType := 'http://';
   FindConfig;
@@ -291,13 +292,13 @@ var
   aConfig: String;
   aConnType: String;
   sl: TStringList;
+  url: String;
 begin
   if eConfig.Lines.Text='' then
     begin
-      aConnType := ConnType;
-      if pos('://',aConnType)>0 then
-        aConnType:='';
-      if Server.HTTPMethod('GET',aConnType+eServer.Text+'/fhem?cmd=style edit fhem.cfg') then
+      url := BuildConnStr(eServer.Text)+'/fhem?cmd='+HTTPEncode('style edit fhem.cfg');
+      debugln(url);
+      if Server.HTTPMethod('GET',url) then
         begin
           if Server.ResultCode=200 then
             begin
@@ -346,12 +347,7 @@ begin
   result := '';
   sl := TStringList.Create;
   Server.Clear;
-  if pos(':',aServer)=0 then
-    aServer := aServer+':8083';
-  aConnType := ConnType;
-  if pos('://',eServer.Text)>0 then
-    aConntype := '';
-  if Server.HTTPMethod('GET',aConnType+aServer+'/fhem?XHR=1&cmd='+HTTPEncode(aCommand)) then
+  if Server.HTTPMethod('GET',BuildConnStr(aServer)+'/fhem?XHR=1&cmd='+HTTPEncode(aCommand)) then
     begin
       if Server.ResultCode=200 then
         begin
@@ -488,6 +484,18 @@ begin
     end;
   sl.Free;
   if eServer.Items.Count=1 then eServer.ItemIndex:=0;
+end;
+
+function TfMain.BuildConnStr(aServer: string): string;
+var
+  aConnType: String;
+begin
+  if pos(':',aServer)=0 then
+    aServer := aServer+':8083';
+  aConnType := ConnType;
+  if pos('://',eServer.Text)>0 then
+    aConntype := '';
+  Result := aConnType+aServer;
 end;
 
 procedure RemoveTag(var aOut,bOut : string;aTag : string;AllowShortenClose : Boolean = False;IgnoreWhen : string = '');
