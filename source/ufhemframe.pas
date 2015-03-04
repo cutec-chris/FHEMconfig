@@ -99,7 +99,7 @@ end;
 
 function TFHEMFrame.ExecCommand(aCmd: string): string;
 begin
-  Result := fMain.ExecCommand(aCmd);
+  Result := fMain.ExecCommand(aCmd,fMain.eServer.Text);
 end;
 
 procedure TFHEMFrame.Change;

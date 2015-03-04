@@ -186,6 +186,7 @@ object fGeneric: TfGeneric
       Top = 24
       Width = 176
       Anchors = [akTop, akRight]
+      Enabled = False
       ItemHeight = 0
       TabOrder = 1
     end

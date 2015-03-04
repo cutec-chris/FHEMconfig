@@ -16,6 +16,7 @@ type
     procedure FLogSockStatus(Sender: TObject; Reason: THookSocketReason;
       const Value: String);
   private
+    FConnType: string;
     FOnInfo: TInfoEvent;
     FPos : Integer;
     FBuffer : string;
@@ -26,6 +27,7 @@ type
   public
     constructor Create(aServer: string);
     procedure Execute; override;
+    property ConnType : string read FConnType write FConnType;
     property Server : string read FServer;
     property OnInfo : TInfoEvent read FOnInfo write FOnInfo;
   end;
@@ -75,12 +77,13 @@ type
     Server:THTTPSend;
     LogThread : TLogThread;
     LastLogTime : TDateTime;
-    procedure Refresh;
+    ConnType : string;
+    function Refresh: Boolean;
     procedure SaveConfig;
     procedure FindConfig;
   public
     { public declarations }
-    function ExecCommand(aCommand : string) : string;
+    function ExecCommand(aCommand: string; aServer: string): string;
   end;
 
 var
@@ -150,7 +153,7 @@ var
   aStr: String;
   url: String;
 begin
-  url := 'http://'+FServer+':8083/fhem?XHR=1&inform=type=raw;filter=.*';
+  url := ConnType+FServer+':8083/fhem?XHR=1&inform=type=raw;filter=.*';
   FLog.Sock.OnStatus:=@FLogSockStatus;
   FLog.Timeout:=15000;
   FLog.KeepAlive:=True;
@@ -166,19 +169,23 @@ end;
 
 procedure TfMain.acConnectExecute(Sender: TObject);
 begin
-  Refresh;
   if Assigned(LogThread) and (LogThread.Server<>eServer.Text) then
     begin
       LogThread.Terminate;
       LogThread.WaitFor;
       FreeAndNil(LogThread);
       lbLog.Clear;
+      tsLog.TabVisible:=False;
     end;
-  if not Assigned(LogThread) then
+  if Refresh then
     begin
-      LogThread := TLogThread.Create(eServer.Text);
-      LogThread.OnInfo:=@LogThreadInfo;
-      tsLog.TabVisible:=True;
+      if not Assigned(LogThread) then
+        begin
+          LogThread := TLogThread.Create(eServer.Text);
+          LogThread.ConnType:=ConnType;
+          LogThread.OnInfo:=@LogThreadInfo;
+          tsLog.TabVisible:=True;
+        end;
     end;
 end;
 
@@ -186,7 +193,7 @@ procedure TfMain.acSaveExecute(Sender: TObject);
 var
   Result: String;
 begin
-  Result := ExecCommand('save');
+  Result := ExecCommand('save',eServer.Text);
   if Result = '' then
     acSave.Enabled:=False;
 end;
@@ -195,7 +202,7 @@ procedure TfMain.eCommandKeyPress(Sender: TObject; var Key: char);
 begin
   if Key = #13 then
     begin
-      mCommand.Text:=StripHTML(ExecCommand(eCommand.Text));
+      mCommand.Text:=StripHTML(ExecCommand(eCommand.Text,eServer.Text));
       eCommand.Text:='';
     end;
 end;
@@ -215,12 +222,14 @@ end;
 procedure TfMain.eServerSelect(Sender: TObject);
 begin
   tvMain.Items.Clear;
+  ConnType:='http://';
 end;
 
 procedure TfMain.FormCreate(Sender: TObject);
 begin
   Server := THTTPSend.Create;
   Server.Timeout:=2500;
+  ConnType := 'http://';
   FindConfig;
 end;
 
@@ -263,7 +272,7 @@ begin
           FFrame.Align:=alClient;
           FFrame.Device:=TDevice(tvMain.Selected.Data);
           sl := TStringList.Create;
-          sl.Text := ExecCommand('list '+TDevice(tvMain.Selected.Data).Name);
+          sl.Text := ExecCommand('list '+TDevice(tvMain.Selected.Data).Name,eServer.Text);
           FFrame.ProcessList(sl);
           sl.Free;
           tsSelected.TabVisible:=True;
@@ -272,14 +281,16 @@ begin
     end;
 end;
 
-function TfMain.ExecCommand(aCommand: string): string;
+function TfMain.ExecCommand(aCommand: string;aServer : string): string;
 var
   sl: TStringList;
 begin
   result := '';
   sl := TStringList.Create;
   Server.Clear;
-  if Server.HTTPMethod('GET','http://'+eServer.Text+':8083/fhem?XHR=1&cmd='+HTTPEncode(aCommand)) then
+  if pos(':',aServer)=0 then
+    aServer := aServer+':8083';
+  if Server.HTTPMethod('GET','http://'+aServer+'/fhem?XHR=1&cmd='+HTTPEncode(aCommand)) then
     begin
       if Server.ResultCode=200 then
         begin
@@ -290,7 +301,7 @@ begin
   sl.Free
 end;
 
-procedure TfMain.Refresh;
+function TfMain.Refresh : Boolean;
 var
   sl: TStringList;
   i: Integer;
@@ -345,7 +356,13 @@ var
 
 begin
   sl := TStringList.Create;
-  sl.Text:=ExecCommand('list');
+  sl.Text:=ExecCommand('list',eServer.Text);
+  if (sl.Text='') then
+    begin
+      if ConnType='http://' then
+        ConnType:='https://'
+      else ConnType:='http://';
+    end;
   tvMain.BeginUpdate;
   i := 0;
   while i < sl.Count do
@@ -365,6 +382,7 @@ begin
                   if TDevice(Node.Data).Found then inc(b)
                   else Node.Free;
                 end;
+              if Category.Count=0 then Category.Free;
             end;
           SelectCategory(copy(sl[i],0,length(sl[i])-1))
         end
@@ -375,6 +393,7 @@ begin
   if tvMain.Items.Count>0 then
     SaveConfig;
   sl.Free;
+  Result := tvMain.Items.Count>0;
 end;
 
 procedure TfMain.SaveConfig;
