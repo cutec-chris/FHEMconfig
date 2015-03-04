@@ -33,7 +33,7 @@ object fMain: TfMain
     object eServer: TComboBox
       Left = 8
       Height = 27
-      Hint = 'geben Sie hier die IP oder den Namen des Servers ein und klicken Sie auf verbinden'
+      Hint = 'geben Sie hier die IP oder den Namen des Servers ein und klicken Sie auf verbinden'#10'Beispiel:'#10'192.168.1.5'#10'https://192.168.1.5:8084'
       Top = 24
       Width = 159
       ItemHeight = 0
