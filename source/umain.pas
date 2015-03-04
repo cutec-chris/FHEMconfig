@@ -51,7 +51,7 @@ type
     ImageList1: TImageList;
     Label3: TLabel;
     lbLog: TListBox;
-    mCommand: TSynEdit;
+    mCommand: TMemo;
     Memo1: TMemo;
     pcPages: TPageControl;
     Panel1: TPanel;
@@ -69,6 +69,7 @@ type
     procedure acConnectExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure eCommandKeyPress(Sender: TObject; var Key: char);
+    procedure eConfigChange(Sender: TObject);
     procedure eSearchEnter(Sender: TObject);
     procedure eSearchExit(Sender: TObject);
     procedure eServerSelect(Sender: TObject);
@@ -205,6 +206,8 @@ begin
           LogThread.OnInfo:=@LogThreadInfo;
           tsLog.TabVisible:=True;
           tsConfig.TabVisible:=True;
+          eConfig.Lines.Clear;
+          pcPages.ActivePage:=tsCommand;
         end;
     end
   else Showmessage(strConnectionError+' '+Server.Sock.LastErrorDesc+' Fehlercode:'+IntToStr(Server.ResultCode));
@@ -213,10 +216,28 @@ end;
 procedure TfMain.acSaveExecute(Sender: TObject);
 var
   Result: String;
+  url: String;
+  sl: TStringList;
 begin
   Result := ExecCommand('save',eServer.Text);
   if Result = '' then
     acSave.Enabled:=False;
+  if eConfig.Modified then
+    begin
+      url := BuildConnStr(eServer.Text)+'/fhem?cmd='+HTTPEncode('style edit fhem.cfg');
+      debugln(url);
+      Server.Clear;
+      sl := TStringList.Create;
+      sl.text := eConfig.Lines.Text;
+      sl.SaveToStream(Server.Document);
+      Server.Document.Position:=0;
+      if Server.HTTPMethod('POST',url) then
+        begin
+          if Server.ResultCode<>200 then
+            acSave.Enabled:=True;
+        end;
+      sl.Free;
+    end;
 end;
 
 procedure TfMain.eCommandKeyPress(Sender: TObject; var Key: char);
@@ -226,6 +247,11 @@ begin
       mCommand.Text:=StripHTML(ExecCommand(eCommand.Text,eServer.Text));
       eCommand.Text:='';
     end;
+end;
+
+procedure TfMain.eConfigChange(Sender: TObject);
+begin
+  acSave.Enabled:=True;
 end;
 
 procedure TfMain.eSearchEnter(Sender: TObject);

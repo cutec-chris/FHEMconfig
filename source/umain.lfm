@@ -1,7 +1,7 @@
 object fMain: TfMain
-  Left = 309
+  Left = 300
   Height = 636
-  Top = 120
+  Top = 122
   Width = 931
   ActiveControl = pcPages
   Caption = 'FHEMcontrol'
@@ -10,6 +10,7 @@ object fMain: TfMain
   Color = clWhite
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  Position = poScreenCenter
   ShowHint = True
   LCLVersion = '1.5'
   object Panel1: TPanel
@@ -664,6 +665,7 @@ object fMain: TfMain
           MouseLinkColor.Foreground = clBlue
           LineHighlightColor.Background = clNone
           LineHighlightColor.Foreground = clNone
+          OnChange = eConfigChange
           inline SynLeftGutterPartList1: TSynGutterPartList
             object SynGutterMarks1: TSynGutterMarks
               Width = 24
