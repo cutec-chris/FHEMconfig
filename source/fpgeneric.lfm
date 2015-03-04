@@ -38,16 +38,19 @@ object fGeneric: TfGeneric
       Align = alClient
       DefaultColWidth = 200
       FixedCols = 0
-      RowCount = 2
+      RowCount = 3
       TabOrder = 0
       TitleStyle = tsNative
       OnValidateEntry = vAttributesValidateEntry
+      DoubleBuffered = True
+      Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goEditing, goThumbTracking, goDblClickAutoSize]
       Strings.Strings = (
+        ''
         ''
       )
       ColWidths = (
-        200
-        356
+        278
+        278
       )
     end
   end
@@ -74,6 +77,7 @@ object fGeneric: TfGeneric
       RowCount = 2
       TabOrder = 0
       TitleStyle = tsNative
+      DoubleBuffered = True
       Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goAlwaysShowEditor, goThumbTracking]
       Strings.Strings = (
         ''
@@ -89,7 +93,7 @@ object fGeneric: TfGeneric
       Top = 0
       Width = 558
       Align = alTop
-      Caption = 'gelesene Werte'
+      Caption = 'gelesene Werte (Readings)'
       Font.Style = [fsBold]
       ParentColor = False
       ParentFont = False
@@ -113,7 +117,7 @@ object fGeneric: TfGeneric
       Top = 0
       Width = 558
       Align = alTop
-      Caption = 'Interne Werte'
+      Caption = 'Interne Werte (Internals)'
       Font.Style = [fsBold]
       ParentColor = False
       ParentFont = False
@@ -129,6 +133,7 @@ object fGeneric: TfGeneric
       RowCount = 2
       TabOrder = 0
       TitleStyle = tsNative
+      DoubleBuffered = True
       Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goAlwaysShowEditor, goThumbTracking]
       Strings.Strings = (
         ''
@@ -215,8 +220,8 @@ object fGeneric: TfGeneric
       Left = 8
       Height = 15
       Top = 56
-      Width = 82
-      Caption = 'Wert setzen'
+      Width = 117
+      Caption = 'Wert setzen (set)'
       Font.Style = [fsBold]
       ParentColor = False
       ParentFont = False
@@ -228,7 +233,7 @@ object fGeneric: TfGeneric
       Width = 190
       Anchors = [akTop, akRight]
       AutoSize = False
-      Caption = 'Wert lesen'
+      Caption = 'Wert lesen (get)'
       Font.Style = [fsBold]
       ParentColor = False
       ParentFont = False

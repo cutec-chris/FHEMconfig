@@ -19,7 +19,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <IsVisibleTab Value="True"/>
         <TopLine Value="214"/>
         <CursorPos X="5" Y="234"/>
         <UsageCount Value="52"/>
@@ -64,6 +63,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fpGeneric"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <TopLine Value="170"/>
         <CursorPos X="26" Y="189"/>
@@ -244,4 +244,4 @@
       </Position30>
     </JumpHistory>
   </ProjectSession>
-</CONFIG>
+</CONFIG>
