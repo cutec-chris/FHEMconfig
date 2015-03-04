@@ -1,7 +1,7 @@
 object fMain: TfMain
-  Left = 327
+  Left = 330
   Height = 576
-  Top = 163
+  Top = 187
   Width = 800
   ActiveControl = pcPages
   Caption = 'FHEMcontrol'

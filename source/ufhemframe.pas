@@ -12,6 +12,7 @@ type
 
   TDevice = class
   private
+    FClassType: string;
     FFound: Boolean;
     FName: string;
     fStatus: string;
@@ -19,6 +20,7 @@ type
   public
     property Status : string read fStatus write SetStatus;
     property Name : string read FName write FName;
+    property ClassType : string read FClassType write FClassType;
     property Found : Boolean read FFound write FFound;
   end;
 
@@ -54,6 +56,8 @@ uses fpGeneric,uMain;
 
 procedure RegisterFrame(aFrame: TFHEMFrameClass);
 begin
+  if not Assigned(Frames) then
+    Frames := TClassList.Create;
   Frames.Add(aFrame);
 end;
 
@@ -67,8 +71,10 @@ begin
   for i := 0 to Frames.Count-1 do
     begin
       SelClass:=TFHEMFrameClass(Frames[i]);
-      if aClass=(SelFrame as SelClass).GetDeviceType then
+      SelFrame := SelClass.Create(nil);
+      if aClass=SelFrame.GetDeviceType then
         Result := TFHEMFrameClass(Frames[i]);
+      SelFrame.Free;
     end;
   if Result=nil then
     Result := fpGeneric.TfGeneric;
@@ -112,8 +118,6 @@ begin
 
 end;
 
-initialization
-  Frames := TClassList.Create;
 finalization
   Frames.Free;
 end.

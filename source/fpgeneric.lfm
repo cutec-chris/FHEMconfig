@@ -1,7 +1,7 @@
 object fGeneric: TfGeneric
-  Left = 545
+  Left = 548
   Height = 512
-  Top = 219
+  Top = 243
   Width = 574
   ClientHeight = 512
   ClientWidth = 574

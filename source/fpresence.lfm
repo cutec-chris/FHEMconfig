@@ -1,7 +1,7 @@
-object Frame1: TFrame1
-  Left = 459
+object FrPresence: TFrPresence
+  Left = 462
   Height = 380
-  Top = 208
+  Top = 232
   Width = 573
   LCLVersion = '1.5'
 end

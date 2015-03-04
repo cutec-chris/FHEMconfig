@@ -159,8 +159,15 @@ begin
   FLog.KeepAlive:=True;
   while not Terminated do
     begin
-      FLog.HTTPMethod('GET',url);
-      sleep(1000);
+      try
+        FLog.HTTPMethod('GET',url);
+        sleep(1000);
+      except
+        begin
+          FLog.Free;
+          exit;
+        end;
+      end;
     end;
   FLog.Free;
 end;
@@ -237,10 +244,13 @@ procedure TfMain.FormDestroy(Sender: TObject);
 begin
   Hide;
   Application.ProcessMessages;
-  LogThread.Terminate;
-  LogThread.FLog.Abort;
-  //LogThread.WaitFor;
-  //LogThread.Free;
+  if Assigned(LogThread) then
+    begin
+      LogThread.Terminate;
+      LogThread.FLog.Abort;
+      //LogThread.WaitFor;
+      //LogThread.Free;
+    end;
   Server.Free;
 end;
 
@@ -264,7 +274,7 @@ begin
   if Assigned(tvMain.Selected) and Assigned(tvMain.Selected.Data) then
     begin
       FreeAndNil(FFrame);
-      aFrameClass := FindFrame(TDevice(tvMain.Selected.Data).Name);
+      aFrameClass := FindFrame(TDevice(tvMain.Selected.Data).ClassType);
       if aFrameClass<>nil then
         begin
           FFrame := aFrameClass.Create(Self);
@@ -351,6 +361,7 @@ var
     aDevice.Data := TDevice.Create;
     TDevice(aDevice.Data).Name := aName;
     TDevice(aDevice.Data).Status := aStatus;
+    TDevice(aDevice.Data).ClassType := Category.Text;
     TDevice(aDevice.Data).Found:=True;
   end;
 

@@ -9,9 +9,9 @@ uses
 
 type
 
-  { TFrame1 }
+  { TFrPresence }
 
-  TFrame1 = class(TFHEMFrame)
+  TFrPresence = class(TFHEMFrame)
   private
     { private declarations }
   protected
@@ -24,12 +24,14 @@ implementation
 
 {$R *.lfm}
 
-{ TFrame1 }
+{ TFrPresence }
 
-function TFrame1.GetDeviceType: string;
+function TFrPresence.GetDeviceType: string;
 begin
   Result := 'PRESENCE';
 end;
 
+initialization
+//  RegisterFrame(TFrPresence); not ready
 end.
 

@@ -43,6 +43,8 @@ type
     FGetValues : string;
     FSetValues : string;
     procedure RefreshFValues;
+  protected
+    function GetDeviceType: string; override;
   public
     { public declarations }
     procedure ProcessList(aList: TStrings); override;
@@ -109,6 +111,11 @@ begin
       FSetValues := copy(FSetValues,pos('one of ',FSetValues)+7,length(FSetValues));
       FSetValues:=StringReplace(FSetValues,#10,'',[rfReplaceAll]);
     end;
+end;
+
+function TfGeneric.GetDeviceType: string;
+begin
+  Result := '';
 end;
 
 procedure TfGeneric.ProcessList(aList: TStrings);
@@ -241,5 +248,6 @@ begin
   ProcessActList;
 end;
 
+initialization
 end.
 

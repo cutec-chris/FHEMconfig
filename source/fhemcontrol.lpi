@@ -38,7 +38,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="6">
+    <Units Count="7">
       <Unit0>
         <Filename Value="fhemcontrol.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -61,12 +61,12 @@
         <UnitName Value="uFhemFrame"/>
       </Unit3>
       <Unit4>
-        <Filename Value="fpresence.pas"/>
+        <Filename Value="fnotify.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="Frame1"/>
+        <ComponentName Value="frNotify"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fPresence"/>
+        <UnitName Value="fNotify"/>
       </Unit4>
       <Unit5>
         <Filename Value="fpgeneric.pas"/>
@@ -76,6 +76,14 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fpGeneric"/>
       </Unit5>
+      <Unit6>
+        <Filename Value="fpresence.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="FrPresence"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fPresence"/>
+      </Unit6>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
