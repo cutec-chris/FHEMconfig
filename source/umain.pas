@@ -294,13 +294,17 @@ end;
 function TfMain.ExecCommand(aCommand: string;aServer : string): string;
 var
   sl: TStringList;
+  aConnType: String;
 begin
   result := '';
   sl := TStringList.Create;
   Server.Clear;
   if pos(':',aServer)=0 then
     aServer := aServer+':8083';
-  if Server.HTTPMethod('GET','http://'+aServer+'/fhem?XHR=1&cmd='+HTTPEncode(aCommand)) then
+  aConnType := ConnType;
+  if pos('://',eServer.Text)>0 then
+    aConntype := '';
+  if Server.HTTPMethod('GET',aConnType+aServer+'/fhem?XHR=1&cmd='+HTTPEncode(aCommand)) then
     begin
       if Server.ResultCode=200 then
         begin
