@@ -86,6 +86,8 @@ type
 var
   fMain: TfMain;
 
+  function StripHTML(input : string) : string;
+
 implementation
 
 uses Utils,synautil,dateutils;
@@ -193,7 +195,7 @@ procedure TfMain.eCommandKeyPress(Sender: TObject; var Key: char);
 begin
   if Key = #13 then
     begin
-      mCommand.Text:=ExecCommand(eCommand.Text);
+      mCommand.Text:=StripHTML(ExecCommand(eCommand.Text));
       eCommand.Text:='';
     end;
 end;
@@ -405,6 +407,82 @@ begin
     end;
   sl.Free;
   if eServer.Items.Count=1 then eServer.ItemIndex:=0;
+end;
+
+procedure RemoveTag(var aOut,bOut : string;aTag : string;AllowShortenClose : Boolean = False;IgnoreWhen : string = '');
+var
+  ShortCloser: Boolean;
+  aTagOpen: Integer;
+  atmp : string = '';
+begin
+  while pos('<'+aTag,lowercase(aout))>0 do
+    begin
+      bOut := bOut+copy(aout,0,pos('<'+aTag,lowercase(aout))-1);
+      aOut := copy(aOut,pos('<'+aTag,lowercase(aout))+1+length(aTag),length(aOut));
+      aTagOpen := 1;
+      ShortCloser:=False;
+      while (aTagOpen>0) and (length(aOut)>0) do
+        begin
+          if copy(aOut,0,1)='<' then inc(aTagOpen);
+          if copy(aOut,0,2)='/>' then
+            ShortCloser := True;
+          if copy(aOut,0,1)='>' then dec(aTagOpen);
+          atmp := atmp+copy(aOut,0,1);
+          aOut := copy(aOut,2,length(aOut));
+        end;
+      if (IgnoreWhen<>'') and (pos(IgnoreWhen,atmp)>0) then
+        bout := bout+atmp;
+      if not ShortCloser then
+        begin
+          if (pos('</'+aTag+'>',lowercase(aout)) >= pos('<',aout)) or (not AllowShortenClose) then
+            begin
+              atmp := copy(aOut,0,pos('</'+aTag+'>',lowercase(aout))+3+length(aTag));
+              if (IgnoreWhen<>'') and (pos(IgnoreWhen,atmp)>0) then
+                bout := bout+atmp;
+              aOut := copy(aOut,pos('</'+aTag+'>',lowercase(aout))+3+length(aTag),length(aOut))
+            end
+          else
+            aOut := copy(aOut,pos('<',aout),length(aOut));
+        end;
+    end;
+  aOut := bOut+aOut;
+  bOut := '';
+end;
+
+function StripHTML(input: string): string;
+var
+  aOut: String;
+  bOut: String;
+  TagOpen: Integer;
+begin
+  aOut := StringReplace(input,'<<','<',[rfReplaceAll]);
+  aOut := StringReplace(aOut,'</div>','</div>'+#10,[rfReplaceAll]);
+  aOut := StringReplace(aOut,'<br>',#10,[rfReplaceAll]);
+  aOut := StringReplace(aOut,'<br/>',#10,[rfReplaceAll]);
+  bOut := '';
+  RemoveTag(aOut,bOut,'script');
+  RemoveTag(aOut,bOut,'style');
+  TagOpen := 0;
+  while length(aOut)>0 do
+    begin
+      if copy(aOut,0,1)='<' then
+        begin
+          aOut := copy(aOut,2,length(aOut));
+          TagOpen:=1;
+          while (TagOpen>0) and (length(aOut)>0) do
+            begin
+              if copy(aOut,0,1)='<' then inc(TagOpen);
+              if copy(aOut,0,1)='>' then dec(TagOpen);
+              aOut := copy(aOut,2,length(aOut));
+            end;
+        end
+      else
+        begin
+          bOut := bOut+copy(aOut,0,1);
+          aOut := copy(aOut,2,length(aOut));
+        end;
+    end;
+  Result := HTMLDecode(bOut);
 end;
 
 end.
