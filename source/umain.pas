@@ -230,8 +230,8 @@ begin
   Application.ProcessMessages;
   LogThread.Terminate;
   LogThread.FLog.Abort;
-  LogThread.WaitFor;
-  LogThread.Free;
+  //LogThread.WaitFor;
+  //LogThread.Free;
   Server.Free;
 end;
 
