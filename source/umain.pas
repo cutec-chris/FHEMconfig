@@ -5,9 +5,10 @@ unit uMain;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, SynMemo, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, StdCtrls, ComCtrls, ActnList, ValEdit, Buttons, blcksock, httpsend,
-  uFhemFrame;
+  Classes, SysUtils, FileUtil, SynMemo, synhighlighterunixshellscript,
+  SynHighlighterPerl, SynEdit, SynGutterBase, Forms, Controls, Graphics,
+  Dialogs, ExtCtrls, StdCtrls, ComCtrls, ActnList, ValEdit, Buttons, blcksock,
+  httpsend, uFhemFrame;
 
 type
   TInfoEvent = procedure(aInfo : string) of object;
@@ -50,18 +51,20 @@ type
     ImageList1: TImageList;
     Label3: TLabel;
     lbLog: TListBox;
-    mCommand: TMemo;
+    mCommand: TSynEdit;
     Memo1: TMemo;
     pcPages: TPageControl;
     Panel1: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
     Splitter1: TSplitter;
-    eConfig: TSynMemo;
+    eConfig: TSynEdit;
+    SynGutterPartList1: TSynGutterPartList;
+    SynUNIXShellScriptSyn1: TSynUNIXShellScriptSyn;
     tsConfig: TTabSheet;
     tsLog: TTabSheet;
     tsSelected: TTabSheet;
-    Kommando: TTabSheet;
+    tsCommand: TTabSheet;
     tvMain: TTreeView;
     procedure acConnectExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
@@ -71,7 +74,7 @@ type
     procedure eServerSelect(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure KommandoEnter(Sender: TObject);
+    procedure tsCommandEnter(Sender: TObject);
     procedure LogThreadInfo(aInfo: string);
     procedure ServerSockStatus(Sender: TObject; Reason: THookSocketReason;
       const Value: String);
@@ -191,6 +194,7 @@ begin
       FreeAndNil(LogThread);
       lbLog.Clear;
       tsLog.TabVisible:=False;
+      tsConfig.TabVisible:=False;
     end;
   if Refresh then
     begin
@@ -200,6 +204,7 @@ begin
           LogThread.ConnType:=ConnType;
           LogThread.OnInfo:=@LogThreadInfo;
           tsLog.TabVisible:=True;
+          tsConfig.TabVisible:=True;
         end;
     end
   else Showmessage(strConnectionError+' '+Server.Sock.LastErrorDesc+' Fehlercode:'+IntToStr(Server.ResultCode));
@@ -245,7 +250,7 @@ end;
 procedure TfMain.FormCreate(Sender: TObject);
 begin
   Server := THTTPSend.Create;
-  Server.Timeout:=10000;
+  Server.Timeout:=2000;
   Server.Sock.OnStatus:=@ServerSockStatus;
   ConnType := 'http://';
   FindConfig;
@@ -265,7 +270,7 @@ begin
   Server.Free;
 end;
 
-procedure TfMain.KommandoEnter(Sender: TObject);
+procedure TfMain.tsCommandEnter(Sender: TObject);
 begin
   eCommand.SetFocus;
 end;
@@ -298,6 +303,7 @@ begin
     begin
       url := BuildConnStr(eServer.Text)+'/fhem?cmd='+HTTPEncode('style edit fhem.cfg');
       debugln(url);
+      Server.Clear;
       if Server.HTTPMethod('GET',url) then
         begin
           if Server.ResultCode=200 then
@@ -308,7 +314,8 @@ begin
               sl.Free;
             end;
         end;
-      aConfig := copy(aConfig,pos('<textarea readonly="" name="data" cols="80" rows="30">',aConfig),length('<textarea readonly="" name="data" cols="80" rows="30">'));
+      aConfig := copy(aConfig,pos('<textarea',aConfig)+5,length(aConfig));
+      aConfig := copy(aConfig,pos('cols="80" rows="30">',aConfig)+20,length(aConfig));
       aConfig := copy(aConfig,0,pos('</textarea>',aConfig));
       eConfig.Lines.Text:=aConfig;
     end;

@@ -1,7 +1,7 @@
 object fMain: TfMain
-  Left = 286
+  Left = 309
   Height = 636
-  Top = 131
+  Top = 120
   Width = 931
   ActiveControl = pcPages
   Caption = 'FHEMcontrol'
@@ -121,7 +121,7 @@ object fMain: TfMain
       Height = 580
       Top = 0
       Width = 662
-      ActivePage = Kommando
+      ActivePage = tsCommand
       Align = alClient
       TabIndex = 1
       TabOrder = 0
@@ -147,11 +147,11 @@ object fMain: TfMain
           WordWrap = False
         end
       end
-      object Kommando: TTabSheet
-        Caption = 'Kommando'
+      object tsCommand: TTabSheet
+        Caption = 'Kommandozeile'
         ClientHeight = 547
         ClientWidth = 656
-        OnEnter = KommandoEnter
+        OnEnter = tsCommandEnter
         object eCommand: TEdit
           Left = 0
           Height = 25
@@ -161,19 +161,20 @@ object fMain: TfMain
           OnKeyPress = eCommandKeyPress
           TabOrder = 0
         end
-        object mCommand: TMemo
+        inline mCommand: TMemo
           Left = 0
           Height = 522
           Top = 25
           Width = 656
           Align = alClient
+          Font.Height = 13
           Font.Name = 'courier'
           Font.Pitch = fpFixed
+          Font.Quality = fqNonAntialiased
           ParentFont = False
           ReadOnly = True
           ScrollBars = ssAutoBoth
           TabOrder = 1
-          WordWrap = False
         end
       end
       object tsLog: TTabSheet
@@ -183,12 +184,12 @@ object fMain: TfMain
         TabVisible = False
         object lbLog: TListBox
           Left = 0
-          Height = 487
+          Height = 547
           Top = 0
-          Width = 525
+          Width = 656
           Align = alClient
           ItemHeight = 0
-          ScrollWidth = 523
+          ScrollWidth = 654
           TabOrder = 0
           TopIndex = -1
         end
@@ -199,8 +200,7 @@ object fMain: TfMain
         ClientWidth = 656
         OnShow = tsConfigShow
         TabVisible = False
-        inline eConfig: TSynMemo
-          Cursor = crIBeam
+        inline eConfig: TSynEdit
           Left = 0
           Height = 547
           Top = 0
@@ -215,6 +215,9 @@ object fMain: TfMain
           TabOrder = 0
           Gutter.Width = 33
           Gutter.MouseActions = <>
+          RightGutter.Width = 0
+          RightGutter.MouseActions = <>
+          Highlighter = SynUNIXShellScriptSyn1
           Keystrokes = <          
             item
               Command = ecUp
@@ -639,6 +642,9 @@ object fMain: TfMain
           MouseActions = <>
           MouseTextActions = <>
           MouseSelActions = <>
+          Lines.Strings = (
+            'eConfig'
+          )
           VisibleSpecialChars = [vscSpace, vscTabAtLast]
           SelectedColor.BackPriority = 50
           SelectedColor.ForePriority = 50
@@ -647,6 +653,17 @@ object fMain: TfMain
           SelectedColor.ItalicPriority = 50
           SelectedColor.UnderlinePriority = 50
           SelectedColor.StrikeOutPriority = 50
+          BracketHighlightStyle = sbhsBoth
+          BracketMatchColor.Background = clNone
+          BracketMatchColor.Foreground = clNone
+          BracketMatchColor.Style = [fsBold]
+          FoldedCodeColor.Background = clNone
+          FoldedCodeColor.Foreground = clGray
+          FoldedCodeColor.FrameColor = clGray
+          MouseLinkColor.Background = clNone
+          MouseLinkColor.Foreground = clBlue
+          LineHighlightColor.Background = clNone
+          LineHighlightColor.Foreground = clNone
           inline SynLeftGutterPartList1: TSynGutterPartList
             object SynGutterMarks1: TSynGutterMarks
               Width = 24
@@ -848,5 +865,13 @@ object fMain: TfMain
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000
     }
+  end
+  object SynUNIXShellScriptSyn1: TSynUNIXShellScriptSyn
+    DefaultFilter = 'Unix-Shellskripte (*.sh)|*.sh'
+    Enabled = False
+    CommentAttri.Foreground = clGray
+    NumberAttri.Foreground = clWindowText
+    left = 344
+    top = 88
   end
 end
