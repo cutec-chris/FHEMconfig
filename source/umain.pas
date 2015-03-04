@@ -5,8 +5,9 @@ unit uMain;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, ComCtrls, ActnList, ValEdit, Buttons,blcksock,httpsend,uFhemFrame;
+  Classes, SysUtils, FileUtil, SynMemo, Forms, Controls, Graphics, Dialogs,
+  ExtCtrls, StdCtrls, ComCtrls, ActnList, ValEdit, Buttons, blcksock, httpsend,
+  uFhemFrame;
 
 type
   TInfoEvent = procedure(aInfo : string) of object;
@@ -56,6 +57,8 @@ type
     Panel2: TPanel;
     Panel3: TPanel;
     Splitter1: TSplitter;
+    eConfig: TSynMemo;
+    tsConfig: TTabSheet;
     tsLog: TTabSheet;
     tsSelected: TTabSheet;
     Kommando: TTabSheet;
@@ -70,6 +73,9 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure KommandoEnter(Sender: TObject);
     procedure LogThreadInfo(aInfo: string);
+    procedure ServerSockStatus(Sender: TObject; Reason: THookSocketReason;
+      const Value: String);
+    procedure tsConfigShow(Sender: TObject);
     procedure tvMainSelectionChanged(Sender: TObject);
   private
     { private declarations }
@@ -93,10 +99,11 @@ var
 
 implementation
 
-uses Utils,synautil,dateutils;
+uses Utils,synautil,dateutils,LCLProc;
 
 resourcestring
   strSearch                       = '<suche>';
+  strConnectionError              = 'Verbindungsfehler';
 
 {$R *.lfm}
 
@@ -193,7 +200,8 @@ begin
           LogThread.OnInfo:=@LogThreadInfo;
           tsLog.TabVisible:=True;
         end;
-    end;
+    end
+  else Showmessage(strConnectionError+' '+Server.Sock.LastErrorDesc+' Fehlercode:'+IntToStr(Server.ResultCode));
 end;
 
 procedure TfMain.acSaveExecute(Sender: TObject);
@@ -230,12 +238,14 @@ procedure TfMain.eServerSelect(Sender: TObject);
 begin
   tvMain.Items.Clear;
   ConnType:='http://';
+  eConfig.Lines.Text:='';
 end;
 
 procedure TfMain.FormCreate(Sender: TObject);
 begin
   Server := THTTPSend.Create;
   Server.Timeout:=2500;
+  Server.Sock.OnStatus:=@ServerSockStatus;
   ConnType := 'http://';
   FindConfig;
 end;
@@ -264,6 +274,43 @@ begin
   lbLog.AddItem(StringReplace(aInfo,'<br>','',[]),nil);
   lbLog.ItemIndex:=lbLog.Count-1;
   lbLog.MakeCurrentVisible;
+end;
+
+procedure TfMain.ServerSockStatus(Sender: TObject; Reason: THookSocketReason;
+  const Value: String);
+begin
+  case Reason of
+  HR_ResolvingBegin:debugln('Resolving "'+Value+'" start');
+  HR_ResolvingEnd:debugln('Resolving end "'+Value+'"');
+  HR_Error:debugln('Error:'+Value);
+  end;
+end;
+
+procedure TfMain.tsConfigShow(Sender: TObject);
+var
+  aConfig: String;
+  aConnType: String;
+  sl: TStringList;
+begin
+  if eConfig.Lines.Text='' then
+    begin
+      aConnType := ConnType;
+      if pos('://',aConnType)>0 then
+        aConnType:='';
+      if Server.HTTPMethod('GET',aConnType+eServer.Text+'/fhem?cmd=style edit fhem.cfg') then
+        begin
+          if Server.ResultCode=200 then
+            begin
+              sl := TStringList.Create;
+              sl.LoadFromStream(Server.Document);
+              aConfig := sl.Text;
+              sl.Free;
+            end;
+        end;
+      aConfig := copy(aConfig,pos('<textarea readonly="" name="data" cols="80" rows="30">',aConfig),length('<textarea readonly="" name="data" cols="80" rows="30">'));
+      aConfig := copy(aConfig,0,pos('</textarea>',aConfig));
+      eConfig.Lines.Text:=aConfig;
+    end;
 end;
 
 procedure TfMain.tvMainSelectionChanged(Sender: TObject);
