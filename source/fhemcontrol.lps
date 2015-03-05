@@ -3,11 +3,11 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="21">
+    <Units Count="22">
       <Unit0>
         <Filename Value="fhemcontrol.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="2"/>
         <CursorPos X="11" Y="8"/>
         <UsageCount Value="63"/>
         <Loaded Value="True"/>
@@ -20,8 +20,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="417"/>
-        <CursorPos X="70" Y="426"/>
+        <TopLine Value="602"/>
+        <CursorPos X="77" Y="619"/>
         <UsageCount Value="63"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -30,17 +30,16 @@
         <Filename Value="Utils.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="Utils"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="821"/>
         <CursorPos Y="845"/>
         <UsageCount Value="60"/>
-        <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="ufhemframe.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uFhemFrame"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="5"/>
         <TopLine Value="4"/>
         <CursorPos X="5" Y="23"/>
         <UsageCount Value="60"/>
@@ -53,8 +52,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fNotify"/>
-        <EditorIndex Value="12"/>
-        <TopLine Value="15"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="14"/>
         <CursorPos X="16" Y="29"/>
         <UsageCount Value="59"/>
         <Loaded Value="True"/>
@@ -67,8 +66,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fpGeneric"/>
-        <EditorIndex Value="9"/>
-        <TopLine Value="224"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="128"/>
         <CursorPos X="80" Y="232"/>
         <UsageCount Value="58"/>
         <Loaded Value="True"/>
@@ -81,7 +80,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fPresence"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="7"/>
         <CursorPos X="42" Y="35"/>
         <UsageCount Value="30"/>
@@ -91,11 +90,10 @@
       <Unit7>
         <Filename Value="../../promet/promet/source/components/synapse/httpsend.pas"/>
         <UnitName Value="httpsend"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="793"/>
         <CursorPos X="59" Y="805"/>
         <UsageCount Value="22"/>
-        <Loaded Value="True"/>
       </Unit7>
       <Unit8>
         <Filename Value="../../../lazarus/lcl/include/customform.inc"/>
@@ -114,11 +112,10 @@
       <Unit10>
         <Filename Value="../../promet/promet/source/components/synapse/synautil.pas"/>
         <UnitName Value="synautil"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="1718"/>
         <CursorPos Y="1731"/>
         <UsageCount Value="13"/>
-        <Loaded Value="True"/>
       </Unit10>
       <Unit11>
         <Filename Value="../../promet/promet/source/components/synapse/blcksock.pas"/>
@@ -136,11 +133,10 @@
       </Unit12>
       <Unit13>
         <Filename Value="../../../lazarus/lcl/include/control.inc"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="3264"/>
         <CursorPos Y="3278"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit13>
       <Unit14>
         <Filename Value="umain.lfm"/>
@@ -160,11 +156,10 @@
       <Unit16>
         <Filename Value="../../../lazarus/components/synedit/synedit.pp"/>
         <UnitName Value="SynEdit"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="7379"/>
         <CursorPos Y="7403"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit16>
       <Unit17>
         <Filename Value="../../promet/promet/source/components/synapse/ssl_openssl.pas"/>
@@ -182,143 +177,109 @@
       <Unit19>
         <Filename Value="../../../lazarus/components/synedit/synedittypes.pp"/>
         <UnitName Value="SynEditTypes"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="94"/>
         <CursorPos X="7" Y="78"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit19>
       <Unit20>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
         <UnitName Value="SynEditSearch"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="765"/>
         <CursorPos Y="789"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit20>
+      <Unit21>
+        <Filename Value="../../../fpc/trunk/packages/regexpr/src/regexpr.pas"/>
+        <UnitName Value="RegExpr"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="3908"/>
+        <CursorPos X="3" Y="3916"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit21>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="17" HistoryIndex="16">
       <Position1>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="743" TopLine="728"/>
-      </Position1>
-      <Position2>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="744" TopLine="728"/>
-      </Position2>
-      <Position3>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="745" TopLine="728"/>
-      </Position3>
-      <Position4>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="749" TopLine="728"/>
-      </Position4>
-      <Position5>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="750" TopLine="728"/>
-      </Position5>
-      <Position6>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="754" TopLine="730"/>
-      </Position6>
-      <Position7>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="755" TopLine="731"/>
-      </Position7>
-      <Position8>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="756" TopLine="732"/>
-      </Position8>
-      <Position9>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="757" TopLine="733"/>
-      </Position9>
-      <Position10>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="764" TopLine="750"/>
-      </Position10>
-      <Position11>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="765" TopLine="750"/>
-      </Position11>
-      <Position12>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="766" TopLine="750"/>
-      </Position12>
-      <Position13>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="769" TopLine="750"/>
-      </Position13>
-      <Position14>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="770" TopLine="750"/>
-      </Position14>
-      <Position15>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="401" TopLine="387"/>
-      </Position15>
-      <Position16>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="402" TopLine="387"/>
-      </Position16>
-      <Position17>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="403" TopLine="387"/>
-      </Position17>
-      <Position18>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="771" TopLine="757"/>
-      </Position18>
-      <Position19>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="773" TopLine="757"/>
-      </Position19>
-      <Position20>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="774" TopLine="757"/>
-      </Position20>
-      <Position21>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="784" TopLine="760"/>
-      </Position21>
-      <Position22>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="786" TopLine="762"/>
-      </Position22>
-      <Position23>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="787" TopLine="763"/>
-      </Position23>
-      <Position24>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="788" TopLine="764"/>
-      </Position24>
-      <Position25>
         <Filename Value="umain.pas"/>
         <Caret Line="348" Column="3" TopLine="346"/>
-      </Position25>
-      <Position26>
+      </Position1>
+      <Position2>
         <Filename Value="umain.pas"/>
         <Caret Line="289" Column="33" TopLine="287"/>
-      </Position26>
-      <Position27>
+      </Position2>
+      <Position3>
         <Filename Value="umain.pas"/>
         <Caret Line="291" Column="33" TopLine="289"/>
-      </Position27>
-      <Position28>
+      </Position3>
+      <Position4>
         <Filename Value="umain.pas"/>
         <Caret Line="355" Column="71" TopLine="338"/>
-      </Position28>
-      <Position29>
+      </Position4>
+      <Position5>
         <Filename Value="umain.pas"/>
         <Caret Line="291" Column="57" TopLine="289"/>
-      </Position29>
-      <Position30>
+      </Position5>
+      <Position6>
         <Filename Value="umain.pas"/>
         <Caret Line="292" Column="57" TopLine="290"/>
-      </Position30>
+      </Position6>
+      <Position7>
+        <Filename Value="umain.pas"/>
+        <Caret Line="434" Column="19" TopLine="381"/>
+      </Position7>
+      <Position8>
+        <Filename Value="umain.pas"/>
+        <Caret Line="110" Column="31" TopLine="105"/>
+      </Position8>
+      <Position9>
+        <Filename Value="umain.pas"/>
+        <Caret Line="107" Column="14" TopLine="99"/>
+      </Position9>
+      <Position10>
+        <Filename Value="umain.pas"/>
+        <Caret Line="385" Column="3" TopLine="382"/>
+      </Position10>
+      <Position11>
+        <Filename Value="umain.pas"/>
+        <Caret Line="124" Column="56" TopLine="102"/>
+      </Position11>
+      <Position12>
+        <Filename Value="umain.pas"/>
+        <Caret Line="604" Column="3" TopLine="597"/>
+      </Position12>
+      <Position13>
+        <Filename Value="umain.pas"/>
+        <Caret Line="616" Column="10" TopLine="595"/>
+      </Position13>
+      <Position14>
+        <Filename Value="../../../fpc/trunk/packages/regexpr/src/regexpr.pas"/>
+        <Caret Line="801" Column="10" TopLine="794"/>
+      </Position14>
+      <Position15>
+        <Filename Value="umain.pas"/>
+        <Caret Line="623" TopLine="602"/>
+      </Position15>
+      <Position16>
+        <Filename Value="umain.pas"/>
+        <Caret Line="617" TopLine="602"/>
+      </Position16>
+      <Position17>
+        <Filename Value="umain.pas"/>
+        <Caret Line="619" TopLine="602"/>
+      </Position17>
     </JumpHistory>
   </ProjectSession>
+  <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="umain.pas"/>
+        <Line Value="617"/>
+      </Item1>
+    </BreakPoints>
+  </Debugging>
 </CONFIG>

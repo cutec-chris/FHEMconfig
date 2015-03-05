@@ -122,9 +122,9 @@ object fMain: TfMain
       Height = 580
       Top = 0
       Width = 662
-      ActivePage = tsSelected
+      ActivePage = tsCommand
       Align = alClient
-      TabIndex = 0
+      TabIndex = 1
       TabOrder = 0
       object tsSelected: TTabSheet
         Caption = 'Gerät'
@@ -199,7 +199,7 @@ object fMain: TfMain
         Caption = 'Konfiguration'
         ClientHeight = 547
         ClientWidth = 656
-        OnHide = tsConfigHide
+        OnHide = tvMainSelectionChanged
         OnShow = tsConfigShow
         TabVisible = False
         inline eConfig: TSynEdit

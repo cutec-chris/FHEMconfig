@@ -107,6 +107,7 @@ type
     function Refresh: Boolean;
     procedure SaveConfig;
     procedure FindConfig;
+    procedure RefreshFileList;
     function BuildConnStr(aServer : string) : string;
   public
     { public declarations }
@@ -120,7 +121,7 @@ var
 
 implementation
 
-uses Utils,synautil,dateutils,LCLProc,SynEditTypes;
+uses Utils,synautil,dateutils,LCLProc,SynEditTypes,RegExpr;
 
 resourcestring
   strSearch                       = '<suche>';
@@ -225,6 +226,7 @@ begin
           eConfig.Lines.Clear;
         end;
       pcPages.ActivePage:=tsCommand;
+      RefreshFileList;
     end
   else Showmessage(strConnectionError+' '+Server.Sock.LastErrorDesc+' Fehlercode:'+IntToStr(Server.ResultCode));
 end;
@@ -591,6 +593,34 @@ begin
     end;
   sl.Free;
   if eServer.Items.Count=1 then eServer.ItemIndex:=0;
+end;
+
+procedure TfMain.RefreshFileList;
+var
+  url: String;
+  sl: TStringList;
+  aConfig: String;
+begin
+  sl := TStringList.Create;
+  url := BuildConnStr(eServer.Text)+'/fhem?cmd='+HTTPEncode('style list');
+  debugln(url);
+  Server.Clear;
+  if Server.HTTPMethod('GET',url) then
+    begin
+      if Server.ResultCode=200 then
+        begin
+          sl.LoadFromStream(Server.Document);
+          aConfig := sl.Text;
+        end;
+    end;
+  cbFile.Clear;
+  while pos('<a href="/fhem?cmd=style edit ',aConfig)>0 do
+    begin
+      aConfig:=copy(aConfig,pos('<a href="/fhem?cmd=style edit ',aConfig)+30,length(aConfig));
+      cbFile.Items.Add(trim(copy(aConfig,0,pos('">',aConfig)-1)));
+      aConfig:=copy(aConfig,pos('">',aConfig)+2,length(aConfig));
+    end;
+  sl.Free;
 end;
 
 function TfMain.BuildConnStr(aServer: string): string;
