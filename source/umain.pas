@@ -633,7 +633,7 @@ begin
   aConfig := copy(aConfig,pos('<textarea',aConfig)+5,length(aConfig));
   aConfig := copy(aConfig,pos('cols="80" rows="30">',aConfig)+20,length(aConfig));
   aConfig := copy(aConfig,0,pos('</textarea>',aConfig)-1);
-  eConfig.Lines.Text:=aConfig;
+  eConfig.Lines.Text:=HTMLDecode(aConfig);
   eConfig.SetFocus;
 end;
 
