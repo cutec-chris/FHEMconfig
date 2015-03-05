@@ -122,9 +122,9 @@ object fMain: TfMain
       Height = 580
       Top = 0
       Width = 662
-      ActivePage = tsConfig
+      ActivePage = tsSelected
       Align = alClient
-      TabIndex = 3
+      TabIndex = 0
       TabOrder = 0
       object tsSelected: TTabSheet
         Caption = 'Gerät'
@@ -216,6 +216,7 @@ object fMain: TfMain
           ParentColor = False
           ParentFont = False
           TabOrder = 0
+          OnMouseWheel = eConfigMouseWheel
           Gutter.Width = 33
           Gutter.MouseActions = <>
           RightGutter.Width = 0
@@ -715,22 +716,57 @@ object fMain: TfMain
           ClientHeight = 42
           ClientWidth = 656
           TabOrder = 1
-          object Edit1: TEdit
-            Left = 464
+          object eSearchC: TEdit
+            Left = 440
             Height = 25
             Top = 8
-            Width = 184
-            Enabled = False
+            Width = 160
+            Anchors = [akTop, akRight]
+            Font.Color = clSilver
+            OnChange = eSearchCChange
+            OnEnter = eSearchCEnter
+            OnExit = eSearchCExit
+            ParentFont = False
             TabStop = False
             TabOrder = 0
+            Text = '<Suche>'
           end
           object bConnect3: TSpeedButton
-            Left = 8
+            Left = 264
             Height = 25
-            Top = 8
+            Top = 7
             Width = 32
             Action = acSaveConfig
             ShowCaption = False
+          end
+          object SpeedButton1: TSpeedButton
+            Left = 624
+            Height = 24
+            Hint = 'weitersuchen'
+            Top = 8
+            Width = 24
+            Anchors = [akTop, akRight]
+            Caption = '>'
+            OnClick = SpeedButton1Click
+          end
+          object SpeedButton2: TSpeedButton
+            Left = 600
+            Height = 24
+            Hint = 'weitersuchen'
+            Top = 8
+            Width = 24
+            Anchors = [akTop, akRight]
+            Caption = '<'
+            OnClick = SpeedButton2Click
+          end
+          object cbFile: TComboBox
+            Left = 8
+            Height = 27
+            Top = 8
+            Width = 252
+            ItemHeight = 0
+            TabOrder = 1
+            Text = 'fhem.cfg'
           end
         end
       end
@@ -738,8 +774,8 @@ object fMain: TfMain
   end
   object ActionList1: TActionList
     Images = ImageList1
-    left = 352
-    top = 88
+    left = 408
+    top = 8
     object acConnect: TAction
       Caption = 'verbinden'
       ImageIndex = 0
@@ -770,8 +806,8 @@ object fMain: TfMain
     end
   end
   object ImageList1: TImageList
-    left = 384
-    top = 88
+    left = 440
+    top = 8
     Bitmap = {
       4C69040000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00DCAA
@@ -909,7 +945,7 @@ object fMain: TfMain
     Enabled = False
     CommentAttri.Foreground = clGray
     NumberAttri.Foreground = clWindowText
-    left = 416
-    top = 88
+    left = 472
+    top = 8
   end
 end

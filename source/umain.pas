@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, SynMemo, synhighlighterunixshellscript,
   SynHighlighterPerl, SynEdit, SynGutterBase, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, StdCtrls, ComCtrls, ActnList, ValEdit, Buttons, blcksock,
-  httpsend, uFhemFrame,ssl_openssl;
+  httpsend, uFhemFrame,ssl_openssl, types;
 
 type
   TInfoEvent = procedure(aInfo : string) of object;
@@ -47,8 +47,9 @@ type
     bConnect1: TSpeedButton;
     bConnect2: TSpeedButton;
     bConnect3: TSpeedButton;
+    cbFile: TComboBox;
     eCommand: TEdit;
-    Edit1: TEdit;
+    eSearchC: TEdit;
     eSearch: TEdit;
     eServer: TComboBox;
     ImageList1: TImageList;
@@ -61,6 +62,8 @@ type
     Panel1: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
     Splitter1: TSplitter;
     eConfig: TSynEdit;
     SynGutterPartList1: TSynGutterPartList;
@@ -75,11 +78,18 @@ type
     procedure acSaveExecute(Sender: TObject);
     procedure eCommandKeyPress(Sender: TObject; var Key: char);
     procedure eConfigChange(Sender: TObject);
+    procedure eConfigMouseWheel(Sender: TObject; Shift: TShiftState;
+      WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
+    procedure eSearchCChange(Sender: TObject);
+    procedure eSearchCEnter(Sender: TObject);
+    procedure eSearchCExit(Sender: TObject);
     procedure eSearchEnter(Sender: TObject);
     procedure eSearchExit(Sender: TObject);
     procedure eServerSelect(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
     procedure tsCommandEnter(Sender: TObject);
     procedure LogThreadInfo(aInfo: string);
     procedure ServerSockStatus(Sender: TObject; Reason: THookSocketReason;
@@ -110,7 +120,7 @@ var
 
 implementation
 
-uses Utils,synautil,dateutils,LCLProc;
+uses Utils,synautil,dateutils,LCLProc,SynEditTypes;
 
 resourcestring
   strSearch                       = '<suche>';
@@ -270,6 +280,30 @@ begin
   acSaveConfig.Enabled:=eConfig.Modified;
 end;
 
+procedure TfMain.eConfigMouseWheel(Sender: TObject; Shift: TShiftState;
+  WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
+begin
+  if ssCtrl in Shift then
+    eConfig.Font.Size:=round(eConfig.Font.Size+(WheelDelta/120));
+end;
+
+procedure TfMain.eSearchCChange(Sender: TObject);
+begin
+  eConfig.SearchReplace(eSearchC.Text,'',[ssoEntireScope]);
+end;
+
+procedure TfMain.eSearchCEnter(Sender: TObject);
+begin
+  eSearchC.Clear;
+  eSearchC.Font.Color:=clDefault;
+end;
+
+procedure TfMain.eSearchCExit(Sender: TObject);
+begin
+  eSearchC.Text:=strSearch;
+  eSearchC.Font.Color:=clSilver;
+end;
+
 procedure TfMain.eSearchEnter(Sender: TObject);
 begin
   eSearch.Clear;
@@ -310,6 +344,16 @@ begin
       //LogThread.Free;
     end;
   Server.Free;
+end;
+
+procedure TfMain.SpeedButton1Click(Sender: TObject);
+begin
+  eConfig.SearchReplace(eSearchC.Text,'',[ssoFindContinue]);
+end;
+
+procedure TfMain.SpeedButton2Click(Sender: TObject);
+begin
+  eConfig.SearchReplace(eSearchC.Text,'',[ssoFindContinue,ssoBackwards]);
 end;
 
 procedure TfMain.tsCommandEnter(Sender: TObject);
