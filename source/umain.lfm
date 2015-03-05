@@ -84,11 +84,12 @@ object fMain: TfMain
       Width = 264
       Align = alTop
       Font.Color = clSilver
+      OnChange = eSearchChange
       OnEnter = eSearchEnter
       OnExit = eSearchExit
       ParentFont = False
       TabOrder = 0
-      Text = '<Suche>'
+      Text = '<suche>'
     end
     object tvMain: TTreeView
       Left = 0
@@ -122,9 +123,9 @@ object fMain: TfMain
       Height = 580
       Top = 0
       Width = 662
-      ActivePage = tsConfig
+      ActivePage = tsCommand
       Align = alClient
-      TabIndex = 3
+      TabIndex = 1
       TabOrder = 0
       object tsSelected: TTabSheet
         Caption = 'Gerät'
@@ -946,7 +947,7 @@ object fMain: TfMain
     Enabled = False
     CommentAttri.Foreground = clGray
     NumberAttri.Foreground = clWindowText
-    left = 472
-    top = 8
+    left = 848
+    top = 568
   end
 end

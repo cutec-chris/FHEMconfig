@@ -84,6 +84,7 @@ type
     procedure eSearchCChange(Sender: TObject);
     procedure eSearchCEnter(Sender: TObject);
     procedure eSearchCExit(Sender: TObject);
+    procedure eSearchChange(Sender: TObject);
     procedure eSearchEnter(Sender: TObject);
     procedure eSearchExit(Sender: TObject);
     procedure eServerSelect(Sender: TObject);
@@ -271,7 +272,7 @@ procedure TfMain.eConfigMouseWheel(Sender: TObject; Shift: TShiftState;
   WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
 begin
   if ssCtrl in Shift then
-    eConfig.Font.Size:=round(eConfig.Font.Size+(WheelDelta/120));
+    eConfig.Font.Size:=round(eConfig.Font.Size+((-WheelDelta)/120));
 end;
 
 procedure TfMain.eSearchCChange(Sender: TObject);
@@ -291,16 +292,34 @@ begin
   eSearchC.Font.Color:=clSilver;
 end;
 
+procedure TfMain.eSearchChange(Sender: TObject);
+var
+  aNode: TTreeNode;
+begin
+  if tvMain.Items.Count=0 then exit;
+  aNode := tvMain.Items[0];
+  while assigned(aNode) do
+    begin
+      aNode.Visible := (Assigned(aNode.Data) and (pos(lowercase(eSearch.Text),lowercase(aNode.Text))>0)) or ((trim(eSearch.Text)='') or (eSearch.Text=strSearch) or (aNode.HasChildren));
+      if aNode.Visible and Assigned(aNode.Parent) then aNode.Parent.Expanded:=True;
+      aNode := aNode.GetNext;
+    end;
+end;
+
 procedure TfMain.eSearchEnter(Sender: TObject);
 begin
-  eSearch.Clear;
+  if (trim(eSearch.Text)='') or (eSearch.Text=strSearch) then
+    eSearch.Clear;
   eSearch.Font.Color:=clDefault;
 end;
 
 procedure TfMain.eSearchExit(Sender: TObject);
 begin
-  eSearch.Text:=strSearch;
-  eSearch.Font.Color:=clSilver;
+  if (trim(eSearch.Text)='') or (eSearch.Text=strSearch) then
+    begin
+      eSearch.Text:=strSearch;
+      eSearch.Font.Color:=clSilver;
+    end;
 end;
 
 procedure TfMain.eServerSelect(Sender: TObject);
