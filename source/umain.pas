@@ -301,7 +301,7 @@ begin
   while assigned(aNode) do
     begin
       aNode.Visible := (Assigned(aNode.Data) and (pos(lowercase(eSearch.Text),lowercase(aNode.Text))>0)) or ((trim(eSearch.Text)='') or (eSearch.Text=strSearch) or (aNode.HasChildren));
-      if aNode.Visible and Assigned(aNode.Parent) then aNode.Parent.Expanded:=True;
+      if (aNode.Visible and Assigned(aNode.Parent)) and (not ((trim(eSearch.Text)='') or (eSearch.Text=strSearch) or (aNode.HasChildren))) then aNode.Parent.Expanded:=True;
       aNode := aNode.GetNext;
     end;
 end;
