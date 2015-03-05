@@ -122,9 +122,9 @@ object fMain: TfMain
       Height = 580
       Top = 0
       Width = 662
-      ActivePage = tsCommand
+      ActivePage = tsConfig
       Align = alClient
-      TabIndex = 1
+      TabIndex = 3
       TabOrder = 0
       object tsSelected: TTabSheet
         Caption = 'Gerät'
@@ -717,10 +717,10 @@ object fMain: TfMain
           ClientWidth = 656
           TabOrder = 1
           object eSearchC: TEdit
-            Left = 440
+            Left = 328
             Height = 25
             Top = 8
-            Width = 160
+            Width = 272
             Anchors = [akTop, akRight]
             Font.Color = clSilver
             OnChange = eSearchCChange
@@ -765,6 +765,7 @@ object fMain: TfMain
             Top = 8
             Width = 252
             ItemHeight = 0
+            OnSelect = cbFileSelect
             TabOrder = 1
             Text = 'fhem.cfg'
           end

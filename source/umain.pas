@@ -76,6 +76,7 @@ type
     procedure acConnectExecute(Sender: TObject);
     procedure acSaveConfigExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
+    procedure cbFileSelect(Sender: TObject);
     procedure eCommandKeyPress(Sender: TObject; var Key: char);
     procedure eConfigChange(Sender: TObject);
     procedure eConfigMouseWheel(Sender: TObject; Shift: TShiftState;
@@ -108,6 +109,8 @@ type
     procedure SaveConfig;
     procedure FindConfig;
     procedure RefreshFileList;
+    procedure LoadFile(aFile : string);
+    procedure SaveFile(aFile : string);
     function BuildConnStr(aServer : string) : string;
   public
     { public declarations }
@@ -232,31 +235,8 @@ begin
 end;
 
 procedure TfMain.acSaveConfigExecute(Sender: TObject);
-var
-  url: String;
-  sl: TStringList;
 begin
-  if eConfig.Modified then
-    begin
-      url := BuildConnStr(eServer.Text)+'/fhem?cmd='+HTTPEncode('style edit fhem.cfg');
-      debugln(url);
-      Server.Clear;
-      sl := TStringList.Create;
-      sl.Assign(eConfig.Lines);
-      sl.TextLineBreakStyle:=tlbsCRLF;
-      WriteStrToStream(Server.Document, 'save=Save+fhem.cfg&saveName=fhem.cfg&cmd=style+save+fhem.cfg+&data='+HTTPEncode(sl.Text));
-      sl.Free;
-      Server.MimeType := 'application/x-www-form-urlencoded';
-      if Server.HTTPMethod('POST',url) then
-        begin
-          if Server.ResultCode=200 then
-            begin
-              acSaveConfig.Enabled:=False;
-              eConfig.Clear;
-              tsConfigShow(tsConfig);
-            end;
-        end;
-    end;
+  SaveFile(cbFile.Text);
 end;
 
 procedure TfMain.acSaveExecute(Sender: TObject);
@@ -266,6 +246,11 @@ begin
   Result := ExecCommand('save',eServer.Text);
   if Result = '' then
     acSave.Enabled:=False;
+end;
+
+procedure TfMain.cbFileSelect(Sender: TObject);
+begin
+  LoadFile(cbFile.Text);
 end;
 
 procedure TfMain.eCommandKeyPress(Sender: TObject; var Key: char);
@@ -395,24 +380,7 @@ var
 begin
   if eConfig.Lines.Text='' then
     begin
-      url := BuildConnStr(eServer.Text)+'/fhem?cmd='+HTTPEncode('style edit fhem.cfg');
-      debugln(url);
-      Server.Clear;
-      if Server.HTTPMethod('GET',url) then
-        begin
-          if Server.ResultCode=200 then
-            begin
-              sl := TStringList.Create;
-              sl.LoadFromStream(Server.Document);
-              aConfig := sl.Text;
-              sl.Free;
-            end;
-        end;
-      aConfig := copy(aConfig,pos('<textarea',aConfig)+5,length(aConfig));
-      aConfig := copy(aConfig,pos('cols="80" rows="30">',aConfig)+20,length(aConfig));
-      aConfig := copy(aConfig,0,pos('</textarea>',aConfig)-1);
-      eConfig.Lines.Text:=aConfig;
-      eConfig.SetFocus;
+      LoadFile(cbFile.Text)
     end;
 end;
 
@@ -621,6 +589,61 @@ begin
       aConfig:=copy(aConfig,pos('">',aConfig)+2,length(aConfig));
     end;
   sl.Free;
+  cbFile.Text:='fhem.cfg';
+end;
+
+procedure TfMain.LoadFile(aFile: string);
+var
+  url: String;
+  sl: TStringList;
+  aConfig: String;
+begin
+  url := BuildConnStr(eServer.Text)+'/fhem?cmd='+HTTPEncode('style edit '+aFile);
+  debugln(url);
+  Server.Clear;
+  if Server.HTTPMethod('GET',url) then
+    begin
+      if Server.ResultCode=200 then
+        begin
+          sl := TStringList.Create;
+          sl.LoadFromStream(Server.Document);
+          aConfig := sl.Text;
+          sl.Free;
+        end;
+    end;
+  aConfig := copy(aConfig,pos('<textarea',aConfig)+5,length(aConfig));
+  aConfig := copy(aConfig,pos('cols="80" rows="30">',aConfig)+20,length(aConfig));
+  aConfig := copy(aConfig,0,pos('</textarea>',aConfig)-1);
+  eConfig.Lines.Text:=aConfig;
+  eConfig.SetFocus;
+end;
+
+procedure TfMain.SaveFile(aFile: string);
+var
+  url: String;
+  sl: TStringList;
+begin
+  if eConfig.Modified then
+    begin
+      url := BuildConnStr(eServer.Text)+'/fhem?cmd='+HTTPEncode('style edit '+aFile);
+      debugln(url);
+      Server.Clear;
+      sl := TStringList.Create;
+      sl.Assign(eConfig.Lines);
+      sl.TextLineBreakStyle:=tlbsCRLF;
+      WriteStrToStream(Server.Document, 'save=Save+'+aFile+'&saveName='+aFile+'&cmd=style+save+'+aFile+'+&data='+HTTPEncode(sl.Text));
+      sl.Free;
+      Server.MimeType := 'application/x-www-form-urlencoded';
+      if Server.HTTPMethod('POST',url) then
+        begin
+          if Server.ResultCode=200 then
+            begin
+              acSaveConfig.Enabled:=False;
+              eConfig.Clear;
+              tsConfigShow(tsConfig);
+            end;
+        end;
+    end;
 end;
 
 function TfMain.BuildConnStr(aServer: string): string;
