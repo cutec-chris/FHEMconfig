@@ -199,12 +199,14 @@ object fMain: TfMain
         Caption = 'Konfiguration'
         ClientHeight = 547
         ClientWidth = 656
+        OnHide = tsConfigHide
         OnShow = tsConfigShow
         TabVisible = False
         inline eConfig: TSynEdit
+          Cursor = crDefault
           Left = 0
-          Height = 547
-          Top = 0
+          Height = 505
+          Top = 42
           Width = 656
           Align = alClient
           Font.Height = 13
@@ -703,12 +705,40 @@ object fMain: TfMain
             end
           end
         end
+        object Panel4: TPanel
+          Left = 0
+          Height = 42
+          Top = 0
+          Width = 656
+          Align = alTop
+          BevelOuter = bvNone
+          ClientHeight = 42
+          ClientWidth = 656
+          TabOrder = 1
+          object Edit1: TEdit
+            Left = 464
+            Height = 25
+            Top = 8
+            Width = 184
+            Enabled = False
+            TabStop = False
+            TabOrder = 0
+          end
+          object bConnect3: TSpeedButton
+            Left = 8
+            Height = 25
+            Top = 8
+            Width = 32
+            Action = acSaveConfig
+            ShowCaption = False
+          end
+        end
       end
     end
   end
   object ActionList1: TActionList
     Images = ImageList1
-    left = 280
+    left = 352
     top = 88
     object acConnect: TAction
       Caption = 'verbinden'
@@ -732,9 +762,15 @@ object fMain: TfMain
       Hint = 'legt ein neues Gerät an'
       ImageIndex = 3
     end
+    object acSaveConfig: TAction
+      Caption = 'acSaveConfig'
+      Enabled = False
+      ImageIndex = 2
+      OnExecute = acSaveConfigExecute
+    end
   end
   object ImageList1: TImageList
-    left = 312
+    left = 384
     top = 88
     Bitmap = {
       4C69040000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
@@ -873,7 +909,7 @@ object fMain: TfMain
     Enabled = False
     CommentAttri.Foreground = clGray
     NumberAttri.Foreground = clWindowText
-    left = 344
+    left = 416
     top = 88
   end
 end

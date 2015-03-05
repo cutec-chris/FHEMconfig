@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, SynMemo, synhighlighterunixshellscript,
   SynHighlighterPerl, SynEdit, SynGutterBase, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, StdCtrls, ComCtrls, ActnList, ValEdit, Buttons, blcksock,
-  httpsend, uFhemFrame;
+  httpsend, uFhemFrame,ssl_openssl;
 
 type
   TInfoEvent = procedure(aInfo : string) of object;
@@ -41,11 +41,14 @@ type
     acDisconnect: TAction;
     acSave: TAction;
     acAdd: TAction;
+    acSaveConfig: TAction;
     ActionList1: TActionList;
     bConnect: TSpeedButton;
     bConnect1: TSpeedButton;
     bConnect2: TSpeedButton;
+    bConnect3: TSpeedButton;
     eCommand: TEdit;
+    Edit1: TEdit;
     eSearch: TEdit;
     eServer: TComboBox;
     ImageList1: TImageList;
@@ -53,6 +56,7 @@ type
     lbLog: TListBox;
     mCommand: TMemo;
     Memo1: TMemo;
+    Panel4: TPanel;
     pcPages: TPageControl;
     Panel1: TPanel;
     Panel2: TPanel;
@@ -67,6 +71,7 @@ type
     tsCommand: TTabSheet;
     tvMain: TTreeView;
     procedure acConnectExecute(Sender: TObject);
+    procedure acSaveConfigExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure eCommandKeyPress(Sender: TObject; var Key: char);
     procedure eConfigChange(Sender: TObject);
@@ -79,6 +84,7 @@ type
     procedure LogThreadInfo(aInfo: string);
     procedure ServerSockStatus(Sender: TObject; Reason: THookSocketReason;
       const Value: String);
+    procedure tsConfigHide(Sender: TObject);
     procedure tsConfigShow(Sender: TObject);
     procedure tvMainSelectionChanged(Sender: TObject);
   private
@@ -207,37 +213,47 @@ begin
           tsLog.TabVisible:=True;
           tsConfig.TabVisible:=True;
           eConfig.Lines.Clear;
-          pcPages.ActivePage:=tsCommand;
         end;
+      pcPages.ActivePage:=tsCommand;
     end
   else Showmessage(strConnectionError+' '+Server.Sock.LastErrorDesc+' Fehlercode:'+IntToStr(Server.ResultCode));
 end;
 
-procedure TfMain.acSaveExecute(Sender: TObject);
+procedure TfMain.acSaveConfigExecute(Sender: TObject);
 var
-  Result: String;
   url: String;
   sl: TStringList;
 begin
-  Result := ExecCommand('save',eServer.Text);
-  if Result = '' then
-    acSave.Enabled:=False;
   if eConfig.Modified then
     begin
       url := BuildConnStr(eServer.Text)+'/fhem?cmd='+HTTPEncode('style edit fhem.cfg');
       debugln(url);
       Server.Clear;
       sl := TStringList.Create;
-      sl.text := eConfig.Lines.Text;
-      sl.SaveToStream(Server.Document);
-      Server.Document.Position:=0;
+      sl.Assign(eConfig.Lines);
+      sl.TextLineBreakStyle:=tlbsCRLF;
+      WriteStrToStream(Server.Document, 'save=Save+fhem.cfg&saveName=fhem.cfg&cmd=style+save+fhem.cfg+&data='+HTTPEncode(sl.Text));
+      sl.Free;
+      Server.MimeType := 'application/x-www-form-urlencoded';
       if Server.HTTPMethod('POST',url) then
         begin
-          if Server.ResultCode<>200 then
-            acSave.Enabled:=True;
+          if Server.ResultCode=200 then
+            begin
+              acSaveConfig.Enabled:=False;
+              eConfig.Clear;
+              tsConfigShow(tsConfig);
+            end;
         end;
-      sl.Free;
     end;
+end;
+
+procedure TfMain.acSaveExecute(Sender: TObject);
+var
+  Result: String;
+begin
+  Result := ExecCommand('save',eServer.Text);
+  if Result = '' then
+    acSave.Enabled:=False;
 end;
 
 procedure TfMain.eCommandKeyPress(Sender: TObject; var Key: char);
@@ -251,7 +267,7 @@ end;
 
 procedure TfMain.eConfigChange(Sender: TObject);
 begin
-  acSave.Enabled:=True;
+  acSaveConfig.Enabled:=eConfig.Modified;
 end;
 
 procedure TfMain.eSearchEnter(Sender: TObject);
@@ -318,6 +334,12 @@ begin
   end;
 end;
 
+procedure TfMain.tsConfigHide(Sender: TObject);
+begin
+  if not eConfig.Modified then
+    eConfig.Clear;
+end;
+
 procedure TfMain.tsConfigShow(Sender: TObject);
 var
   aConfig: String;
@@ -342,8 +364,9 @@ begin
         end;
       aConfig := copy(aConfig,pos('<textarea',aConfig)+5,length(aConfig));
       aConfig := copy(aConfig,pos('cols="80" rows="30">',aConfig)+20,length(aConfig));
-      aConfig := copy(aConfig,0,pos('</textarea>',aConfig));
+      aConfig := copy(aConfig,0,pos('</textarea>',aConfig)-1);
       eConfig.Lines.Text:=aConfig;
+      eConfig.SetFocus;
     end;
 end;
 

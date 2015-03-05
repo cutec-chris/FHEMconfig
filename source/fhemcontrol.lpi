@@ -57,6 +57,7 @@
       <Unit2>
         <Filename Value="Utils.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="Utils"/>
       </Unit2>
       <Unit3>
         <Filename Value="ufhemframe.pas"/>
