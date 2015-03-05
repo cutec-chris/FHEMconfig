@@ -9,7 +9,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="8"/>
         <CursorPos X="11" Y="8"/>
-        <UsageCount Value="62"/>
+        <UsageCount Value="63"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -20,9 +20,9 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="289"/>
-        <CursorPos X="57" Y="291"/>
-        <UsageCount Value="62"/>
+        <TopLine Value="417"/>
+        <CursorPos X="70" Y="426"/>
+        <UsageCount Value="63"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -33,7 +33,7 @@
         <EditorIndex Value="5"/>
         <TopLine Value="821"/>
         <CursorPos Y="845"/>
-        <UsageCount Value="59"/>
+        <UsageCount Value="60"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -43,7 +43,7 @@
         <EditorIndex Value="11"/>
         <TopLine Value="4"/>
         <CursorPos X="5" Y="23"/>
-        <UsageCount Value="59"/>
+        <UsageCount Value="60"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -56,7 +56,7 @@
         <EditorIndex Value="12"/>
         <TopLine Value="15"/>
         <CursorPos X="16" Y="29"/>
-        <UsageCount Value="58"/>
+        <UsageCount Value="59"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit4>
@@ -70,7 +70,7 @@
         <EditorIndex Value="9"/>
         <TopLine Value="224"/>
         <CursorPos X="80" Y="232"/>
-        <UsageCount Value="57"/>
+        <UsageCount Value="58"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit5>
@@ -84,7 +84,7 @@
         <EditorIndex Value="10"/>
         <TopLine Value="7"/>
         <CursorPos X="42" Y="35"/>
-        <UsageCount Value="29"/>
+        <UsageCount Value="30"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit6>
@@ -200,124 +200,124 @@
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../../../lazarus/components/synedit/synedit.pp"/>
-        <Caret Line="7403" TopLine="7379"/>
+        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
+        <Caret Line="743" TopLine="728"/>
       </Position1>
       <Position2>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="742" TopLine="728"/>
+        <Caret Line="744" TopLine="728"/>
       </Position2>
       <Position3>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="743" TopLine="728"/>
+        <Caret Line="745" TopLine="728"/>
       </Position3>
       <Position4>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="744" TopLine="728"/>
+        <Caret Line="749" TopLine="728"/>
       </Position4>
       <Position5>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="745" TopLine="728"/>
+        <Caret Line="750" TopLine="728"/>
       </Position5>
       <Position6>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="749" TopLine="728"/>
+        <Caret Line="754" TopLine="730"/>
       </Position6>
       <Position7>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="750" TopLine="728"/>
+        <Caret Line="755" TopLine="731"/>
       </Position7>
       <Position8>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="754" TopLine="730"/>
+        <Caret Line="756" TopLine="732"/>
       </Position8>
       <Position9>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="755" TopLine="731"/>
+        <Caret Line="757" TopLine="733"/>
       </Position9>
       <Position10>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="756" TopLine="732"/>
+        <Caret Line="764" TopLine="750"/>
       </Position10>
       <Position11>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="757" TopLine="733"/>
+        <Caret Line="765" TopLine="750"/>
       </Position11>
       <Position12>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="764" TopLine="750"/>
+        <Caret Line="766" TopLine="750"/>
       </Position12>
       <Position13>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="765" TopLine="750"/>
+        <Caret Line="769" TopLine="750"/>
       </Position13>
       <Position14>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="766" TopLine="750"/>
+        <Caret Line="770" TopLine="750"/>
       </Position14>
       <Position15>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="769" TopLine="750"/>
+        <Caret Line="401" TopLine="387"/>
       </Position15>
       <Position16>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="770" TopLine="750"/>
+        <Caret Line="402" TopLine="387"/>
       </Position16>
       <Position17>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="401" TopLine="387"/>
+        <Caret Line="403" TopLine="387"/>
       </Position17>
       <Position18>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="402" TopLine="387"/>
+        <Caret Line="771" TopLine="757"/>
       </Position18>
       <Position19>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="403" TopLine="387"/>
+        <Caret Line="773" TopLine="757"/>
       </Position19>
       <Position20>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="771" TopLine="757"/>
+        <Caret Line="774" TopLine="757"/>
       </Position20>
       <Position21>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="773" TopLine="757"/>
+        <Caret Line="784" TopLine="760"/>
       </Position21>
       <Position22>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="774" TopLine="757"/>
+        <Caret Line="786" TopLine="762"/>
       </Position22>
       <Position23>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="784" TopLine="760"/>
+        <Caret Line="787" TopLine="763"/>
       </Position23>
       <Position24>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="786" TopLine="762"/>
+        <Caret Line="788" TopLine="764"/>
       </Position24>
       <Position25>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="787" TopLine="763"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="348" Column="3" TopLine="346"/>
       </Position25>
       <Position26>
-        <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
-        <Caret Line="788" TopLine="764"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="289" Column="33" TopLine="287"/>
       </Position26>
       <Position27>
         <Filename Value="umain.pas"/>
-        <Caret Line="348" Column="3" TopLine="346"/>
+        <Caret Line="291" Column="33" TopLine="289"/>
       </Position27>
       <Position28>
         <Filename Value="umain.pas"/>
-        <Caret Line="289" Column="33" TopLine="287"/>
+        <Caret Line="355" Column="71" TopLine="338"/>
       </Position28>
       <Position29>
         <Filename Value="umain.pas"/>
-        <Caret Line="291" Column="33" TopLine="289"/>
+        <Caret Line="291" Column="57" TopLine="289"/>
       </Position29>
       <Position30>
         <Filename Value="umain.pas"/>
-        <Caret Line="355" Column="71" TopLine="338"/>
+        <Caret Line="292" Column="57" TopLine="290"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>

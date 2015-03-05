@@ -421,20 +421,27 @@ var
 begin
   if Assigned(tvMain.Selected) and Assigned(tvMain.Selected.Data) then
     begin
-      FreeAndNil(FFrame);
-      aFrameClass := FindFrame(TDevice(tvMain.Selected.Data).ClassType);
-      if aFrameClass<>nil then
+      if pcPages.ActivePage=tsConfig then
         begin
-          FFrame := aFrameClass.Create(Self);
-          FFrame.Parent := tsSelected;
-          FFrame.Align:=alClient;
-          FFrame.Device:=TDevice(tvMain.Selected.Data);
-          sl := TStringList.Create;
-          sl.Text := ExecCommand('list '+TDevice(tvMain.Selected.Data).Name,eServer.Text);
-          FFrame.ProcessList(sl);
-          sl.Free;
-          tsSelected.TabVisible:=True;
-          pcPages.ActivePage:=tsSelected;
+          eSearchC.Text:='define '+TDevice(tvMain.Selected.Data).Name;
+        end
+      else
+        begin
+          FreeAndNil(FFrame);
+          aFrameClass := FindFrame(TDevice(tvMain.Selected.Data).ClassType);
+          if aFrameClass<>nil then
+            begin
+              FFrame := aFrameClass.Create(Self);
+              FFrame.Parent := tsSelected;
+              FFrame.Align:=alClient;
+              FFrame.Device:=TDevice(tvMain.Selected.Data);
+              sl := TStringList.Create;
+              sl.Text := ExecCommand('list '+TDevice(tvMain.Selected.Data).Name,eServer.Text);
+              FFrame.ProcessList(sl);
+              sl.Free;
+              tsSelected.TabVisible:=True;
+              pcPages.ActivePage:=tsSelected;
+            end;
         end;
     end;
 end;
