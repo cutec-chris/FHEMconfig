@@ -1,0 +1,128 @@
+object frNotify: TfrNotify
+  Left = 540
+  Height = 393
+  Top = 267
+  Width = 603
+  ClientHeight = 393
+  ClientWidth = 603
+  LCLVersion = '1.5'
+  object Label1: TLabel
+    Left = 8
+    Height = 15
+    Top = 16
+    Width = 75
+    Caption = 'Bedingung'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 96
+    Height = 15
+    Top = 16
+    Width = 254
+    Caption = 'Wann soll das Ereignis ausgelöst werden ?'
+    ParentColor = False
+  end
+  object Memo1: TMemo
+    Left = 8
+    Height = 66
+    Top = 40
+    Width = 502
+    Anchors = [akTop, akLeft, akRight]
+    Font.Height = -15
+    Font.Name = 'Courier'
+    Font.Pitch = fpFixed
+    Lines.Strings = (
+      'Memo1'
+    )
+    ParentFont = False
+    TabOrder = 0
+  end
+  object Button1: TButton
+    Left = 518
+    Height = 25
+    Top = 40
+    Width = 75
+    Anchors = [akTop, akRight]
+    Caption = 'Testen'
+    TabOrder = 1
+  end
+  object Label3: TLabel
+    Left = 8
+    Height = 15
+    Top = 176
+    Width = 43
+    Caption = 'Befehl'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object Label4: TLabel
+    Left = 96
+    Height = 15
+    Top = 176
+    Width = 118
+    Caption = 'Was soll passieren ?'
+    ParentColor = False
+  end
+  object Label5: TLabel
+    Left = 8
+    Height = 15
+    Top = 112
+    Width = 56
+    Caption = 'Beispiele:'
+    ParentColor = False
+  end
+  object Memo2: TMemo
+    Left = 8
+    Height = 66
+    Top = 200
+    Width = 502
+    Anchors = [akTop, akLeft, akRight]
+    Font.Height = -15
+    Font.Name = 'Courier'
+    Font.Pitch = fpFixed
+    Lines.Strings = (
+      'Memo1'
+    )
+    ParentFont = False
+    TabOrder = 2
+  end
+  object Button2: TButton
+    Left = 518
+    Height = 25
+    Top = 200
+    Width = 75
+    Anchors = [akTop, akRight]
+    Caption = 'Testen'
+    TabOrder = 3
+  end
+  object Label6: TLabel
+    Left = 11
+    Height = 15
+    Top = 330
+    Width = 39
+    Caption = 'Name'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object Edit1: TEdit
+    Left = 72
+    Height = 25
+    Top = 328
+    Width = 438
+    Anchors = [akTop, akLeft, akRight]
+    TabOrder = 4
+    Text = 'Edit1'
+  end
+  object Label7: TLabel
+    Left = 8
+    Height = 15
+    Top = 272
+    Width = 56
+    Caption = 'Beispiele:'
+    ParentColor = False
+  end
+end
