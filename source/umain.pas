@@ -240,10 +240,7 @@ end;
 
 procedure TfMain.acAddExecute(Sender: TObject);
 begin
-  if fAddDevice.Execute then
-    begin
-
-    end;
+  acSave.Enabled := fAddDevice.Execute;
 end;
 
 procedure TfMain.acSaveConfigExecute(Sender: TObject);

@@ -336,6 +336,7 @@ end;
 function TfAddDevice.Execute: Boolean;
 var
   aThread: TFillThread;
+  Res: String;
 begin
   if not Assigned(Self) then
     begin
@@ -345,6 +346,16 @@ begin
       aThread.OnAddDevice:=@aThreadAddDevice;
     end;
   Result := Showmodal = mrOK;
+  while Result do
+    begin
+      Res := fMain.ExecCommand(eDefine.Text,fMain.eServer.Text);
+      if Res<>'' then
+        begin
+          Showmessage(Res);
+          Result := Showmodal = mrOK;
+        end
+      else exit;
+    end;
 end;
 
 end.
