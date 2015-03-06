@@ -1,29 +1,36 @@
 object fAddDevice: TfAddDevice
-  Left = 435
-  Height = 366
-  Top = 267
-  Width = 524
+  Left = 332
+  Height = 543
+  Top = 153
+  Width = 773
   Caption = 'Gerät hinzufügen'
-  ClientHeight = 366
-  ClientWidth = 524
+  ClientHeight = 543
+  ClientWidth = 773
   OnCreate = FormCreate
   OnDeactivate = FormDeactivate
   LCLVersion = '1.5'
   object tvMain: TTreeView
     Left = 8
-    Height = 216
+    Height = 393
     Top = 88
     Width = 248
     Anchors = [akTop, akLeft, akBottom]
     DefaultItemHeight = 18
     TabOrder = 0
+    OnSelectionChanged = tvMainSelectionChanged
   end
-  object Edit1: TEdit
+  object eSearch: TEdit
     Left = 8
     Height = 25
     Top = 32
     Width = 248
+    Font.Color = clSilver
+    OnChange = eSearchChange
+    OnEnter = eSearchEnter
+    OnExit = eSearchExit
+    ParentFont = False
     TabOrder = 1
+    Text = '<suche>'
   end
   object Label1: TLabel
     Left = 8
@@ -47,8 +54,8 @@ object fAddDevice: TfAddDevice
   object ButtonPanel1: TButtonPanel
     Left = 6
     Height = 42
-    Top = 318
-    Width = 512
+    Top = 495
+    Width = 761
     OKButton.Name = 'OKButton'
     OKButton.DefaultCaption = True
     HelpButton.Name = 'HelpButton'
@@ -60,14 +67,70 @@ object fAddDevice: TfAddDevice
     TabOrder = 2
     ShowButtons = [pbOK, pbCancel, pbClose]
   end
-  object Memo1: TMemo
-    Left = 264
-    Height = 296
-    Top = 8
-    Width = 254
-    Lines.Strings = (
-      'Memo1'
-    )
+  object eDefine: TEdit
+    Left = 272
+    Height = 25
+    Top = 32
+    Width = 495
+    Anchors = [akLeft, akRight, akBottom]
     TabOrder = 3
+    Text = 'define '
+  end
+  object Label3: TLabel
+    Left = 272
+    Height = 15
+    Top = 15
+    Width = 492
+    Anchors = [akLeft, akRight, akBottom]
+    AutoSize = False
+    Caption = 'Gerätedefinition'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object ipHTML: TIpHtmlPanel
+    Left = 272
+    Height = 368
+    Top = 88
+    Width = 492
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderStyle = bsSingle
+    FixedTypeface = 'Courier New'
+    DefaultTypeFace = 'default'
+    DefaultFontSize = 10
+    FlagErrors = False
+    PrintSettings.MarginLeft = 0.5
+    PrintSettings.MarginTop = 0.5
+    PrintSettings.MarginRight = 0.5
+    PrintSettings.MarginBottom = 0.5
+    TabOrder = 4
+  end
+  object cbName: TRadioButton
+    Left = 344
+    Height = 22
+    Top = 459
+    Width = 107
+    Caption = 'Beschreibung'
+    OnClick = cbAllClick
+    TabOrder = 5
+  end
+  object cbAll: TRadioButton
+    Left = 272
+    Height = 22
+    Top = 459
+    Width = 51
+    Caption = 'Alles'
+    Checked = True
+    OnClick = cbAllClick
+    TabOrder = 6
+    TabStop = True
+  end
+  object Label4: TLabel
+    Left = 272
+    Height = 15
+    Top = 72
+    Width = 26
+    Caption = 'Hilfe'
+    ParentColor = False
   end
 end

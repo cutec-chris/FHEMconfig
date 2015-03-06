@@ -113,9 +113,9 @@ type
     procedure RefreshFileList;
     procedure LoadFile(aFile : string);
     procedure SaveFile(aFile : string);
-    function BuildConnStr(aServer : string) : string;
   public
     { public declarations }
+    function BuildConnStr(aServer : string) : string;
     function LoadHTML(aFile: string): string;
     function ExecCommand(aCommand: string; aServer: string): string;
   end;
@@ -125,13 +125,13 @@ var
 
   function StripHTML(input : string) : string;
 
+resourcestring
+    strSearch                       = '<suche>';
+    strConnectionError              = 'Verbindungsfehler';
+
 implementation
 
 uses Utils,synautil,dateutils,LCLProc,SynEditTypes,RegExpr,uAddDevice;
-
-resourcestring
-  strSearch                       = '<suche>';
-  strConnectionError              = 'Verbindungsfehler';
 
 {$R *.lfm}
 
@@ -446,7 +446,7 @@ begin
     end;
 end;
 
-function TfMain.ExecCommand(aCommand: string;aServer : string): string;
+function TfMain.ExecCommand(aCommand: string; aServer: string): string;
 var
   sl: TStringList;
   aConnType: String;
