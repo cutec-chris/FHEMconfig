@@ -8,7 +8,7 @@ uses
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, lazcontrols, uMain, Utils, laz_synapse, uFhemFrame, fNotify,
-  fpGeneric, fpresence
+  fpGeneric, fpresence, uAddDevice
   { you can add units after this };
 
 {$R *.res}

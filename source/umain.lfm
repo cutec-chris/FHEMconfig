@@ -51,7 +51,7 @@ object fMain: TfMain
       ShowCaption = False
     end
     object bConnect1: TSpeedButton
-      Left = 208
+      Left = 248
       Height = 43
       Top = 8
       Width = 39
@@ -59,7 +59,7 @@ object fMain: TfMain
       ShowCaption = False
     end
     object bConnect2: TSpeedButton
-      Left = 248
+      Left = 208
       Height = 43
       Top = 8
       Width = 39
@@ -799,6 +799,7 @@ object fMain: TfMain
       Enabled = False
       Hint = 'legt ein neues Gerät an'
       ImageIndex = 3
+      OnExecute = acAddExecute
     end
     object acSaveConfig: TAction
       Caption = 'acSaveConfig'

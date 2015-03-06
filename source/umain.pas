@@ -73,6 +73,7 @@ type
     tsSelected: TTabSheet;
     tsCommand: TTabSheet;
     tvMain: TTreeView;
+    procedure acAddExecute(Sender: TObject);
     procedure acConnectExecute(Sender: TObject);
     procedure acSaveConfigExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
@@ -115,6 +116,7 @@ type
     function BuildConnStr(aServer : string) : string;
   public
     { public declarations }
+    function LoadHTML(aFile: string): string;
     function ExecCommand(aCommand: string; aServer: string): string;
   end;
 
@@ -125,7 +127,7 @@ var
 
 implementation
 
-uses Utils,synautil,dateutils,LCLProc,SynEditTypes,RegExpr;
+uses Utils,synautil,dateutils,LCLProc,SynEditTypes,RegExpr,uAddDevice;
 
 resourcestring
   strSearch                       = '<suche>';
@@ -231,8 +233,17 @@ begin
         end;
       pcPages.ActivePage:=tsCommand;
       RefreshFileList;
+      acAdd.Enabled:=True;
     end
   else Showmessage(strConnectionError+' '+Server.Sock.LastErrorDesc+' Fehlercode:'+IntToStr(Server.ResultCode));
+end;
+
+procedure TfMain.acAddExecute(Sender: TObject);
+begin
+  if fAddDevice.Execute then
+    begin
+
+    end;
 end;
 
 procedure TfMain.acSaveConfigExecute(Sender: TObject);
@@ -609,6 +620,27 @@ begin
     end;
   sl.Free;
   cbFile.Text:='fhem.cfg';
+end;
+
+function TfMain.LoadHTML(aFile: string) : string;
+var
+  url: String;
+  sl: TStringList;
+begin
+  Result := '';
+  url := BuildConnStr(eServer.Text)+'/fhem'+aFile;
+  debugln(url);
+  Server.Clear;
+  if Server.HTTPMethod('GET',url) then
+    begin
+      if Server.ResultCode=200 then
+        begin
+          sl := TStringList.Create;
+          sl.LoadFromStream(Server.Document);
+          Result := sl.Text;
+          sl.Free;
+        end;
+    end;
 end;
 
 procedure TfMain.LoadFile(aFile: string);

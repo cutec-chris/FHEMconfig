@@ -41,7 +41,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="7">
+    <Units Count="8">
       <Unit0>
         <Filename Value="fhemcontrol.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -88,6 +88,14 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fPresence"/>
       </Unit6>
+      <Unit7>
+        <Filename Value="uadddevice.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fAddDevice"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uAddDevice"/>
+      </Unit7>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
