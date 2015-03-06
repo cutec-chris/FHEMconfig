@@ -7,8 +7,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, SynMemo, synhighlighterunixshellscript,
   SynHighlighterPerl, SynEdit, SynGutterBase, Forms, Controls, Graphics,
-  Dialogs, ExtCtrls, StdCtrls, ComCtrls, ActnList, ValEdit, Buttons, blcksock,
-  httpsend, uFhemFrame,ssl_openssl, types;
+  Dialogs, ExtCtrls, StdCtrls, ComCtrls, ActnList, ValEdit, Buttons, Menus,
+  blcksock, httpsend, uFhemFrame, ssl_openssl, types;
 
 type
   TInfoEvent = procedure(aInfo : string) of object;
@@ -42,6 +42,7 @@ type
     acSave: TAction;
     acAdd: TAction;
     acSaveConfig: TAction;
+    acDelete: TAction;
     ActionList1: TActionList;
     bConnect: TSpeedButton;
     bConnect1: TSpeedButton;
@@ -57,11 +58,13 @@ type
     lbLog: TListBox;
     mCommand: TMemo;
     Memo1: TMemo;
+    MenuItem1: TMenuItem;
     Panel4: TPanel;
     pcPages: TPageControl;
     Panel1: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
+    PopupMenu1: TPopupMenu;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
     Splitter1: TSplitter;
@@ -75,6 +78,7 @@ type
     tvMain: TTreeView;
     procedure acAddExecute(Sender: TObject);
     procedure acConnectExecute(Sender: TObject);
+    procedure acDeleteExecute(Sender: TObject);
     procedure acSaveConfigExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure cbFileSelect(Sender: TObject);
@@ -108,6 +112,7 @@ type
     LastLogTime : TDateTime;
     ConnType : string;
     function Refresh: Boolean;
+    procedure RefreshTree(sl: TStrings;SelectLast : Boolean = false);
     procedure SaveConfig;
     procedure FindConfig;
     procedure RefreshFileList;
@@ -238,9 +243,40 @@ begin
   else Showmessage(strConnectionError+' '+Server.Sock.LastErrorDesc+' Fehlercode:'+IntToStr(Server.ResultCode));
 end;
 
-procedure TfMain.acAddExecute(Sender: TObject);
+procedure TfMain.acDeleteExecute(Sender: TObject);
+var
+  Res: String;
 begin
-  acSave.Enabled := fAddDevice.Execute;
+  if Assigned(tvMain.Selected) and Assigned(tvMain.Selected.Data) then
+    begin
+      Res := ExecCommand('delete '+TDevice(tvMain.Selected.Data).Name,eServer.Text);
+      if Res = '' then
+        begin
+          tvMain.Items.Delete(tvMain.Selected);
+          acSave.Enabled:=True;
+        end
+      else Showmessage(Res);
+    end;
+end;
+
+procedure TfMain.acAddExecute(Sender: TObject);
+var
+  sl: TStringList;
+begin
+  acSave.Enabled := fAddDevice.Execute or acSave.Enabled;
+  if acSave.Enabled then
+    begin
+      sl := TStringList.Create;
+      sl.Text:=ExecCommand('list',eServer.Text);
+      if (sl.Text='') then
+        begin
+          if ConnType='http://' then
+            ConnType:='https://'
+          else ConnType:='http://';
+        end;
+      RefreshTree(sl,True);
+      sl.Free;
+    end;
 end;
 
 procedure TfMain.acSaveConfigExecute(Sender: TObject);
@@ -416,6 +452,7 @@ var
   aFrameClass: TFHEMFrameClass;
   sl: TStringList;
 begin
+  acDelete.Enabled:=False;
   if Assigned(tvMain.Selected) and Assigned(tvMain.Selected.Data) then
     begin
       if pcPages.ActivePage=tsConfig then
@@ -440,6 +477,7 @@ begin
               pcPages.ActivePage:=tsSelected;
             end;
         end;
+      acDelete.Enabled:=True;
     end;
 end;
 
@@ -465,10 +503,29 @@ end;
 function TfMain.Refresh : Boolean;
 var
   sl: TStringList;
+begin
+  sl := TStringList.Create;
+  sl.Text:=ExecCommand('list',eServer.Text);
+  if (sl.Text='') then
+    begin
+      if ConnType='http://' then
+        ConnType:='https://'
+      else ConnType:='http://';
+    end;
+  RefreshTree(sl);
+  if tvMain.Items.Count>0 then
+    SaveConfig;
+  sl.Free;
+  Result := tvMain.Items.Count>0;
+end;
+
+procedure TfMain.RefreshTree(sl: TStrings; SelectLast: Boolean);
+var
   i: Integer;
   Category : TTreeNode = nil;
   b: Integer;
   Node: TTreeNode;
+  aDevice: TTreeNode = nil;
 
   procedure SelectCategory(aCat : string);
   var
@@ -497,7 +554,6 @@ var
     aName: String;
     a: Integer;
     aStatus: String;
-    aDevice: TTreeNode;
   begin
     aName := copy(trim(aDev),0,pos(' ',trim(aDev))-1);
     aStatus := copy(trim(aDev),pos(' ',trim(aDev))+1,length(aDev));
@@ -515,16 +571,7 @@ var
     TDevice(aDevice.Data).ClassType := Category.Text;
     TDevice(aDevice.Data).Found:=True;
   end;
-
 begin
-  sl := TStringList.Create;
-  sl.Text:=ExecCommand('list',eServer.Text);
-  if (sl.Text='') then
-    begin
-      if ConnType='http://' then
-        ConnType:='https://'
-      else ConnType:='http://';
-    end;
   tvMain.BeginUpdate;
   i := 0;
   while i < sl.Count do
@@ -552,10 +599,7 @@ begin
         AddDevice(sl[i]);
     end;
   tvMain.EndUpdate;
-  if tvMain.Items.Count>0 then
-    SaveConfig;
-  sl.Free;
-  Result := tvMain.Items.Count>0;
+  if SelectLast and Assigned(aDevice) then tvMain.Selected:=aDevice;
 end;
 
 procedure TfMain.SaveConfig;

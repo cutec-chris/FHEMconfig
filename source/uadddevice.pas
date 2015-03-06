@@ -163,6 +163,7 @@ begin
   FillSection;
   tmp := copy(tmp,pos('<b>',tmp)+3,length(tmp));
   //now we have all Module names
+  try
   for i := 0 to fAddDevice.Modules.Count-1 do
     with TModule(fAddDevice.Modules[i]) do
       begin
@@ -223,6 +224,8 @@ begin
               end;
           end;
       end;
+  except
+  end;
 end;
 
 { TfAddDevice }
