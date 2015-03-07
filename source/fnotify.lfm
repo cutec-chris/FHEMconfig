@@ -24,7 +24,7 @@ object frNotify: TfrNotify
     Caption = 'Wann soll das Ereignis ausgelöst werden ?'
     ParentColor = False
   end
-  object Memo1: TMemo
+  object mEvent: TMemo
     Left = 8
     Height = 66
     Top = 40
@@ -74,7 +74,7 @@ object frNotify: TfrNotify
     Caption = 'Beispiele:'
     ParentColor = False
   end
-  object Memo2: TMemo
+  object mCommand: TMemo
     Left = 8
     Height = 66
     Top = 200
@@ -108,14 +108,14 @@ object frNotify: TfrNotify
     ParentColor = False
     ParentFont = False
   end
-  object Edit1: TEdit
+  object eName: TEdit
     Left = 72
     Height = 25
     Top = 328
     Width = 438
     Anchors = [akTop, akLeft, akRight]
     TabOrder = 4
-    Text = 'Edit1'
+    Text = 'eName'
   end
   object Label7: TLabel
     Left = 8

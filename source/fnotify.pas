@@ -14,7 +14,7 @@ type
   TfrNotify = class(TFHEMFrame)
     Button1: TButton;
     Button2: TButton;
-    Edit1: TEdit;
+    eName: TEdit;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
@@ -22,14 +22,15 @@ type
     Label5: TLabel;
     Label6: TLabel;
     Label7: TLabel;
-    Memo1: TMemo;
-    Memo2: TMemo;
+    mEvent: TMemo;
+    mCommand: TMemo;
   private
     { private declarations }
   protected
     function GetDeviceType: string; override;
   public
     { public declarations }
+    procedure ProcessList(aList: TStrings); override;
   end;
 
 implementation
@@ -41,6 +42,14 @@ implementation
 function TfrNotify.GetDeviceType: string;
 begin
   Result := 'NOTIFY';
+end;
+
+procedure TfrNotify.ProcessList(aList: TStrings);
+var
+  tmp: String;
+begin
+  eName.Text:=FName;
+  tmp := aList.Text;
 end;
 
 initialization

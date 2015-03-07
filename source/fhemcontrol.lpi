@@ -60,7 +60,6 @@
       <Unit2>
         <Filename Value="Utils.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="Utils"/>
       </Unit2>
       <Unit3>
         <Filename Value="ufhemframe.pas"/>
@@ -68,12 +67,12 @@
         <UnitName Value="uFhemFrame"/>
       </Unit3>
       <Unit4>
-        <Filename Value="fnotify.pas"/>
+        <Filename Value="fdoif.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="frNotify"/>
+        <ComponentName Value="frDOIF"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fNotify"/>
+        <UnitName Value="fDoIf"/>
       </Unit4>
       <Unit5>
         <Filename Value="fpgeneric.pas"/>
