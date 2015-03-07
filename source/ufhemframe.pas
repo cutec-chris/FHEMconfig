@@ -34,6 +34,7 @@ type
   protected
     FName: string;
     function ExecCommand(aCmd : string) : string;
+    function ChangeValue(aValue : string) : string;
     procedure Change;
     function GetDeviceType: string;virtual;abstract;
   public
@@ -106,6 +107,11 @@ end;
 function TFHEMFrame.ExecCommand(aCmd: string): string;
 begin
   Result := fMain.ExecCommand(aCmd,fMain.eServer.Text);
+end;
+
+function TFHEMFrame.ChangeValue(aValue: string): string;
+begin
+  Result := fMain.ChangeVal(FName,aValue);
 end;
 
 procedure TFHEMFrame.Change;

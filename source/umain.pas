@@ -122,6 +122,7 @@ type
     { public declarations }
     function BuildConnStr(aServer : string) : string;
     function LoadHTML(aFile: string): string;
+    function ChangeVal(aDevice:string;aDetail : string) : string;
     function ExecCommand(aCommand: string; aServer: string): string;
   end;
 
@@ -681,6 +682,31 @@ begin
           Result := sl.Text;
           sl.Free;
         end;
+    end;
+end;
+
+function TfMain.ChangeVal(aDevice: string; aDetail: string): string;
+var
+  url: String;
+  sl: TStringList;
+begin
+  result := 'Error';
+  url := BuildConnStr(eServer.Text)+'/fhem?detail='+aDevice;
+  debugln(url);
+  Server.Clear;
+  sl := TStringList.Create;
+  sl.Assign(eConfig.Lines);
+  sl.TextLineBreakStyle:=tlbsCRLF;
+  WriteStrToStream(Server.Document, aDetail);
+  sl.Free;
+  Server.MimeType := 'application/x-www-form-urlencoded';
+  if Server.HTTPMethod('POST',url) then
+    begin
+      if Server.ResultCode=200 then
+        begin
+          result := '';
+        end
+      else Result := IntToStr(Server.ResultCode)+' '+Server.ResultString;
     end;
 end;
 
