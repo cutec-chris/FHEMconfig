@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, Buttons, uFhemFrame,
-  Dialogs;
+  Dialogs, ExtCtrls;
 
 type
 
@@ -14,7 +14,6 @@ type
 
   TfrAt = class(TFHEMFrame)
     bSave: TSpeedButton;
-    bTestEvent: TButton;
     bTestCondition: TButton;
     eName: TEdit;
     Label1: TLabel;
@@ -24,10 +23,14 @@ type
     Label5: TLabel;
     Label6: TLabel;
     Label7: TLabel;
+    Label8: TLabel;
+    lStatus: TLabel;
     mEvent: TMemo;
     mCommand: TMemo;
+    Timer1: TTimer;
     procedure bSaveClick(Sender: TObject);
     procedure bTestConditionClick(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
   private
     { private declarations }
   protected
@@ -53,12 +56,17 @@ begin
   if Res<>'' then Showmessage(Res);
 end;
 
+procedure TfrAt.Timer1Timer(Sender: TObject);
+begin
+  lStatus.Caption:=Device.Status;
+end;
+
 procedure TfrAt.bSaveClick(Sender: TObject);
 var
   aRes: String;
   aDef: String;
 begin
-  aDef := '('+mEvent.Text+') ('+mCommand.Text+')';
+  aDef := mEvent.Text+' '+mCommand.Text;
   aRes := ChangeValue('detail='+FName+'&val.modify'+FName+'='+HTTPEncode(aDef)+'&cmd.modify'+FName+'=modify+'+FName);
   if aRes <> '' then
     Showmessage(aRes);

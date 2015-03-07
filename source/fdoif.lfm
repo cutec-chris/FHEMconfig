@@ -39,16 +39,6 @@ object frDOIF: TfrDOIF
     ParentFont = False
     TabOrder = 0
   end
-  object bCommandTest: TButton
-    Left = 529
-    Height = 25
-    Top = 40
-    Width = 75
-    Anchors = [akTop, akRight]
-    Caption = 'Testen'
-    Enabled = False
-    TabOrder = 1
-  end
   object Label3: TLabel
     Left = 8
     Height = 15
@@ -67,31 +57,6 @@ object frDOIF: TfrDOIF
     Caption = 'Was soll passieren ?'
     ParentColor = False
   end
-  object mIF: TMemo
-    Left = 24
-    Height = 66
-    Top = 152
-    Width = 497
-    Anchors = [akTop, akLeft, akRight]
-    Font.Height = -15
-    Font.Name = 'Courier'
-    Font.Pitch = fpFixed
-    Lines.Strings = (
-      'Memo1'
-    )
-    ParentFont = False
-    TabOrder = 2
-  end
-  object bTestIf: TButton
-    Left = 529
-    Height = 25
-    Top = 152
-    Width = 75
-    Anchors = [akTop, akRight]
-    Caption = 'Testen'
-    OnClick = bTestIfClick
-    TabOrder = 3
-  end
   object Label6: TLabel
     Left = 8
     Height = 15
@@ -109,51 +74,8 @@ object frDOIF: TfrDOIF
     Width = 379
     Anchors = [akTop, akLeft, akRight]
     Enabled = False
-    TabOrder = 4
+    TabOrder = 1
     Text = 'eName'
-  end
-  object Label5: TLabel
-    Left = 8
-    Height = 15
-    Top = 232
-    Width = 269
-    Caption = 'Befehl wenn nicht Bedingung (DOELSE)'
-    Font.Style = [fsBold]
-    ParentColor = False
-    ParentFont = False
-  end
-  object Label7: TLabel
-    Left = 296
-    Height = 15
-    Top = 232
-    Width = 118
-    Caption = 'Was soll passieren ?'
-    ParentColor = False
-  end
-  object mElse: TMemo
-    Left = 24
-    Height = 66
-    Top = 256
-    Width = 497
-    Anchors = [akTop, akLeft, akRight]
-    Font.Height = -15
-    Font.Name = 'Courier'
-    Font.Pitch = fpFixed
-    Lines.Strings = (
-      'Memo1'
-    )
-    ParentFont = False
-    TabOrder = 5
-  end
-  object bElseIfTest: TButton
-    Left = 529
-    Height = 25
-    Top = 256
-    Width = 75
-    Anchors = [akTop, akRight]
-    Caption = 'Testen'
-    OnClick = bElseIfTestClick
-    TabOrder = 6
   end
   object bSave: TSpeedButton
     Left = 472
@@ -199,5 +121,44 @@ object frDOIF: TfrDOIF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
     }
     OnClick = bSaveClick
+  end
+  object mIF: TMemo
+    Left = 24
+    Height = 170
+    Top = 152
+    Width = 497
+    Anchors = [akTop, akLeft, akRight]
+    Font.Height = -15
+    Font.Name = 'Courier'
+    Font.Pitch = fpFixed
+    Lines.Strings = (
+      'Memo1'
+    )
+    ParentFont = False
+    TabOrder = 2
+  end
+  object Label5: TLabel
+    Left = 536
+    Height = 15
+    Top = 16
+    Width = 39
+    Anchors = [akTop, akRight]
+    Caption = 'Status'
+    ParentColor = False
+  end
+  object lStatus: TLabel
+    Left = 540
+    Height = 15
+    Top = 40
+    Width = 66
+    Anchors = [akTop, akRight]
+    AutoSize = False
+    Caption = 'unbekannt'
+    ParentColor = False
+  end
+  object Timer1: TTimer
+    OnTimer = Timer1Timer
+    left = 552
+    top = 96
   end
 end

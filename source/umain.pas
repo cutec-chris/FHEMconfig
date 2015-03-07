@@ -447,6 +447,8 @@ begin
   lbLog.AddItem(StringReplace(aInfo,'<br>','',[]),nil);
   lbLog.ItemIndex:=lbLog.Count-1;
   lbLog.MakeCurrentVisible;
+  if Assigned(FFrame) then
+    FFrame.LogReceived(StringReplace(aInfo,'<br>','',[]));
 end;
 
 procedure TfMain.ServerSockStatus(Sender: TObject; Reason: THookSocketReason;
@@ -762,7 +764,7 @@ begin
   Server.MimeType := 'application/x-www-form-urlencoded';
   if Server.HTTPMethod('POST',url) then
     begin
-      if Server.ResultCode=200 then
+      if (Server.ResultCode=200) or (Server.ResultCode=302) then
         begin
           result := '';
         end

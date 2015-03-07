@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, IpHtml, Ipfilebroker, Forms, Controls, Graphics,
-  Dialogs, ComCtrls, StdCtrls, ButtonPanel;
+  Dialogs, ComCtrls, StdCtrls, ButtonPanel,uMain;
 
 type
 
@@ -86,7 +86,7 @@ var
 
 implementation
 
-uses uMain,RegExpr,Utils;
+uses RegExpr,Utils;
 
 {$R *.lfm}
 

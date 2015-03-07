@@ -14,7 +14,6 @@ type
 
   TfrNotify = class(TFHEMFrame)
     bSave: TSpeedButton;
-    bTestEvent: TButton;
     bTestCondition: TButton;
     eName: TEdit;
     Label1: TLabel;
@@ -24,10 +23,13 @@ type
     Label5: TLabel;
     Label6: TLabel;
     Label7: TLabel;
+    Label8: TLabel;
+    lbLog: TListBox;
     mEvent: TMemo;
     mCommand: TMemo;
     procedure bSaveClick(Sender: TObject);
     procedure bTestConditionClick(Sender: TObject);
+    procedure mEventChange(Sender: TObject);
   private
     { private declarations }
   protected
@@ -35,11 +37,12 @@ type
   public
     { public declarations }
     procedure ProcessList(aList: TStrings); override;
+    procedure LogReceived(aLog: string); override;
   end;
 
 implementation
 
-uses Utils;
+uses Utils,RegExpr;
 
 {$R *.lfm}
 
@@ -51,6 +54,11 @@ var
 begin
   Res := ExecCommand(mCommand.Text);
   if Res<>'' then Showmessage(Res);
+end;
+
+procedure TfrNotify.mEventChange(Sender: TObject);
+begin
+  lbLog.Clear;
 end;
 
 procedure TfrNotify.bSaveClick(Sender: TObject);
@@ -90,6 +98,19 @@ begin
   mCommand.Text:=trim(tmp);
   if copy(mCommand.Text,0,1)='(' then
     mCommand.Text := copy(mCommand.Text,2,length(mCommand.Text)-2);
+end;
+
+procedure TfrNotify.LogReceived(aLog: string);
+begin
+  try
+  if ExecRegExpr(StringReplace(mEvent.Text,':','(.*)',[]),aLog) then
+    begin
+      aLog := copy(aLog,pos(' ',aLog)+1,length(aLog));
+      aLog := copy(aLog,pos(' ',aLog)+1,length(aLog));
+      lbLog.Items.Add(aLog);
+    end;
+  except
+  end;
 end;
 
 initialization

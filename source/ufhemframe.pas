@@ -42,6 +42,7 @@ type
     property Device : TDevice read FDevice write SetDevice;
     property DeviceType : string read GetDeviceType;
     procedure ProcessList(aList : TStrings);virtual;
+    procedure LogReceived(aLog : string);virtual;
   end;
   TFHEMFrameClass = class of TFHEMFrame;
 
@@ -120,6 +121,11 @@ begin
 end;
 
 procedure TFHEMFrame.ProcessList(aList: TStrings);
+begin
+
+end;
+
+procedure TFHEMFrame.LogReceived(aLog: string);
 begin
 
 end;

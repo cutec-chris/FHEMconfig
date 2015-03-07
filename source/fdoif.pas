@@ -6,16 +6,13 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, uFhemFrame,
-  Dialogs, Buttons;
+  Dialogs, Buttons, ExtCtrls;
 
 type
 
   { TfrDOIF }
 
   TfrDOIF = class(TFHEMFrame)
-    bCommandTest: TButton;
-    bTestIf: TButton;
-    bElseIfTest: TButton;
     eName: TEdit;
     Label1: TLabel;
     Label2: TLabel;
@@ -23,14 +20,14 @@ type
     Label4: TLabel;
     Label5: TLabel;
     Label6: TLabel;
-    Label7: TLabel;
-    mElse: TMemo;
+    lStatus: TLabel;
     mEvent: TMemo;
-    mIF: TMemo;
     bSave: TSpeedButton;
-    procedure bElseIfTestClick(Sender: TObject);
+    mIF: TMemo;
+    Timer1: TTimer;
     procedure bTestIfClick(Sender: TObject);
     procedure bSaveClick(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
   private
     { private declarations }
   protected
@@ -61,20 +58,15 @@ var
   aRes: String;
   aDef: String;
 begin
-  aDef := '('+mEvent.Text+') ('+mIF.Text+')';
-  if mElse.Text<>'' then
-    aDef := aDef+' ELSEIF ('+mElse.Text+')';
+  aDef := '('+mEvent.Text+') '+mIF.Text;
   aRes := ChangeValue('detail='+FName+'&val.modify'+FName+'='+HTTPEncode(aDef)+'&cmd.modify'+FName+'=modify+'+FName);
   if aRes <> '' then
     Showmessage(aRes);
 end;
 
-procedure TfrDOIF.bElseIfTestClick(Sender: TObject);
-var
-  Res: String;
+procedure TfrDOIF.Timer1Timer(Sender: TObject);
 begin
-  Res := ExecCommand(mElse.Text);
-  if Res<>'' then Showmessage(Res);
+  lStatus.Caption:=Device.Status;
 end;
 
 function TfrDOIF.GetDeviceType: string;
@@ -100,17 +92,7 @@ begin
       mEvent.Text:=copy(tmp,1,pos(' ',tmp)-1);
       tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
     end;
-  if pos('DOELSE',tmp)>0 then
-    begin
-      mIF.Text:=trim(copy(tmp,0,pos('DOELSE',tmp)-1));
-      tmp := copy(tmp,pos('DOELSE',tmp)+6,length(tmp));
-      mElse.Text:=trim(copy(tmp,0,length(tmp)));
-      if copy(mElse.Text,0,1)='(' then
-        mElse.Text := copy(mElse.Text,2,length(mElse.Text)-2);
-    end
-  else mIF.Text:=trim(tmp);
-  if copy(mIF.Text,0,1)='(' then
-    mIF.Text := copy(mIF.Text,2,length(mIF.Text)-2);
+  mIF.Text:=trim(tmp);
 end;
 
 initialization

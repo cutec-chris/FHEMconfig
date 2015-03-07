@@ -28,7 +28,7 @@ object frNotify: TfrNotify
     Left = 24
     Height = 66
     Top = 40
-    Width = 486
+    Width = 326
     Anchors = [akTop, akLeft, akRight]
     Font.Height = -15
     Font.Name = 'Courier'
@@ -36,18 +36,9 @@ object frNotify: TfrNotify
     Lines.Strings = (
       'Memo1'
     )
+    OnChange = mEventChange
     ParentFont = False
     TabOrder = 0
-  end
-  object bTestEvent: TButton
-    Left = 518
-    Height = 25
-    Top = 40
-    Width = 75
-    Anchors = [akTop, akRight]
-    Caption = 'Testen'
-    Enabled = False
-    TabOrder = 1
   end
   object Label3: TLabel
     Left = 8
@@ -88,7 +79,7 @@ object frNotify: TfrNotify
       'Memo1'
     )
     ParentFont = False
-    TabOrder = 2
+    TabOrder = 1
   end
   object bTestCondition: TButton
     Left = 518
@@ -98,7 +89,7 @@ object frNotify: TfrNotify
     Anchors = [akTop, akRight]
     Caption = 'Testen'
     OnClick = bTestConditionClick
-    TabOrder = 3
+    TabOrder = 2
   end
   object Label6: TLabel
     Left = 11
@@ -117,7 +108,7 @@ object frNotify: TfrNotify
     Width = 376
     Anchors = [akTop, akLeft, akRight]
     Enabled = False
-    TabOrder = 4
+    TabOrder = 3
     Text = 'eName'
   end
   object Label7: TLabel
@@ -172,5 +163,28 @@ object frNotify: TfrNotify
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
     }
     OnClick = bSaveClick
+  end
+  object lbLog: TListBox
+    Left = 360
+    Height = 66
+    Top = 40
+    Width = 233
+    Anchors = [akTop, akRight]
+    Font.Height = -11
+    ItemHeight = 0
+    ParentFont = False
+    ScrollWidth = 231
+    TabOrder = 4
+    TopIndex = -1
+  end
+  object Label8: TLabel
+    Left = 360
+    Height = 15
+    Top = 16
+    Width = 216
+    Anchors = [akTop, akRight]
+    AutoSize = False
+    Caption = 'zutreffende Ereignisse aus dem Log'
+    ParentColor = False
   end
 end
