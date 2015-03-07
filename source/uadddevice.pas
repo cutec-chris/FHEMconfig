@@ -59,8 +59,11 @@ type
     procedure eSearchExit(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDeactivate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
     procedure TSimpleIpHtmlGetImageX(Sender: TIpHtmlNode; const URL: string;
       var Picture: TPicture);
+    procedure tvMainCustomDrawItem(Sender: TCustomTreeView; Node: TTreeNode;
+      State: TCustomDrawState; var DefaultDraw: Boolean);
     procedure tvMainSelectionChanged(Sender: TObject);
   private
     { private declarations }
@@ -167,6 +170,7 @@ begin
   for i := 0 to fAddDevice.Modules.Count-1 do
     with TModule(fAddDevice.Modules[i]) do
       begin
+        if Terminated then exit;
         aSecTp := 'desc';
         tmp1 := '<a name="'+Name+'">';
         aSec := copy(tmp,pos(tmp1,tmp)+9,length(tmp));
@@ -235,6 +239,16 @@ begin
   Modules := TList.Create;
 end;
 
+procedure TfAddDevice.FormDeactivate(Sender: TObject);
+begin
+
+end;
+
+procedure TfAddDevice.FormDestroy(Sender: TObject);
+begin
+  Modules.Free;
+end;
+
 procedure TfAddDevice.aThreadAddDevice(Sender: TObject);
 var
   aNode : TTreeNode = nil;
@@ -294,15 +308,19 @@ begin
     end;
 end;
 
-procedure TfAddDevice.FormDeactivate(Sender: TObject);
-begin
-  Modules.Free;
-end;
-
 procedure TfAddDevice.TSimpleIpHtmlGetImageX(Sender: TIpHtmlNode;
   const URL: string; var Picture: TPicture);
 begin
   Picture:=nil;
+end;
+
+procedure TfAddDevice.tvMainCustomDrawItem(Sender: TCustomTreeView;
+  Node: TTreeNode; State: TCustomDrawState; var DefaultDraw: Boolean);
+begin
+  DefaultDraw:=True;
+  Sender.Font.Color:=clWindowText;
+  if Assigned(Node.Data) and (TModule(Node.Data).Description='') then
+    Sender.Font.Color:=clSilver;
 end;
 
 procedure TfAddDevice.tvMainSelectionChanged(Sender: TObject);

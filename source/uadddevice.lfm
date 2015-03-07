@@ -8,6 +8,7 @@ object fAddDevice: TfAddDevice
   ClientWidth = 773
   OnCreate = FormCreate
   OnDeactivate = FormDeactivate
+  OnDestroy = FormDestroy
   LCLVersion = '1.5'
   object tvMain: TTreeView
     Left = 8
@@ -17,6 +18,7 @@ object fAddDevice: TfAddDevice
     Anchors = [akTop, akLeft, akBottom]
     DefaultItemHeight = 18
     TabOrder = 0
+    OnCustomDrawItem = tvMainCustomDrawItem
     OnSelectionChanged = tvMainSelectionChanged
   end
   object eSearch: TEdit

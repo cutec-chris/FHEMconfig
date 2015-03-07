@@ -97,7 +97,7 @@ begin
     end
   else
     begin
-      mEvent.Text:=copy(tmp,2,pos(' ',tmp)-1);
+      mEvent.Text:=copy(tmp,1,pos(' ',tmp)-1);
       tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
     end;
   if pos('DOELSE',tmp)>0 then

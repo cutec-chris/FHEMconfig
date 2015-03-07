@@ -23,9 +23,12 @@ type
     FPos : Integer;
     FBuffer : string;
     FInfo : string;
+    FList: TStringList;
     FLog: THTTPSend;
     FServer: String;
     procedure Info;
+    procedure RefreshTree;
+    procedure DoRefreshTree;
   public
     constructor Create(aServer: string);
     procedure Execute; override;
@@ -176,6 +179,7 @@ begin
       FInfo := copy(FBuffer,0,pos(#10,FBuffer)-1);
       FBuffer := copy(FBuffer,pos(#10,FBuffer)+1,length(FBuffer));
       Synchronize(@Info);
+      RefreshTree;
     end;
 end;
 
@@ -183,6 +187,28 @@ procedure TLogThread.Info;
 begin
   if Assigned(FOnInfo) then
     FOnInfo(FInfo);
+end;
+
+procedure TLogThread.RefreshTree;
+var
+  anHTTP: THTTPSend;
+begin
+  anHTTP := THTTPSend.Create;
+  anHTTP.HTTPMethod('GET',FServer+'/fhem?XHR=1&cmd=list');
+  if anHTTP.ResultCode=200 then
+    begin
+      FList := TStringList.Create;
+      FList.LoadFromStream(anHTTP.Document);
+      Synchronize(@DoRefreshTree);
+      FList.Free;
+    end;
+  anHTTP.Free;
+end;
+
+procedure TLogThread.DoRefreshTree;
+begin
+  fMain.RefreshTree(FList);
+  fMain.tvMain.Invalidate;
 end;
 
 constructor TLogThread.Create(aServer : string);
@@ -556,6 +582,7 @@ var
   b: Integer;
   Node: TTreeNode;
   aDevice: TTreeNode = nil;
+  tmp: String;
 
   procedure SelectCategory(aCat : string);
   var
@@ -587,6 +614,7 @@ var
   begin
     aName := copy(trim(aDev),0,pos(' ',trim(aDev))-1);
     aStatus := trim(copy(trim(aDev),pos(' ',trim(aDev))+1,length(aDev)));
+    if not Assigned(Category) then exit;
     for a := 0 to Category.Count-1 do
       if TDevice(Category.Items[a].Data).Name=aName then
         begin
@@ -626,7 +654,10 @@ begin
           SelectCategory(copy(sl[i],0,length(sl[i])-1))
         end
       else
-        AddDevice(sl[i]);
+        begin
+          tmp := sl[i];
+          AddDevice(tmp);
+        end;
     end;
   tvMain.EndUpdate;
   if SelectLast and Assigned(aDevice) then tvMain.Selected:=aDevice;

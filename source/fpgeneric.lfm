@@ -2,28 +2,28 @@ object fGeneric: TfGeneric
   Left = 548
   Height = 512
   Top = 243
-  Width = 574
+  Width = 600
   ClientHeight = 512
-  ClientWidth = 574
+  ClientWidth = 600
   Color = clWhite
   LCLVersion = '1.5'
   object Panel1: TPanel
     Left = 8
     Height = 161
     Top = 112
-    Width = 558
+    Width = 584
     Align = alTop
     BorderSpacing.Around = 8
     BevelOuter = bvNone
     Caption = 'Panel1'
     ClientHeight = 161
-    ClientWidth = 558
+    ClientWidth = 584
     TabOrder = 0
     object Label1: TLabel
       Left = 0
       Height = 15
       Top = 0
-      Width = 558
+      Width = 584
       Align = alTop
       Caption = 'Attribute'
       Font.Style = [fsBold]
@@ -34,7 +34,7 @@ object fGeneric: TfGeneric
       Left = 0
       Height = 146
       Top = 15
-      Width = 558
+      Width = 584
       Align = alClient
       DefaultColWidth = 200
       FixedCols = 0
@@ -50,7 +50,7 @@ object fGeneric: TfGeneric
       )
       ColWidths = (
         278
-        278
+        304
       )
     end
   end
@@ -58,19 +58,19 @@ object fGeneric: TfGeneric
     Left = 8
     Height = 127
     Top = 281
-    Width = 558
+    Width = 584
     Align = alTop
     BorderSpacing.Around = 8
     BevelOuter = bvNone
     Caption = 'Panel2'
     ClientHeight = 127
-    ClientWidth = 558
+    ClientWidth = 584
     TabOrder = 1
     object vReadings: TValueListEditor
       Left = 0
       Height = 112
       Top = 15
-      Width = 558
+      Width = 584
       Align = alClient
       DefaultColWidth = 200
       FixedCols = 0
@@ -84,14 +84,14 @@ object fGeneric: TfGeneric
       )
       ColWidths = (
         200
-        356
+        382
       )
     end
     object Label2: TLabel
       Left = 0
       Height = 15
       Top = 0
-      Width = 558
+      Width = 584
       Align = alTop
       Caption = 'gelesene Werte (Readings)'
       Font.Style = [fsBold]
@@ -103,19 +103,19 @@ object fGeneric: TfGeneric
     Left = 8
     Height = 88
     Top = 416
-    Width = 558
+    Width = 584
     Align = alClient
     BorderSpacing.Around = 8
     BevelOuter = bvNone
     Caption = 'Panel3'
     ClientHeight = 88
-    ClientWidth = 558
+    ClientWidth = 584
     TabOrder = 2
     object Label3: TLabel
       Left = 0
       Height = 15
       Top = 0
-      Width = 558
+      Width = 584
       Align = alTop
       Caption = 'Interne Werte (Internals)'
       Font.Style = [fsBold]
@@ -126,7 +126,7 @@ object fGeneric: TfGeneric
       Left = 0
       Height = 73
       Top = 15
-      Width = 558
+      Width = 584
       Align = alClient
       DefaultColWidth = 200
       FixedCols = 0
@@ -140,7 +140,7 @@ object fGeneric: TfGeneric
       )
       ColWidths = (
         200
-        356
+        382
       )
     end
   end
@@ -148,11 +148,11 @@ object fGeneric: TfGeneric
     Left = 0
     Height = 104
     Top = 0
-    Width = 574
+    Width = 600
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 104
-    ClientWidth = 574
+    ClientWidth = 600
     TabOrder = 3
     object Label4: TLabel
       Left = 8
@@ -166,12 +166,12 @@ object fGeneric: TfGeneric
       Left = 8
       Height = 25
       Top = 24
-      Width = 376
+      Width = 322
       Anchors = [akTop, akLeft, akRight]
       TabOrder = 0
     end
     object Label5: TLabel
-      Left = 390
+      Left = 338
       Height = 15
       Top = 8
       Width = 176
@@ -181,7 +181,7 @@ object fGeneric: TfGeneric
       ParentColor = False
     end
     object cbRoom: TComboBox
-      Left = 390
+      Left = 338
       Height = 27
       Top = 24
       Width = 176
@@ -203,12 +203,12 @@ object fGeneric: TfGeneric
       Left = 200
       Height = 25
       Top = 72
-      Width = 168
+      Width = 194
       Anchors = [akTop, akLeft, akRight]
       TabOrder = 3
     end
     object cbGet: TComboBox
-      Left = 376
+      Left = 402
       Height = 27
       Top = 72
       Width = 190
@@ -228,7 +228,7 @@ object fGeneric: TfGeneric
       ParentFont = False
     end
     object lGet: TLabel
-      Left = 376
+      Left = 402
       Height = 15
       Top = 56
       Width = 190
@@ -246,6 +246,36 @@ object fGeneric: TfGeneric
       Top = 72
       Width = 28
       Caption = '<'
+    end
+    object Panel5: TPanel
+      Left = 530
+      Height = 48
+      Top = 6
+      Width = 56
+      BevelOuter = bvLowered
+      ClientHeight = 48
+      ClientWidth = 56
+      TabOrder = 6
+      Visible = False
+      object Image1: TImage
+        Left = 1
+        Height = 46
+        Top = 1
+        Width = 54
+        Align = alClient
+        Anchors = [akTop, akRight]
+      end
+    end
+    object Button1: TButton
+      Left = 570
+      Height = 27
+      Top = 40
+      Width = 22
+      Anchors = [akTop, akRight]
+      AutoSize = True
+      Caption = '...'
+      TabOrder = 5
+      Visible = False
     end
   end
 end

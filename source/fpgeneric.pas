@@ -13,11 +13,13 @@ type
   { TfGeneric }
 
   TfGeneric = class(TFHEMFrame)
+    Button1: TButton;
     cbRoom: TComboBox;
     cbSet: TComboBox;
     cbGet: TComboBox;
     eSet: TEdit;
     eName: TEdit;
+    Image1: TImage;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
@@ -30,6 +32,7 @@ type
     Panel3: TPanel;
     Panel4: TPanel;
     bSet: TSpeedButton;
+    Panel5: TPanel;
     vAttributes: TValueListEditor;
     vReadings: TValueListEditor;
     vInternals: TValueListEditor;
@@ -51,6 +54,8 @@ type
   end;
 
 implementation
+
+uses fpvectorial,svgvectorialreader;
 
 {$R *.lfm}
 
