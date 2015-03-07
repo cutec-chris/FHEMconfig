@@ -35,7 +35,6 @@ type
     FName: string;
     function ExecCommand(aCmd : string) : string;
     function ChangeValue(aValue : string) : string;
-    procedure Change;
     function GetDeviceType: string;virtual;abstract;
   public
     property Name : string read FName write SetName;
@@ -43,6 +42,8 @@ type
     property DeviceType : string read GetDeviceType;
     procedure ProcessList(aList : TStrings);virtual;
     procedure LogReceived(aLog : string);virtual;
+    function GetFirstParam(aParam : string) : string;
+    procedure Change;
   end;
   TFHEMFrameClass = class of TFHEMFrame;
 
@@ -128,6 +129,31 @@ end;
 procedure TFHEMFrame.LogReceived(aLog: string);
 begin
 
+end;
+
+function TFHEMFrame.GetFirstParam(aParam: string): string;
+var
+  aChar: Char;
+  bChar: Char;
+  InParam : Integer = 0;
+begin
+  Result := '';
+  aParam:=trim(aParam);
+  aChar := copy(aParam,0,1)[1];
+  if (aChar <> '(')
+  and (aChar <> '{') then
+    begin
+      exit;
+    end;
+  if aChar='(' then bChar := ')';
+  if aChar='{' then bChar := '}';
+  while ((copy(aParam,0,1)<>' ') or (InParam>0)) and (aParam<>'') do
+    begin
+      Result := Result+copy(aParam,0,1);
+      if copy(aParam,0,1)=aChar then inc(InParam);
+      if copy(aParam,0,1)=bChar then dec(InParam);
+      aParam:=copy(aParam,2,length(aParam));
+    end;
 end;
 
 finalization

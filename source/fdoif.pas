@@ -61,7 +61,8 @@ begin
   aDef := '('+mEvent.Text+') '+mIF.Text;
   aRes := ChangeValue('detail='+FName+'&val.modify'+FName+'='+HTTPEncode(aDef)+'&cmd.modify'+FName+'=modify+'+FName);
   if aRes <> '' then
-    Showmessage(aRes);
+    Showmessage(aRes)
+  else Change;
 end;
 
 procedure TfrDOIF.Timer1Timer(Sender: TObject);
@@ -76,16 +77,16 @@ end;
 
 procedure TfrDOIF.ProcessList(aList: TStrings);
 var
-  tmp: String;
+  tmp: String='';
   i: Integer;
 begin
   eName.Text:=FName;
   for i := 0 to aList.Count-1 do
-    if copy(trim(aList[i]),0,3)='DEF' then tmp := trim(copy(trim(aList[i]),4,length(aList[i])));
+    if Uppercase(copy(trim(aList[i]),0,3))='DEF' then tmp := trim(copy(trim(aList[i]),4,length(aList[i])));
   if Copy(tmp,0,1)='(' then
     begin
-      mEvent.Text:=copy(tmp,2,pos(') ',tmp)-2);
-      tmp := copy(tmp,pos(') ',tmp)+2,length(tmp));
+      mEvent.Text:=GetFirstParam(tmp);
+      tmp := copy(tmp,length(mEvent.Text)+1,length(tmp));
     end
   else
     begin

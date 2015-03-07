@@ -42,15 +42,18 @@ type
 
   TfAddDevice = class(TForm)
     ButtonPanel1: TButtonPanel;
-    eSearch: TEdit;
+    cbAll: TRadioButton;
+    cbName: TRadioButton;
     eDefine: TEdit;
+    eSearch: TEdit;
     ipHTML: TIpHtmlPanel;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
-    cbName: TRadioButton;
-    cbAll: TRadioButton;
     Label4: TLabel;
+    PageControl1: TPageControl;
+    tsDefine: TTabSheet;
+    Hilfe: TTabSheet;
     tvMain: TTreeView;
     procedure aThreadAddDevice(Sender: TObject);
     procedure cbAllClick(Sender: TObject);
@@ -71,6 +74,7 @@ type
     { public declarations }
     Modules: TList;
     function Execute : Boolean;
+    procedure CreateUs;
   end;
 
   { TSimpleIpHtml }
@@ -356,16 +360,9 @@ end;
 
 function TfAddDevice.Execute: Boolean;
 var
-  aThread: TFillThread;
   Res: String;
 begin
-  if not Assigned(Self) then
-    begin
-      Application.CreateForm(TfAddDevice,fAddDevice);
-      Self := fAddDevice;
-      aThread := TFillThread.Create(False);
-      aThread.OnAddDevice:=@aThreadAddDevice;
-    end;
+  CreateUs;
   Result := Showmodal = mrOK;
   while Result do
     begin
@@ -376,6 +373,19 @@ begin
           Result := Showmodal = mrOK;
         end
       else exit;
+    end;
+end;
+
+procedure TfAddDevice.CreateUs;
+var
+  aThread: TFillThread;
+begin
+  if not Assigned(Self) then
+    begin
+      Application.CreateForm(TfAddDevice,fAddDevice);
+      Self := fAddDevice;
+      aThread := TFillThread.Create(False);
+      aThread.OnAddDevice:=@aThreadAddDevice;
     end;
 end;
 

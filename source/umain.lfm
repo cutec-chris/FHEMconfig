@@ -2,26 +2,26 @@ object fMain: TfMain
   Left = 300
   Height = 636
   Top = 122
-  Width = 931
+  Width = 985
   ActiveControl = pcPages
   Caption = 'FHEMcontrol'
   ClientHeight = 636
-  ClientWidth = 931
+  ClientWidth = 985
   Color = clWhite
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  Position = poScreenCenter
+  Position = poDesktopCenter
   ShowHint = True
   LCLVersion = '1.5'
   object Panel1: TPanel
     Left = 0
     Height = 56
     Top = 0
-    Width = 931
+    Width = 985
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 56
-    ClientWidth = 931
+    ClientWidth = 985
     TabOrder = 0
     object Label3: TLabel
       Left = 8
@@ -71,17 +71,17 @@ object fMain: TfMain
     Left = 0
     Height = 580
     Top = 56
-    Width = 264
+    Width = 355
     Align = alLeft
     BevelOuter = bvNone
     ClientHeight = 580
-    ClientWidth = 264
+    ClientWidth = 355
     TabOrder = 1
     object eSearch: TEdit
       Left = 0
       Height = 25
       Top = 0
-      Width = 264
+      Width = 355
       Align = alTop
       Font.Color = clSilver
       OnChange = eSearchChange
@@ -95,7 +95,7 @@ object fMain: TfMain
       Left = 0
       Height = 555
       Top = 25
-      Width = 264
+      Width = 355
       Align = alClient
       DefaultItemHeight = 18
       PopupMenu = PopupMenu1
@@ -105,56 +105,50 @@ object fMain: TfMain
     end
   end
   object Splitter1: TSplitter
-    Left = 264
+    Left = 355
     Height = 580
     Top = 56
     Width = 5
   end
   object Panel3: TPanel
-    Left = 269
+    Left = 360
     Height = 580
     Top = 56
-    Width = 662
+    Width = 625
     Align = alClient
     BevelOuter = bvNone
     ClientHeight = 580
-    ClientWidth = 662
+    ClientWidth = 625
     TabOrder = 3
     object pcPages: TPageControl
       Left = 0
       Height = 580
       Top = 0
-      Width = 662
-      ActivePage = tsCommand
+      Width = 625
+      ActivePage = tsSelected
       Align = alClient
-      TabIndex = 1
+      TabIndex = 0
       TabOrder = 0
       object tsSelected: TTabSheet
         Caption = 'Gerät'
         ClientHeight = 547
-        ClientWidth = 656
+        ClientWidth = 619
         TabVisible = False
-        object Memo1: TMemo
-          Left = 8
-          Height = 582
-          Top = 8
-          Width = 641
-          Anchors = [akTop, akLeft, akRight, akBottom]
-          Font.Name = 'courier'
-          Font.Pitch = fpFixed
-          Lines.Strings = (
-            'Memo1'
-          )
-          ParentFont = False
-          ScrollBars = ssAutoBoth
+        object Panel5: TPanel
+          Left = 0
+          Height = 547
+          Top = 0
+          Width = 619
+          Align = alClient
+          BevelOuter = bvNone
+          Caption = 'lade...'
           TabOrder = 0
-          WordWrap = False
         end
       end
       object tsCommand: TTabSheet
         Caption = 'Kommandozeile'
         ClientHeight = 547
-        ClientWidth = 656
+        ClientWidth = 619
         OnEnter = tsCommandEnter
         object eCommand: TEdit
           Left = 0
@@ -184,7 +178,7 @@ object fMain: TfMain
       object tsLog: TTabSheet
         Caption = 'Log'
         ClientHeight = 547
-        ClientWidth = 656
+        ClientWidth = 619
         TabVisible = False
         object lbLog: TListBox
           Left = 0
@@ -201,7 +195,7 @@ object fMain: TfMain
       object tsConfig: TTabSheet
         Caption = 'Konfiguration'
         ClientHeight = 547
-        ClientWidth = 656
+        ClientWidth = 619
         OnHide = tvMainSelectionChanged
         OnShow = tsConfigShow
         TabVisible = False

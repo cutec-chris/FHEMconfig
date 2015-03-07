@@ -61,9 +61,9 @@ type
     Label3: TLabel;
     lbLog: TListBox;
     mCommand: TMemo;
-    Memo1: TMemo;
     MenuItem1: TMenuItem;
     Panel4: TPanel;
+    Panel5: TPanel;
     pcPages: TPageControl;
     Panel1: TPanel;
     Panel2: TPanel;
@@ -270,6 +270,7 @@ begin
       pcPages.ActivePage:=tsCommand;
       RefreshFileList;
       acAdd.Enabled:=True;
+      fAddDevice.CreateUs;
     end
   else Showmessage(strConnectionError+' '+Server.Sock.LastErrorDesc+' Fehlercode:'+IntToStr(Server.ResultCode));
 end;
@@ -523,16 +524,22 @@ begin
           aFrameClass := FindFrame(TDevice(tvMain.Selected.Data).ClassType);
           if aFrameClass<>nil then
             begin
+              pcPages.ActivePage:=tsSelected;
+              tsSelected.TabVisible:=True;
               FFrame := aFrameClass.Create(Self);
+              FFrame.Hide;
               FFrame.Parent := tsSelected;
               FFrame.Align:=alClient;
               FFrame.Device:=TDevice(tvMain.Selected.Data);
               sl := TStringList.Create;
-              sl.Text := ExecCommand('list '+TDevice(tvMain.Selected.Data).Name,eServer.Text);
+              while sl.Text='' do
+                begin
+                  Application.ProcessMessages;
+                  sl.Text := ExecCommand('list '+TDevice(tvMain.Selected.Data).Name,eServer.Text);
+                end;
               FFrame.ProcessList(sl);
               sl.Free;
-              tsSelected.TabVisible:=True;
-              pcPages.ActivePage:=tsSelected;
+              FFrame.Show;
             end;
         end;
       acDelete.Enabled:=True;
@@ -544,7 +551,7 @@ var
   sl: TStringList;
   aConnType: String;
 begin
-  result := '';
+  Result := 'Error';
   sl := TStringList.Create;
   Server.Clear;
   if Server.HTTPMethod('GET',BuildConnStr(aServer)+'/fhem?XHR=1&cmd='+HTTPEncode(aCommand)) then

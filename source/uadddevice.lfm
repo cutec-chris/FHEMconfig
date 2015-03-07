@@ -69,70 +69,90 @@ object fAddDevice: TfAddDevice
     TabOrder = 2
     ShowButtons = [pbOK, pbCancel, pbClose]
   end
-  object eDefine: TEdit
-    Left = 272
-    Height = 25
-    Top = 32
-    Width = 495
-    Anchors = [akLeft, akRight, akBottom]
-    TabOrder = 3
-    Text = 'define '
-  end
-  object Label3: TLabel
-    Left = 272
-    Height = 15
-    Top = 15
-    Width = 492
-    Anchors = [akLeft, akRight, akBottom]
-    AutoSize = False
-    Caption = 'Gerätedefinition'
-    Font.Style = [fsBold]
-    ParentColor = False
-    ParentFont = False
-  end
-  object ipHTML: TIpHtmlPanel
-    Left = 272
-    Height = 368
-    Top = 88
-    Width = 492
+  object PageControl1: TPageControl
+    Left = 264
+    Height = 489
+    Top = 0
+    Width = 509
+    ActivePage = tsDefine
+    Align = alRight
     Anchors = [akTop, akLeft, akRight, akBottom]
-    BorderStyle = bsSingle
-    FixedTypeface = 'Courier New'
-    DefaultTypeFace = 'default'
-    DefaultFontSize = 10
-    FlagErrors = False
-    PrintSettings.MarginLeft = 0.5
-    PrintSettings.MarginTop = 0.5
-    PrintSettings.MarginRight = 0.5
-    PrintSettings.MarginBottom = 0.5
-    TabOrder = 4
-  end
-  object cbName: TRadioButton
-    Left = 344
-    Height = 22
-    Top = 459
-    Width = 107
-    Caption = 'Beschreibung'
-    OnClick = cbAllClick
-    TabOrder = 5
-  end
-  object cbAll: TRadioButton
-    Left = 272
-    Height = 22
-    Top = 459
-    Width = 51
-    Caption = 'Alles'
-    Checked = True
-    OnClick = cbAllClick
-    TabOrder = 6
-    TabStop = True
-  end
-  object Label4: TLabel
-    Left = 272
-    Height = 15
-    Top = 72
-    Width = 26
-    Caption = 'Hilfe'
-    ParentColor = False
+    TabIndex = 0
+    TabOrder = 3
+    object tsDefine: TTabSheet
+      Caption = 'Eigenschaften'
+      TabVisible = False
+    end
+    object Hilfe: TTabSheet
+      Caption = 'Hilfe'
+      ClientHeight = 456
+      ClientWidth = 503
+      object eDefine: TEdit
+        Left = 8
+        Height = 25
+        Top = 32
+        Width = 488
+        Anchors = [akLeft, akRight, akBottom]
+        TabOrder = 0
+        Text = 'define '
+      end
+      object Label3: TLabel
+        Left = 11
+        Height = 15
+        Top = 15
+        Width = 492
+        Anchors = [akLeft, akRight, akBottom]
+        AutoSize = False
+        Caption = 'Gerätedefinition'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object ipHTML: TIpHtmlPanel
+        Left = 11
+        Height = 344
+        Top = 88
+        Width = 485
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        BorderStyle = bsSingle
+        FixedTypeface = 'Courier New'
+        DefaultTypeFace = 'default'
+        DefaultFontSize = 10
+        FlagErrors = False
+        PrintSettings.MarginLeft = 0.5
+        PrintSettings.MarginTop = 0.5
+        PrintSettings.MarginRight = 0.5
+        PrintSettings.MarginBottom = 0.5
+        TabOrder = 1
+      end
+      object cbName: TRadioButton
+        Left = 83
+        Height = 22
+        Top = 434
+        Width = 107
+        Caption = 'Beschreibung'
+        OnClick = cbAllClick
+        TabOrder = 2
+      end
+      object cbAll: TRadioButton
+        Left = 11
+        Height = 22
+        Top = 434
+        Width = 51
+        Caption = 'Alles'
+        Checked = True
+        OnClick = cbAllClick
+        TabOrder = 3
+        TabStop = True
+      end
+      object Label4: TLabel
+        Left = 11
+        Height = 15
+        Top = 72
+        Width = 26
+        Caption = 'Hilfe'
+        ParentColor = False
+      end
+    end
   end
 end

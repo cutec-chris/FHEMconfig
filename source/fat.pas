@@ -69,7 +69,8 @@ begin
   aDef := mEvent.Text+' '+mCommand.Text;
   aRes := ChangeValue('detail='+FName+'&val.modify'+FName+'='+HTTPEncode(aDef)+'&cmd.modify'+FName+'=modify+'+FName);
   if aRes <> '' then
-    Showmessage(aRes);
+    Showmessage(aRes)
+  else Change;
 end;
 
 function TfrAt.GetDeviceType: string;
