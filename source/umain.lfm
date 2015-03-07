@@ -100,6 +100,7 @@ object fMain: TfMain
       DefaultItemHeight = 18
       PopupMenu = PopupMenu1
       TabOrder = 1
+      OnAdvancedCustomDrawItem = tvMainAdvancedCustomDrawItem
       OnSelectionChanged = tvMainSelectionChanged
     end
   end
@@ -996,5 +997,9 @@ object fMain: TfMain
     object MenuItem1: TMenuItem
       Action = acDelete
     end
+  end
+  object ImageList2: TImageList
+    left = 200
+    top = 128
   end
 end

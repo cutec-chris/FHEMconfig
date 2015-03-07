@@ -54,6 +54,7 @@ type
     eSearch: TEdit;
     eServer: TComboBox;
     ImageList1: TImageList;
+    ImageList2: TImageList;
     Label3: TLabel;
     lbLog: TListBox;
     mCommand: TMemo;
@@ -103,6 +104,9 @@ type
       const Value: String);
     procedure tsConfigHide(Sender: TObject);
     procedure tsConfigShow(Sender: TObject);
+    procedure tvMainAdvancedCustomDrawItem(Sender: TCustomTreeView;
+      Node: TTreeNode; State: TCustomDrawState; Stage: TCustomDrawStage;
+      var PaintImages, DefaultDraw: Boolean);
     procedure tvMainSelectionChanged(Sender: TObject);
   private
     { private declarations }
@@ -448,6 +452,31 @@ begin
     end;
 end;
 
+procedure TfMain.tvMainAdvancedCustomDrawItem(Sender: TCustomTreeView;
+  Node: TTreeNode; State: TCustomDrawState; Stage: TCustomDrawStage;
+  var PaintImages, DefaultDraw: Boolean);
+var
+  aRect: Classes.TRect;
+  aCol: TColor;
+  al: Integer;
+begin
+  if Stage = cdPostPaint then
+    begin
+      if Assigned(Node.Data) then
+        begin
+          aRect := Node.DisplayRect(True);
+          aCol := Sender.Canvas.Font.Color;
+          Sender.Canvas.Font.Color:=clSilver;
+          al := 150;
+          if aRect.Right+10>al then
+            al := aRect.Right+10;
+          Sender.Canvas.TextOut(al,aRect.Top,TDevice(Node.Data).Status);
+          Sender.Canvas.Font.Color:=aCol;
+        end
+    end
+  else DefaultDraw:=True;
+end;
+
 procedure TfMain.tvMainSelectionChanged(Sender: TObject);
 var
   aFrameClass: TFHEMFrameClass;
@@ -557,9 +586,9 @@ var
     aStatus: String;
   begin
     aName := copy(trim(aDev),0,pos(' ',trim(aDev))-1);
-    aStatus := copy(trim(aDev),pos(' ',trim(aDev))+1,length(aDev));
+    aStatus := trim(copy(trim(aDev),pos(' ',trim(aDev))+1,length(aDev)));
     for a := 0 to Category.Count-1 do
-      if Category.Items[a].Text=aName then
+      if TDevice(Category.Items[a].Data).Name=aName then
         begin
           TDevice(Category.Items[a].Data).Status := aStatus;
           TDevice(Category.Items[a].Data).Found:=True;
