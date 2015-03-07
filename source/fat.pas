@@ -1,4 +1,4 @@
-unit fNotify;
+unit fat;
 
 {$mode objfpc}{$H+}
 
@@ -10,9 +10,9 @@ uses
 
 type
 
-  { TfrNotify }
+  { TfrAt }
 
-  TfrNotify = class(TFHEMFrame)
+  TfrAt = class(TFHEMFrame)
     bSave: TSpeedButton;
     bTestEvent: TButton;
     bTestCondition: TButton;
@@ -43,9 +43,9 @@ uses Utils;
 
 {$R *.lfm}
 
-{ TfrNotify }
+{ TfrAt }
 
-procedure TfrNotify.bTestConditionClick(Sender: TObject);
+procedure TfrAt.bTestConditionClick(Sender: TObject);
 var
   Res: String;
 begin
@@ -53,7 +53,7 @@ begin
   if Res<>'' then Showmessage(Res);
 end;
 
-procedure TfrNotify.bSaveClick(Sender: TObject);
+procedure TfrAt.bSaveClick(Sender: TObject);
 var
   aRes: String;
   aDef: String;
@@ -64,12 +64,12 @@ begin
     Showmessage(aRes);
 end;
 
-function TfrNotify.GetDeviceType: string;
+function TfrAt.GetDeviceType: string;
 begin
-  Result := 'NOTIFY';
+  Result := 'AT';
 end;
 
-procedure TfrNotify.ProcessList(aList: TStrings);
+procedure TfrAt.ProcessList(aList: TStrings);
 var
   tmp: String;
   i: Integer;
@@ -93,6 +93,6 @@ begin
 end;
 
 initialization
-  RegisterFrame(TfrNotify);
+  RegisterFrame(TfrAt);
 end.
 

@@ -73,7 +73,7 @@ begin
     begin
       SelClass:=TFHEMFrameClass(Frames[i]);
       SelFrame := SelClass.Create(nil);
-      if aClass=SelFrame.GetDeviceType then
+      if Uppercase(aClass)=UpperCase(SelFrame.GetDeviceType) then
         Result := TFHEMFrameClass(Frames[i]);
       SelFrame.Free;
     end;

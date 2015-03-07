@@ -1,23 +1,23 @@
-object frDOIF: TfrDOIF
+object frAt: TfrAt
   Left = 540
   Height = 393
   Top = 267
-  Width = 614
+  Width = 603
   ClientHeight = 393
-  ClientWidth = 614
+  ClientWidth = 603
   LCLVersion = '1.5'
   object Label1: TLabel
     Left = 8
     Height = 15
     Top = 16
-    Width = 144
-    Caption = 'Bedingung (Wenn/IF)'
+    Width = 27
+    Caption = 'Zeit'
     Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label2: TLabel
-    Left = 176
+    Left = 96
     Height = 15
     Top = 16
     Width = 254
@@ -28,7 +28,7 @@ object frDOIF: TfrDOIF
     Left = 24
     Height = 66
     Top = 40
-    Width = 497
+    Width = 486
     Anchors = [akTop, akLeft, akRight]
     Font.Height = -15
     Font.Name = 'Courier'
@@ -39,8 +39,8 @@ object frDOIF: TfrDOIF
     ParentFont = False
     TabOrder = 0
   end
-  object bCommandTest: TButton
-    Left = 529
+  object bTestEvent: TButton
+    Left = 518
     Height = 25
     Top = 40
     Width = 75
@@ -52,26 +52,34 @@ object frDOIF: TfrDOIF
   object Label3: TLabel
     Left = 8
     Height = 15
-    Top = 128
-    Width = 147
-    Caption = 'Befehl bei Bedingung'
+    Top = 176
+    Width = 43
+    Caption = 'Befehl'
     Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label4: TLabel
-    Left = 168
+    Left = 96
     Height = 15
-    Top = 128
+    Top = 176
     Width = 118
     Caption = 'Was soll passieren ?'
     ParentColor = False
   end
-  object mIF: TMemo
+  object Label5: TLabel
+    Left = 24
+    Height = 45
+    Top = 112
+    Width = 164
+    Caption = 'Beispiele:'#10'17:00:00 (17 Uhr)'#10'+00:00:10 (in 10 Minuten)'
+    ParentColor = False
+  end
+  object mCommand: TMemo
     Left = 24
     Height = 66
-    Top = 152
-    Width = 497
+    Top = 200
+    Width = 486
     Anchors = [akTop, akLeft, akRight]
     Font.Height = -15
     Font.Name = 'Courier'
@@ -82,20 +90,20 @@ object frDOIF: TfrDOIF
     ParentFont = False
     TabOrder = 2
   end
-  object bTestIf: TButton
-    Left = 529
+  object bTestCondition: TButton
+    Left = 518
     Height = 25
-    Top = 152
+    Top = 200
     Width = 75
     Anchors = [akTop, akRight]
     Caption = 'Testen'
-    OnClick = bTestIfClick
+    OnClick = bTestConditionClick
     TabOrder = 3
   end
   object Label6: TLabel
-    Left = 8
+    Left = 11
     Height = 15
-    Top = 354
+    Top = 330
     Width = 39
     Caption = 'Name'
     Font.Style = [fsBold]
@@ -103,62 +111,27 @@ object frDOIF: TfrDOIF
     ParentFont = False
   end
   object eName: TEdit
-    Left = 69
+    Left = 72
     Height = 25
-    Top = 352
-    Width = 379
+    Top = 328
+    Width = 376
     Anchors = [akTop, akLeft, akRight]
     Enabled = False
     TabOrder = 4
     Text = 'eName'
   end
-  object Label5: TLabel
-    Left = 8
-    Height = 15
-    Top = 232
-    Width = 269
-    Caption = 'Befehl wenn nicht Bedingung (DOELSE)'
-    Font.Style = [fsBold]
-    ParentColor = False
-    ParentFont = False
-  end
   object Label7: TLabel
-    Left = 296
-    Height = 15
-    Top = 232
-    Width = 118
-    Caption = 'Was soll passieren ?'
-    ParentColor = False
-  end
-  object mElse: TMemo
     Left = 24
-    Height = 66
-    Top = 256
-    Width = 497
-    Anchors = [akTop, akLeft, akRight]
-    Font.Height = -15
-    Font.Name = 'Courier'
-    Font.Pitch = fpFixed
-    Lines.Strings = (
-      'Memo1'
-    )
-    ParentFont = False
-    TabOrder = 5
-  end
-  object bElseIfTest: TButton
-    Left = 529
-    Height = 25
-    Top = 256
+    Height = 30
+    Top = 272
     Width = 75
-    Anchors = [akTop, akRight]
-    Caption = 'Testen'
-    OnClick = bElseIfTestClick
-    TabOrder = 6
+    Caption = 'Beispiele:'#10'set Lamp on'
+    ParentColor = False
   end
   object bSave: TSpeedButton
-    Left = 472
+    Left = 461
     Height = 48
-    Top = 336
+    Top = 312
     Width = 132
     Anchors = [akTop, akRight]
     Caption = 'Speichern'
