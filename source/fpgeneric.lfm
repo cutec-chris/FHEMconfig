@@ -60,6 +60,7 @@ object fGeneric: TfGeneric
       Top = 37
       Width = 23
       Action = acAddAttr
+      Anchors = [akTop, akRight]
       ShowCaption = False
     end
   end

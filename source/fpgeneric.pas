@@ -101,6 +101,9 @@ begin
     begin
       ExecCommand('attr '+FName+' '+fAttrEditor.cbType.Text+' '+fAttrEditor.cbValue.Text);
       vAttributes.Values[fAttrEditor.cbType.Text]:=fAttrEditor.cbValue.Text;
+      TPanel(vAttributes.Parent).Height := (vAttributes.RowCount*vAttributes.DefaultRowHeight)+Label1.Height+2;
+      if TPanel(vAttributes.Parent).Height>(Self.Height div 4) then
+        TPanel(vAttributes.Parent).Height := Self.Height div 4;
     end;
 end;
 

@@ -52,7 +52,7 @@ type
     bConnect2: TSpeedButton;
     bConnect3: TSpeedButton;
     cbFile: TComboBox;
-    eCommand: TEdit;
+    eCommand: TSynMemo;
     eSearchC: TEdit;
     eSearch: TEdit;
     eServer: TComboBox;
@@ -98,6 +98,7 @@ type
     procedure eSearchChange(Sender: TObject);
     procedure eSearchEnter(Sender: TObject);
     procedure eSearchExit(Sender: TObject);
+    procedure eServerKeyPress(Sender: TObject; var Key: char);
     procedure eServerSelect(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -139,6 +140,7 @@ type
     function ExecCommand(aCommand: string; aServer: string): string;
     function GetDeviceList : TStrings;
     function GetDeviceParams(aDevice : string) : TStrings;
+    function ListModules : string;
   end;
 
 var
@@ -429,11 +431,18 @@ begin
     end;
 end;
 
+procedure TfMain.eServerKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key=#13 then
+    acConnect.Execute;
+end;
+
 procedure TfMain.eServerSelect(Sender: TObject);
 begin
   tvMain.Items.Clear;
   ConnType:='http://';
   eConfig.Lines.Text:='';
+  acConnect.Execute;
 end;
 
 procedure TfMain.FormCreate(Sender: TObject);
@@ -637,6 +646,11 @@ begin
         end
       else Result.Delete(i);
     end;
+end;
+
+function TfMain.ListModules: string;
+begin
+  result := ExecCommand('{my $dir = AttrVal("global" , "modpath",".")."/FHEM";;my $string = "";;my $ret = opendir(DIR, $dir) or return "error: ".$!;;while (my $file = readdir(DIR)){next unless (-f "$dir/$file");;next unless ($file =~ m/\d\d_.*\.pm$/);;$string = $string."$file\n"}closedir(DIR);;return $string}',eServer.Text);
 end;
 
 function TfMain.Refresh : Boolean;
