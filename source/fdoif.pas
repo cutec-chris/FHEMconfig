@@ -81,6 +81,7 @@ var
   i: Integer;
 begin
   eName.Text:=FName;
+  tmp := aList.Text;
   for i := 0 to aList.Count-1 do
     if Uppercase(copy(trim(aList[i]),0,3))='DEF' then tmp := trim(copy(trim(aList[i]),4,length(aList[i])));
   if Copy(tmp,0,1)='(' then

@@ -63,7 +63,6 @@
       <Unit2>
         <Filename Value="Utils.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="Utils"/>
       </Unit2>
       <Unit3>
         <Filename Value="ufhemframe.pas"/>
@@ -141,7 +140,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="6">
+    <Exceptions Count="7">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -160,6 +159,9 @@
       <Item6>
         <Name Value="ERegExpr"/>
       </Item6>
+      <Item7>
+        <Name Value="Exception"/>
+      </Item7>
     </Exceptions>
   </Debugging>
 </CONFIG>

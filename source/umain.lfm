@@ -101,6 +101,7 @@ object fMain: TfMain
       PopupMenu = PopupMenu1
       TabOrder = 1
       OnAdvancedCustomDrawItem = tvMainAdvancedCustomDrawItem
+      OnEditing = tvMainEditing
       OnSelectionChanged = tvMainSelectionChanged
     end
   end

@@ -53,7 +53,7 @@ type
     Label4: TLabel;
     PageControl1: TPageControl;
     tsDefine: TTabSheet;
-    Hilfe: TTabSheet;
+    Allgemein: TTabSheet;
     tvMain: TTreeView;
     procedure aThreadAddDevice(Sender: TObject);
     procedure cbAllClick(Sender: TObject);
@@ -190,15 +190,11 @@ begin
                 if pos('Leider keine deutsche',tmp1)>0 then
                   begin
                     tmp1 := '';
-                    aSec := fMain.ExecCommand('help '+Name,fMain.eServer.Text);
-                    if pos('<b>',aSec)=0 then
-                      begin
-                        if tmpEN='' then
-                          tmpEN := fMain.LoadHTML('/docs/commandref.html');
-                        tmp1 := '<a name="'+Name+'">';
-                        aSec := copy(tmpEN,pos(tmp1,tmpEN)+9,length(tmpEN));
-                        aSec := copy(aSec,pos('</a>',aSec)+4,length(aSec));
-                      end;
+                    if tmpEN='' then
+                      tmpEN := fMain.LoadHTML('/docs/commandref.html');
+                    tmp1 := '<a name="'+Name+'">';
+                    aSec := copy(tmpEN,pos(tmp1,tmpEN)+9,length(tmpEN));
+                    aSec := copy(aSec,pos('</a>',aSec)+4,length(aSec));
                     tmp1 := copy(aSec,0,pos('<a name="',aSec)-1);
                     aSec := copy(aSec,pos('<a name="',aSec)+9,length(aSec));
                     tmp2 := copy(aSec,0,pos('"',aSec)-1);
@@ -350,12 +346,6 @@ begin
   tmp := copy(tmp,pos('define ',tmp)-1,length(tmp));
   tmp := copy(tmp,0,pos(#10,tmp)-1);
   eDefine.Text:=trim(tmp);
-  if eDefine.Text<>'' then
-    begin
-      eDefine.SetFocus;
-      eDefine.SelStart:=pos('<name>',lowercase(eDefine.Text))-1;
-      eDefine.SelLength:=6;
-    end;
 end;
 
 function TfAddDevice.Execute: Boolean;

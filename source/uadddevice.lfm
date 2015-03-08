@@ -74,17 +74,17 @@ object fAddDevice: TfAddDevice
     Height = 489
     Top = 0
     Width = 509
-    ActivePage = tsDefine
+    ActivePage = Allgemein
     Align = alRight
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 3
     object tsDefine: TTabSheet
       Caption = 'Eigenschaften'
       TabVisible = False
     end
-    object Hilfe: TTabSheet
-      Caption = 'Hilfe'
+    object Allgemein: TTabSheet
+      Caption = 'Allgemein'
       ClientHeight = 456
       ClientWidth = 503
       object eDefine: TEdit

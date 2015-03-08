@@ -110,6 +110,8 @@ type
     procedure tvMainAdvancedCustomDrawItem(Sender: TCustomTreeView;
       Node: TTreeNode; State: TCustomDrawState; Stage: TCustomDrawStage;
       var PaintImages, DefaultDraw: Boolean);
+    procedure tvMainEditing(Sender: TObject; Node: TTreeNode;
+      var AllowEdit: Boolean);
     procedure tvMainSelectionChanged(Sender: TObject);
   private
     { private declarations }
@@ -504,6 +506,12 @@ begin
         end
     end
   else DefaultDraw:=True;
+end;
+
+procedure TfMain.tvMainEditing(Sender: TObject; Node: TTreeNode;
+  var AllowEdit: Boolean);
+begin
+  AllowEdit:=Assigned(Node.Data);
 end;
 
 procedure TfMain.tvMainSelectionChanged(Sender: TObject);
