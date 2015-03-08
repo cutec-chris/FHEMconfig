@@ -67,6 +67,8 @@ var
   aDef: String;
 begin
   aDef := mEvent.Text+' '+mCommand.Text;
+  if copy(aDef,length(aDef),1)=#10 then
+    aDef:=copy(aDef,1,length(aDef)-1);
   aRes := ChangeValue('detail='+FName+'&val.modify'+FName+'='+HTTPEncode(aDef)+'&cmd.modify'+FName+'=modify+'+FName);
   if aRes <> '' then
     Showmessage(aRes)
