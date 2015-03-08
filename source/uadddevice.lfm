@@ -17,9 +17,11 @@ object fAddDevice: TfAddDevice
     Width = 248
     Anchors = [akTop, akLeft, akBottom]
     DefaultItemHeight = 18
+    ReadOnly = True
     TabOrder = 0
     OnCustomDrawItem = tvMainCustomDrawItem
     OnSelectionChanged = tvMainSelectionChanged
+    Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips, tvoThemedDraw]
   end
   object eSearch: TEdit
     Left = 8
