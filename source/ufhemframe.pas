@@ -171,6 +171,7 @@ end;
 
 function TFHEMFrame.RemoveBrackets(aParam: string; aType: char): string;
 begin
+  Result := aParam;
   if copy(aParam,length(aParam),1)=#10 then
     aParam:=copy(aParam,1,length(aParam)-1);
   if (copy(aParam,0,1)<>'(')

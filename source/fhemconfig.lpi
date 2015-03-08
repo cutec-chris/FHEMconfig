@@ -51,7 +51,6 @@
       <Unit0>
         <Filename Value="fhemconfig.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="fhemconfig"/>
       </Unit0>
       <Unit1>
         <Filename Value="umain.pas"/>

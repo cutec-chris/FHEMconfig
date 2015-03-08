@@ -433,14 +433,20 @@ var
   Res: String;
 begin
   CreateUs;
-  Result := Showmodal = mrOK;
+  Show;
+  while Visible do
+    Application.ProcessMessages;
+  Result := ModalResult = mrOK;
   while Result do
     begin
       Res := fMain.ExecCommand(eDefine.Text,fMain.eServer.Text);
       if Res<>'' then
         begin
           Showmessage(Res);
-          Result := Showmodal = mrOK;
+          Show;
+          while Visible do
+            Application.ProcessMessages;
+          Result := ModalResult = mrOK;
         end
       else exit;
     end;
