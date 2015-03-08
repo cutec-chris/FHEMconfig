@@ -49,8 +49,9 @@
     </RequiredPackages>
     <Units Count="11">
       <Unit0>
-        <Filename Value="fhemcontrol.lpr"/>
+        <Filename Value="fhemconfig.lpr"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="fhemconfig"/>
       </Unit0>
       <Unit1>
         <Filename Value="umain.pas"/>
@@ -131,7 +132,7 @@
   <CompilerOptions>
     <Version Value="11"/>
     <Target>
-      <Filename Value="fhemcontrol"/>
+      <Filename Value="fhemconfig"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>

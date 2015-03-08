@@ -4,7 +4,7 @@ object fMain: TfMain
   Top = 122
   Width = 985
   ActiveControl = pcPages
-  Caption = 'FHEMcontrol'
+  Caption = 'FHEMconfig'
   ClientHeight = 636
   ClientWidth = 985
   Color = clWhite
@@ -26,7 +26,7 @@ object fMain: TfMain
     object Label3: TLabel
       Left = 8
       Height = 15
-      Top = 8
+      Top = 0
       Width = 39
       Caption = 'Server'
       ParentColor = False
@@ -35,7 +35,7 @@ object fMain: TfMain
       Left = 8
       Height = 27
       Hint = 'geben Sie hier die IP oder den Namen des Servers ein und klicken Sie auf verbinden'#10'Beispiel:'#10'192.168.1.5'#10'https://192.168.1.5:8084'
-      Top = 24
+      Top = 16
       Width = 159
       ItemHeight = 0
       OnKeyPress = eServerKeyPress

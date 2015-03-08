@@ -1,4 +1,4 @@
-program fhemcontrol;
+program fhemconfig;
 
 {$mode objfpc}{$H+}
 
