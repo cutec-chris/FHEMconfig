@@ -104,6 +104,7 @@ begin
       TPanel(vAttributes.Parent).Height := (vAttributes.RowCount*vAttributes.DefaultRowHeight)+Label1.Height+2;
       if TPanel(vAttributes.Parent).Height>(Self.Height div 4) then
         TPanel(vAttributes.Parent).Height := Self.Height div 4;
+      Change;
     end;
 end;
 

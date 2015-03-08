@@ -181,8 +181,8 @@ object fMain: TfMain
           ParentColor = False
           ParentFont = False
           TabOrder = 1
+          OnClick = eCommandClick
           OnKeyDown = eCommandKeyDown
-          OnKeyPress = eCommandKeyPress
           Gutter.Visible = False
           Gutter.Width = 57
           Gutter.MouseActions = <>
@@ -610,7 +610,6 @@ object fMain: TfMain
           MouseActions = <>
           MouseTextActions = <>
           MouseSelActions = <>
-          Options2 = [eoFoldedCopyPaste, eoPersistentBlock, eoOverwriteBlock]
           VisibleSpecialChars = [vscSpace, vscTabAtLast]
           ScrollBars = ssNone
           SelectedColor.BackPriority = 50

@@ -266,7 +266,7 @@ begin
     begin
       S:=Trim(Copy(LineText, 1, CaretX));
       I:=Length(S);
-      while (i>0) and (S[i]<>':') do Dec(I);
+      while (i>0) and (S[i]<>':') and (S[i]<>' ') do Dec(I);
       if (I>0) then
       begin
         J:=i-1;
@@ -391,6 +391,17 @@ begin
 end;
 
 procedure TfAddDevice.tvMainSelectionChanged(Sender: TObject);
+function ReplaceChars(s : string) : string;
+begin
+  Result := StringReplace(s, 'ä', '&auml;', [rfreplaceall]);
+  Result := StringReplace(result, 'ö', '&ouml;', [rfreplaceall]);
+  Result := StringReplace(result, 'ü', '&uuml;', [rfreplaceall]);
+  Result := StringReplace(result, 'Ä', '&Auml;', [rfreplaceall]);
+  Result := StringReplace(result, 'Ö', '&Ouml;', [rfreplaceall]);
+  Result := StringReplace(result, 'Ü', '&Uuml;', [rfreplaceall]);
+  Result := StringReplace(result, 'ß', '&szlig;', [rfreplaceall]);
+end;
+
 var
   aHTML: TSimpleIpHtml;
   ss: TStringStream;
@@ -399,12 +410,13 @@ var
 begin
   if not Assigned(tvMain.Selected) then exit;
   if not Assigned(tvMain.Selected.Data) then exit;
+  Screen.Cursor:=crHourGlass;
   aHTML := TSimpleIpHtml.Create;
   aMod := TModule(tvMain.Selected.Data);
   if cbAll.Checked then
-    ss := TStringStream.Create('<html><body>'+aMod.Description+aMod.Define+aMod.Attributes+aMod.SetContent+aMod.GetContent+'</body></html>')
+    ss := TStringStream.Create('<html><body>'+ReplaceChars(aMod.Description+aMod.Define+aMod.Attributes+aMod.SetContent+aMod.GetContent)+'</body></html>')
   else
-    ss := TStringStream.Create('<html><body>'+aMod.Description+'</body></html>');
+    ss := TStringStream.Create('<html><body>'+ReplaceChars(aMod.Description)+'</body></html>');
   aHTML.OnGetImageX:=@TSimpleIpHtmlGetImageX;
   aHTML.LoadFromStream(ss);
   ss.Free;
@@ -413,6 +425,7 @@ begin
   tmp := copy(tmp,pos('define ',tmp)-1,length(tmp));
   tmp := copy(tmp,0,pos(#10,tmp)-1);
   eDefine.Text:=trim(tmp);
+  Screen.Cursor:=crDefault;
 end;
 
 function TfAddDevice.Execute: Boolean;

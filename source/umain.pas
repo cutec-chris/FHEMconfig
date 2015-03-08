@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, SynMemo, synhighlighterunixshellscript,
   SynHighlighterPerl, SynEdit, SynGutterBase, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, StdCtrls, ComCtrls, ActnList, ValEdit, Buttons, Menus,
-  blcksock, httpsend, uFhemFrame, ssl_openssl, types;
+  blcksock, httpsend, uFhemFrame, ssl_openssl, types, SynCompletion, LCLType;
 
 type
   TInfoEvent = procedure(aInfo : string) of object;
@@ -86,9 +86,9 @@ type
     procedure acSaveConfigExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure cbFileSelect(Sender: TObject);
+    procedure eCommandClick(Sender: TObject);
     procedure eCommandKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
       );
-    procedure eCommandKeyPress(Sender: TObject; var Key: char);
     procedure eConfigChange(Sender: TObject);
     procedure eConfigMouseWheel(Sender: TObject; Shift: TShiftState;
       WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
@@ -102,6 +102,10 @@ type
     procedure eServerSelect(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure FSynCompletionExecute(Sender: TObject);
+    procedure FSynCompletionSearchPosition(var APosition: integer);
+    procedure FSynCompletionUTF8KeyPress(Sender: TObject; var UTF8Key: TUTF8Char
+      );
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure tsCommandEnter(Sender: TObject);
@@ -124,6 +128,7 @@ type
     Server:THTTPSend;
     LogThread : TLogThread;
     LastLogTime : TDateTime;
+    FSynCompletion: TSynCompletion;
     ConnType : string;
     function Refresh: Boolean;
     procedure RefreshTree(sl: TStrings;SelectLast : Boolean = false);
@@ -154,7 +159,7 @@ resourcestring
 
 implementation
 
-uses Utils,synautil,dateutils,LCLProc,SynEditTypes,RegExpr,uAddDevice,LCLType;
+uses Utils,synautil,dateutils,LCLProc,SynEditTypes,RegExpr,uAddDevice;
 
 {$R *.lfm}
 
@@ -278,6 +283,7 @@ begin
           eConfig.Lines.Clear;
         end;
       pcPages.ActivePage:=tsCommand;
+      tsCommandEnter(tsCommand);
       RefreshFileList;
       acAdd.Enabled:=True;
       fAddDevice.CreateUs;
@@ -340,9 +346,21 @@ begin
   LoadFile(cbFile.Text);
 end;
 
+procedure TfMain.eCommandClick(Sender: TObject);
+begin
+  eCommand.SelEnd:=length(eCommand.Text);
+end;
+
 procedure TfMain.eCommandKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
+  if Key=VK_RETURN then
+    begin
+      mCommand.Text:=StripHTML(ExecCommand(eCommand.Text,eServer.Text));
+      CmdHistory.Add(eCommand.Text);
+      eCommand.Text:='';
+      CmdHistoryIndex:=CmdHistory.Count-1;
+    end;
   if Key=VK_UP then
     begin
       if CmdHistoryIndex>0 then
@@ -358,17 +376,6 @@ begin
           eCommand.Text:=CmdHistory[CmdHistoryIndex];
           inc(CmdHistoryIndex);
         end;
-    end;
-end;
-
-procedure TfMain.eCommandKeyPress(Sender: TObject; var Key: char);
-begin
-  if Key = #13 then
-    begin
-      mCommand.Text:=StripHTML(ExecCommand(eCommand.Text,eServer.Text));
-      CmdHistory.Add(eCommand.Text);
-      eCommand.Text:='';
-      CmdHistoryIndex:=CmdHistory.Count-1;
     end;
 end;
 
@@ -453,6 +460,12 @@ begin
   Server.Sock.OnStatus:=@ServerSockStatus;
   ConnType := 'http://';
   FindConfig;
+  FSynCompletion := TSynCompletion.Create(Self);
+  FSynCompletion.CaseSensitive := False;
+  FSynCompletion.AddEditor(eCommand);
+  FSynCompletion.OnExecute:=@FSynCompletionExecute;
+  FSynCompletion.OnUTF8KeyPress:=@FSynCompletionUTF8KeyPress;
+  FSynCompletion.OnSearchPosition:=@FSynCompletionSearchPosition;
 end;
 
 procedure TfMain.FormDestroy(Sender: TObject);
@@ -468,6 +481,67 @@ begin
     end;
   Server.Free;
   CmdHistory.Free;
+end;
+
+procedure TfMain.FSynCompletionExecute(Sender: TObject);
+function GetCurWord:string;
+var
+  S:string;
+  i,j:integer;
+begin
+  Result:='';
+  with TSynCompletion(Sender).Editor do
+    begin
+      S:=Trim(Copy(LineText, 1, CaretX));
+      I:=Length(S);
+      while (i>0) and (S[i]<>':') and (S[i]<>' ') do Dec(I);
+      if (I>0) then
+      begin
+        J:=i-1;
+        //Get table name
+        while (j>0) and (S[j] in ['A'..'z','"']) do Dec(j);
+        Result:=trim(Copy(S, j+1, i-j-1));
+      end;
+    end;
+end;
+var
+  sl: TStrings;
+  s: String;
+begin
+  with FSynCompletion.ItemList do
+    begin
+      Clear;
+      s := GetCurWord;
+      if s='' then
+        sl := GetDeviceList
+      else sl := GetDeviceParams(s);
+      FSynCompletion.ItemList.AddStrings(sl);
+      sl.Free;
+    end;
+end;
+
+procedure TfMain.FSynCompletionSearchPosition(var APosition: integer);
+var
+  i: Integer;
+begin
+  for i := 0 to FSynCompletion.ItemList.Count-1 do
+    if Uppercase(copy(FSynCompletion.ItemList[i],0,length(FSynCompletion.CurrentString))) = Uppercase(FSynCompletion.CurrentString) then
+      begin
+        aPosition := i;
+        FSynCompletion.TheForm.Position:=i-1;
+        FSynCompletion.TheForm.Position:=i;
+        exit;
+      end;
+end;
+
+procedure TfMain.FSynCompletionUTF8KeyPress(Sender: TObject;
+  var UTF8Key: TUTF8Char);
+begin
+  if (length(UTF8Key)=1) and (System.Pos(UTF8Key[1],FSynCompletion.EndOfTokenChr)>0) then
+    begin
+      FSynCompletion.TheForm.OnValidate(Sender,UTF8Key,[]);
+      UTF8Key:='';
+    end
 end;
 
 procedure TfMain.SpeedButton1Click(Sender: TObject);
@@ -632,20 +706,36 @@ function TfMain.GetDeviceParams(aDevice: string): TStrings;
 var
   list: String;
   i: Integer;
+  tmp: String;
+  sl: TStringList;
+  InReadings: Boolean = False;
 begin
   list := ExecCommand('list '+aDevice,eServer.Text);
+  if pos('no device',lowercase(list))>0 then list := '';
+  sl := TStringList.Create;
   Result := TStringList.Create;
-  Result.Text:=list;
+  sl.Text:=list;
   i := 0;
-  while i<Result.Count-1 do
+  while i<sl.Count-1 do
     begin
-      if copy(Result[i],0,2)='  ' then
+      tmp := sl[i];
+      if copy(sl[i],0,2)='  ' then
         begin
+          tmp := trim(tmp);
+          tmp := trim(copy(tmp,0,pos(' ',tmp)-1));
+          if (not InReadings) and (tmp<>'') and (pos(':',tmp)=0) and (pos('-',tmp)=0) then
+            Result.Add(tmp);
           inc(i);
-          Result[i] := copy(trim(Result[i]),0,pos(' ',trim(Result[i]))-1);
         end
-      else Result.Delete(i);
+      else
+        begin
+          if pos('Readings',tmp)>0 then
+            InReadings := True
+          else InReadings:=False;
+          sl.Delete(i);
+        end;
     end;
+  sl.Free;
 end;
 
 function TfMain.ListModules: string;

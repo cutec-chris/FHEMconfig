@@ -94,7 +94,7 @@ object fAddDevice: TfAddDevice
         Height = 15
         Top = 15
         Width = 492
-        Anchors = [akLeft, akRight, akBottom]
+        Anchors = [akTop, akLeft, akRight]
         AutoSize = False
         Caption = 'Gerätedefinition'
         Font.Style = [fsBold]
@@ -152,7 +152,7 @@ object fAddDevice: TfAddDevice
         Height = 33
         Top = 32
         Width = 488
-        Anchors = [akLeft, akRight, akBottom]
+        Anchors = [akTop, akLeft, akRight]
         Font.Height = 13
         Font.Name = 'DejaVu Sans Mono'
         Font.Pitch = fpFixed
