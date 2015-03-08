@@ -6,17 +6,21 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, DividerBevel, Forms, Controls, StdCtrls, ValEdit,
-  ExtCtrls, uFhemFrame, Grids, Buttons;
+  ExtCtrls, uFhemFrame, Grids, Buttons, ActnList, CheckLst;
 
 type
 
   { TfGeneric }
 
   TfGeneric = class(TFHEMFrame)
+    acAddAttr: TAction;
+    acWebCmd: TAction;
+    ActionList1: TActionList;
     Button1: TButton;
     cbRoom: TComboBox;
     cbSet: TComboBox;
     cbGet: TComboBox;
+    CheckListBox1: TCheckListBox;
     eSet: TEdit;
     eName: TEdit;
     Image1: TImage;
@@ -25,6 +29,7 @@ type
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
+    Label6: TLabel;
     lSet: TLabel;
     lGet: TLabel;
     Panel1: TPanel;
@@ -33,9 +38,12 @@ type
     Panel4: TPanel;
     bSet: TSpeedButton;
     Panel5: TPanel;
+    Panel6: TPanel;
+    SpeedButton1: TSpeedButton;
     vAttributes: TValueListEditor;
     vReadings: TValueListEditor;
     vInternals: TValueListEditor;
+    procedure acAddAttrExecute(Sender: TObject);
     procedure cbGetSelect(Sender: TObject);
     procedure cbSetSelect(Sender: TObject);
     procedure vAttributesValidateEntry(sender: TObject; aCol, aRow: Integer;
@@ -55,7 +63,7 @@ type
 
 implementation
 
-uses fpvectorial,svgvectorialreader;
+uses fpvectorial,svgvectorialreader,uAttrEditor;
 
 {$R *.lfm}
 
@@ -85,6 +93,15 @@ begin
   tmp := ExecCommand('get '+FName+' '+cbGet.Text);
   if pos(#10,tmp)>0 then tmp := copy(tmp,0,pos(#10,tmp)-1);
   eSet.Text:=tmp;
+end;
+
+procedure TfGeneric.acAddAttrExecute(Sender: TObject);
+begin
+  if fAttrEditor.Execute(FAttrValues) then
+    begin
+      ExecCommand('attr '+FName+' '+fAttrEditor.cbType.Text+' '+fAttrEditor.cbValue.Text);
+      vAttributes.Values[fAttrEditor.cbType.Text]:=fAttrEditor.cbValue.Text;
+    end;
 end;
 
 procedure TfGeneric.cbSetSelect(Sender: TObject);
@@ -143,8 +160,8 @@ begin
   if not Assigned(bList) then exit;
   TPanel(bList.Parent).Visible:=True;
   TPanel(bList.Parent).Height := (bList.RowCount*bList.DefaultRowHeight)+Label1.Height+2;
-  if TPanel(bList.Parent).Height>(Self.Height div 3) then
-    TPanel(bList.Parent).Height := Self.Height div 3;
+  if TPanel(bList.Parent).Height>(Self.Height div 4) then
+    TPanel(bList.Parent).Height := Self.Height div 4;
   if (bList.RowCount=2) and bList.IsEmptyRow then
     begin
       TPanel(bList.Parent).Height := 0;

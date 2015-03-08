@@ -157,6 +157,7 @@ object fMain: TfMain
           Top = 0
           Width = 619
           Align = alTop
+          OnKeyDown = eCommandKeyDown
           OnKeyPress = eCommandKeyPress
           TabOrder = 0
         end

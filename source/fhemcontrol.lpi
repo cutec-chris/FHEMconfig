@@ -47,7 +47,7 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="10">
+    <Units Count="11">
       <Unit0>
         <Filename Value="fhemcontrol.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -117,6 +117,14 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fNotify"/>
       </Unit9>
+      <Unit10>
+        <Filename Value="uattreditor.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fAttrEditor"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uAttrEditor"/>
+      </Unit10>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

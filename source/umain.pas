@@ -86,6 +86,8 @@ type
     procedure acSaveConfigExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure cbFileSelect(Sender: TObject);
+    procedure eCommandKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
+      );
     procedure eCommandKeyPress(Sender: TObject; var Key: char);
     procedure eConfigChange(Sender: TObject);
     procedure eConfigMouseWheel(Sender: TObject; Shift: TShiftState;
@@ -115,6 +117,8 @@ type
     procedure tvMainSelectionChanged(Sender: TObject);
   private
     { private declarations }
+    CmdHistory: TStringList;
+    CmdHistoryIndex : Integer;
     FFrame: TFHEMFrame;
     Server:THTTPSend;
     LogThread : TLogThread;
@@ -133,6 +137,8 @@ type
     function LoadHTML(aFile: string): string;
     function ChangeVal(aDevice:string;aDetail : string) : string;
     function ExecCommand(aCommand: string; aServer: string): string;
+    function GetDeviceList : TStrings;
+    function GetDeviceParams(aDevice : string) : TStrings;
   end;
 
 var
@@ -146,7 +152,7 @@ resourcestring
 
 implementation
 
-uses Utils,synautil,dateutils,LCLProc,SynEditTypes,RegExpr,uAddDevice;
+uses Utils,synautil,dateutils,LCLProc,SynEditTypes,RegExpr,uAddDevice,LCLType;
 
 {$R *.lfm}
 
@@ -332,12 +338,35 @@ begin
   LoadFile(cbFile.Text);
 end;
 
+procedure TfMain.eCommandKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key=VK_UP then
+    begin
+      if CmdHistoryIndex>0 then
+        begin
+          eCommand.Text:=CmdHistory[CmdHistoryIndex];
+          dec(CmdHistoryIndex);
+        end;
+    end;
+  if Key=VK_DOWN then
+    begin
+      if (CmdHistoryIndex>0) and (CmdHistoryIndex<CmdHistory.Count) then
+        begin
+          eCommand.Text:=CmdHistory[CmdHistoryIndex];
+          inc(CmdHistoryIndex);
+        end;
+    end;
+end;
+
 procedure TfMain.eCommandKeyPress(Sender: TObject; var Key: char);
 begin
   if Key = #13 then
     begin
       mCommand.Text:=StripHTML(ExecCommand(eCommand.Text,eServer.Text));
+      CmdHistory.Add(eCommand.Text);
       eCommand.Text:='';
+      CmdHistoryIndex:=CmdHistory.Count-1;
     end;
 end;
 
@@ -409,6 +438,7 @@ end;
 
 procedure TfMain.FormCreate(Sender: TObject);
 begin
+  CmdHistory := TStringList.Create;
   Server := THTTPSend.Create;
   Server.Timeout:=2000;
   Server.Sock.OnStatus:=@ServerSockStatus;
@@ -428,6 +458,7 @@ begin
       //LogThread.Free;
     end;
   Server.Free;
+  CmdHistory.Free;
 end;
 
 procedure TfMain.SpeedButton1Click(Sender: TObject);
@@ -571,6 +602,41 @@ begin
         end;
     end;
   sl.Free
+end;
+
+function TfMain.GetDeviceList: TStrings;
+var
+  aItem: TTreeNode;
+begin
+  Result := TStringList.Create;
+  aItem := nil;
+  if tvMain.Items.Count>0 then aItem := tvMain.Items[0];
+  while Assigned(aItem) do
+    begin
+      if Assigned(aItem.Data) then
+        Result.Add(aItem.Text);
+      aItem := aItem.GetNext;
+    end;
+end;
+
+function TfMain.GetDeviceParams(aDevice: string): TStrings;
+var
+  list: String;
+  i: Integer;
+begin
+  list := ExecCommand('list '+aDevice,eServer.Text);
+  Result := TStringList.Create;
+  Result.Text:=list;
+  i := 0;
+  while i<Result.Count-1 do
+    begin
+      if copy(Result[i],0,2)='  ' then
+        begin
+          inc(i);
+          Result[i] := copy(trim(Result[i]),0,pos(' ',trim(Result[i]))-1);
+        end
+      else Result.Delete(i);
+    end;
 end;
 
 function TfMain.Refresh : Boolean;

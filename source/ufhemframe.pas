@@ -43,7 +43,10 @@ type
     procedure ProcessList(aList : TStrings);virtual;
     procedure LogReceived(aLog : string);virtual;
     function GetFirstParam(aParam : string) : string;
+    function RemoveBrackets(aParam : string;aType : char = '(') : string;
     procedure Change;
+    function GetDeviceList : TStrings;
+    function GetDeviceParams(aDevice : string) : TStrings;
   end;
   TFHEMFrameClass = class of TFHEMFrame;
 
@@ -121,6 +124,16 @@ begin
   fMain.acSave.Enabled:=True;
 end;
 
+function TFHEMFrame.GetDeviceList: TStrings;
+begin
+  Result := fMain.GetDeviceList;
+end;
+
+function TFHEMFrame.GetDeviceParams(aDevice: string): TStrings;
+begin
+  Result := fMain.GetDeviceParams(aDevice);
+end;
+
 procedure TFHEMFrame.ProcessList(aList: TStrings);
 begin
 
@@ -154,6 +167,15 @@ begin
       if copy(aParam,0,1)=bChar then dec(InParam);
       aParam:=copy(aParam,2,length(aParam));
     end;
+end;
+
+function TFHEMFrame.RemoveBrackets(aParam: string; aType: char): string;
+begin
+  if copy(aParam,length(aParam),1)=#10 then
+    aParam:=copy(aParam,1,length(aParam)-1);
+  if (copy(aParam,0,1)<>'(')
+  or (copy(aParam,length(aParam)-1,1)<>')') then
+    Result:=copy(aParam,2,length(aParam)-2);
 end;
 
 finalization
