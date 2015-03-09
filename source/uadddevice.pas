@@ -57,7 +57,9 @@ type
     Allgemein: TTabSheet;
     tvMain: TTreeView;
     procedure aThreadAddDevice(Sender: TObject);
+    procedure CancelButtonClick(Sender: TObject);
     procedure cbAllClick(Sender: TObject);
+    procedure CloseButtonClick(Sender: TObject);
     procedure eSearchChange(Sender: TObject);
     procedure eSearchEnter(Sender: TObject);
     procedure eSearchExit(Sender: TObject);
@@ -68,6 +70,7 @@ type
     procedure FSynCompletionSearchPosition(var APosition: integer);
     procedure FSynCompletionUTF8KeyPress(Sender: TObject; var UTF8Key: TUTF8Char
       );
+    procedure OKButtonClick(Sender: TObject);
     procedure TSimpleIpHtmlGetImageX(Sender: TIpHtmlNode; const URL: string;
       var Picture: TPicture);
     procedure tvMainCustomDrawItem(Sender: TCustomTreeView; Node: TTreeNode;
@@ -76,6 +79,7 @@ type
   private
     { private declarations }
     FSynCompletion: TSynCompletion;
+    DResult : Boolean;
   public
     { public declarations }
     Modules: TList;
@@ -316,6 +320,13 @@ begin
     end
 end;
 
+procedure TfAddDevice.OKButtonClick(Sender: TObject);
+begin
+  ModalResult:=mrOK;
+  DResult:=True;
+  Close;
+end;
+
 procedure TfAddDevice.aThreadAddDevice(Sender: TObject);
 var
   aNode : TTreeNode = nil;
@@ -337,9 +348,23 @@ begin
     end;
 end;
 
+procedure TfAddDevice.CancelButtonClick(Sender: TObject);
+begin
+  ModalResult:=mrCancel;
+  DResult:=False;
+  Close;
+end;
+
 procedure TfAddDevice.cbAllClick(Sender: TObject);
 begin
   tvMainSelectionChanged(tvMain);
+end;
+
+procedure TfAddDevice.CloseButtonClick(Sender: TObject);
+begin
+  ModalResult:=mrClose;
+  DResult:=False;
+  Close;
 end;
 
 procedure TfAddDevice.eSearchChange(Sender: TObject);
@@ -432,11 +457,12 @@ function TfAddDevice.Execute: Boolean;
 var
   Res: String;
 begin
+  DResult:=False;
   CreateUs;
   Show;
   while Visible do
     Application.ProcessMessages;
-  Result := ModalResult = mrOK;
+  Result := DResult;
   while Result do
     begin
       Res := fMain.ExecCommand(eDefine.Text,fMain.eServer.Text);

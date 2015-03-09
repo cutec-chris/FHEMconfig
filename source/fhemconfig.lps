@@ -7,7 +7,7 @@
       <Unit0>
         <Filename Value="fhemconfig.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="10"/>
         <CursorPos Y="23"/>
         <UsageCount Value="125"/>
         <Loaded Value="True"/>
@@ -19,8 +19,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <TopLine Value="933"/>
-        <CursorPos Y="954"/>
+        <TopLine Value="310"/>
+        <CursorPos X="3" Y="314"/>
         <UsageCount Value="125"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -29,17 +29,16 @@
         <Filename Value="Utils.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="Utils"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="821"/>
         <CursorPos Y="845"/>
         <UsageCount Value="122"/>
-        <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="ufhemframe.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uFhemFrame"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="155"/>
         <CursorPos X="19" Y="174"/>
         <UsageCount Value="122"/>
@@ -52,10 +51,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fDoIf"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="6"/>
-        <TopLine Value="153"/>
-        <CursorPos Y="173"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="135"/>
+        <CursorPos X="38" Y="170"/>
         <UsageCount Value="121"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -67,7 +65,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fpGeneric"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="8"/>
         <TopLine Value="59"/>
         <CursorPos X="14" Y="107"/>
         <UsageCount Value="120"/>
@@ -81,7 +79,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fPresence"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="7"/>
         <CursorPos X="42" Y="35"/>
         <UsageCount Value="92"/>
@@ -95,9 +93,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uAddDevice"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="412"/>
-        <CursorPos Y="450"/>
+        <TopLine Value="455"/>
+        <CursorPos X="20" Y="465"/>
         <UsageCount Value="79"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -109,7 +108,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fat"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="52"/>
         <CursorPos Y="72"/>
         <UsageCount Value="51"/>
@@ -123,7 +122,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fNotify"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <TopLine Value="131"/>
         <CursorPos X="3" Y="136"/>
         <UsageCount Value="50"/>
@@ -137,7 +136,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uAttrEditor"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="9"/>
         <TopLine Value="23"/>
         <CursorPos X="10" Y="42"/>
         <UsageCount Value="30"/>
@@ -211,7 +210,7 @@
       <Unit20>
         <Filename Value="../../../lazarus/components/synedit/synedit.pp"/>
         <UnitName Value="SynEdit"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="2609"/>
         <CursorPos Y="2625"/>
         <UsageCount Value="10"/>
@@ -274,123 +273,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="ufhemframe.pas"/>
-        <Caret Line="168" TopLine="144"/>
+        <Caret Line="166" TopLine="144"/>
       </Position1>
       <Position2>
         <Filename Value="ufhemframe.pas"/>
-        <Caret Line="163" TopLine="144"/>
+        <Caret Line="167" TopLine="144"/>
       </Position2>
       <Position3>
         <Filename Value="ufhemframe.pas"/>
-        <Caret Line="165" TopLine="144"/>
+        <Caret Line="168" TopLine="144"/>
       </Position3>
       <Position4>
         <Filename Value="ufhemframe.pas"/>
-        <Caret Line="166" TopLine="144"/>
+        <Caret Line="163" TopLine="144"/>
       </Position4>
       <Position5>
         <Filename Value="ufhemframe.pas"/>
-        <Caret Line="167" TopLine="144"/>
+        <Caret Line="170" TopLine="146"/>
       </Position5>
       <Position6>
-        <Filename Value="ufhemframe.pas"/>
-        <Caret Line="168" TopLine="144"/>
+        <Filename Value="../../../lazarus/components/synedit/synedit.pp"/>
+        <Caret Line="4411" TopLine="4396"/>
       </Position6>
       <Position7>
-        <Filename Value="ufhemframe.pas"/>
-        <Caret Line="163" TopLine="144"/>
+        <Filename Value="../../../lazarus/components/synedit/synedit.pp"/>
+        <Caret Line="4412" TopLine="4396"/>
       </Position7>
       <Position8>
-        <Filename Value="ufhemframe.pas"/>
-        <Caret Line="165" TopLine="144"/>
+        <Filename Value="fdoif.pas"/>
+        <Caret Line="174" TopLine="153"/>
       </Position8>
       <Position9>
-        <Filename Value="ufhemframe.pas"/>
-        <Caret Line="166" TopLine="144"/>
+        <Filename Value="fdoif.pas"/>
+        <Caret Line="175" TopLine="153"/>
       </Position9>
       <Position10>
-        <Filename Value="ufhemframe.pas"/>
-        <Caret Line="167" TopLine="144"/>
+        <Filename Value="../../../lazarus/components/synedit/synedit.pp"/>
+        <Caret Line="2624" TopLine="2609"/>
       </Position10>
       <Position11>
-        <Filename Value="ufhemframe.pas"/>
-        <Caret Line="168" TopLine="144"/>
+        <Filename Value="../../../lazarus/components/synedit/synedit.pp"/>
+        <Caret Line="2625" TopLine="2609"/>
       </Position11>
       <Position12>
         <Filename Value="ufhemframe.pas"/>
-        <Caret Line="163" TopLine="144"/>
+        <Caret Line="173" TopLine="149"/>
       </Position12>
       <Position13>
         <Filename Value="ufhemframe.pas"/>
-        <Caret Line="165" TopLine="144"/>
+        <Caret Line="174" TopLine="150"/>
       </Position13>
       <Position14>
         <Filename Value="ufhemframe.pas"/>
-        <Caret Line="166" TopLine="144"/>
+        <Caret Line="175" TopLine="151"/>
       </Position14>
       <Position15>
         <Filename Value="ufhemframe.pas"/>
-        <Caret Line="167" TopLine="144"/>
+        <Caret Line="176" TopLine="152"/>
       </Position15>
       <Position16>
         <Filename Value="ufhemframe.pas"/>
-        <Caret Line="168" TopLine="144"/>
+        <Caret Line="177" TopLine="153"/>
       </Position16>
       <Position17>
         <Filename Value="ufhemframe.pas"/>
-        <Caret Line="163" TopLine="144"/>
+        <Caret Line="174" Column="19" TopLine="155"/>
       </Position17>
       <Position18>
-        <Filename Value="ufhemframe.pas"/>
-        <Caret Line="170" TopLine="146"/>
+        <Filename Value="uadddevice.pas"/>
+        <Caret Line="445" Column="15" TopLine="440"/>
       </Position18>
       <Position19>
-        <Filename Value="../../../lazarus/components/synedit/synedit.pp"/>
-        <Caret Line="4411" TopLine="4396"/>
+        <Filename Value="uadddevice.pas"/>
+        <Caret Line="323" Column="20" TopLine="320"/>
       </Position19>
       <Position20>
-        <Filename Value="../../../lazarus/components/synedit/synedit.pp"/>
-        <Caret Line="4412" TopLine="4396"/>
+        <Filename Value="uadddevice.pas"/>
+        <Caret Line="360" Column="23" TopLine="358"/>
       </Position20>
       <Position21>
-        <Filename Value="fdoif.pas"/>
-        <Caret Line="174" TopLine="153"/>
+        <Filename Value="uadddevice.pas"/>
+        <Caret Line="350" Column="24" TopLine="348"/>
       </Position21>
       <Position22>
-        <Filename Value="fdoif.pas"/>
-        <Caret Line="175" TopLine="153"/>
+        <Filename Value="uadddevice.pas"/>
+        <Caret Line="362" TopLine="344"/>
       </Position22>
       <Position23>
-        <Filename Value="../../../lazarus/components/synedit/synedit.pp"/>
-        <Caret Line="2624" TopLine="2609"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="954" TopLine="933"/>
       </Position23>
       <Position24>
-        <Filename Value="../../../lazarus/components/synedit/synedit.pp"/>
-        <Caret Line="2625" TopLine="2609"/>
+        <Filename Value="uadddevice.pas"/>
+        <Caret Line="326" TopLine="451"/>
       </Position24>
       <Position25>
-        <Filename Value="ufhemframe.pas"/>
-        <Caret Line="173" TopLine="149"/>
+        <Filename Value="uadddevice.pas"/>
+        <Caret Line="459" TopLine="451"/>
       </Position25>
       <Position26>
-        <Filename Value="ufhemframe.pas"/>
-        <Caret Line="174" TopLine="150"/>
+        <Filename Value="uadddevice.pas"/>
+        <Caret Line="460" TopLine="451"/>
       </Position26>
       <Position27>
-        <Filename Value="ufhemframe.pas"/>
-        <Caret Line="175" TopLine="151"/>
+        <Filename Value="uadddevice.pas"/>
+        <Caret Line="351" Column="3" TopLine="349"/>
       </Position27>
       <Position28>
-        <Filename Value="ufhemframe.pas"/>
-        <Caret Line="176" TopLine="152"/>
+        <Filename Value="uadddevice.pas"/>
+        <Caret Line="457" Column="17" TopLine="452"/>
       </Position28>
       <Position29>
-        <Filename Value="ufhemframe.pas"/>
-        <Caret Line="177" TopLine="153"/>
+        <Filename Value="uadddevice.pas"/>
+        <Caret Line="354" TopLine="350"/>
       </Position29>
       <Position30>
-        <Filename Value="ufhemframe.pas"/>
-        <Caret Line="174" Column="19" TopLine="155"/>
+        <Filename Value="uadddevice.pas"/>
+        <Caret Line="366" TopLine="362"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
