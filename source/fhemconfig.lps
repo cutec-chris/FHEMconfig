@@ -9,7 +9,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="11"/>
         <CursorPos Y="23"/>
-        <UsageCount Value="132"/>
+        <UsageCount Value="133"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -21,7 +21,7 @@
         <UnitName Value="uMain"/>
         <TopLine Value="748"/>
         <CursorPos Y="770"/>
-        <UsageCount Value="132"/>
+        <UsageCount Value="133"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -31,7 +31,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="821"/>
         <CursorPos Y="845"/>
-        <UsageCount Value="129"/>
+        <UsageCount Value="130"/>
       </Unit2>
       <Unit3>
         <Filename Value="ufhemframe.pas"/>
@@ -40,7 +40,7 @@
         <EditorIndex Value="4"/>
         <TopLine Value="103"/>
         <CursorPos Y="123"/>
-        <UsageCount Value="129"/>
+        <UsageCount Value="130"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -53,7 +53,7 @@
         <EditorIndex Value="6"/>
         <TopLine Value="135"/>
         <CursorPos X="38" Y="170"/>
-        <UsageCount Value="128"/>
+        <UsageCount Value="129"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -66,7 +66,7 @@
         <EditorIndex Value="9"/>
         <TopLine Value="59"/>
         <CursorPos X="14" Y="107"/>
-        <UsageCount Value="127"/>
+        <UsageCount Value="128"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
@@ -79,7 +79,7 @@
         <EditorIndex Value="3"/>
         <TopLine Value="7"/>
         <CursorPos X="42" Y="35"/>
-        <UsageCount Value="99"/>
+        <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -92,7 +92,7 @@
         <EditorIndex Value="2"/>
         <TopLine Value="54"/>
         <CursorPos Y="69"/>
-        <UsageCount Value="86"/>
+        <UsageCount Value="87"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit7>
@@ -106,7 +106,7 @@
         <EditorIndex Value="7"/>
         <TopLine Value="52"/>
         <CursorPos Y="72"/>
-        <UsageCount Value="58"/>
+        <UsageCount Value="59"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -119,7 +119,7 @@
         <EditorIndex Value="8"/>
         <TopLine Value="131"/>
         <CursorPos X="3" Y="136"/>
-        <UsageCount Value="57"/>
+        <UsageCount Value="58"/>
         <Loaded Value="True"/>
       </Unit9>
       <Unit10>
@@ -132,7 +132,7 @@
         <EditorIndex Value="10"/>
         <TopLine Value="23"/>
         <CursorPos X="10" Y="42"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="38"/>
         <Loaded Value="True"/>
       </Unit10>
       <Unit11>
@@ -282,9 +282,9 @@
         <UnitName Value="uIcons"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="15"/>
-        <CursorPos X="33" Y="42"/>
-        <UsageCount Value="22"/>
+        <TopLine Value="37"/>
+        <CursorPos X="31" Y="65"/>
+        <UsageCount Value="23"/>
         <Loaded Value="True"/>
       </Unit31>
     </Units>
