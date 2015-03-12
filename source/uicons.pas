@@ -10,6 +10,7 @@ uses
 const
   DeviceIcons = 'global:7'+#10
                +'cul:8'+#10
+               +'jeelink:8'+#10
                +'apptime:9'+#10
                +'at:10'+#10
                +'autocreate:11'+#10
@@ -27,6 +28,18 @@ const
                +'webviewcontrol:22'+#10
                +'dummy:23'+#10
                +'httpmod:24'+#10
+               +'emt7110:25'+#10
+               +'esa2000:25'+#10
+               +'gpio4:26'+#10
+
+               +'lacrosse:27'+#10
+               +'KM200:27'+#10
+               +'cul_hm:27'+#10
+
+               +'wol:28'+#10
+               +'harmony:29'+#10
+               +'holiday':30'+#10
+               +'mailcheck:31'+#10
                ;
 
 implementation
