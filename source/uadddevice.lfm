@@ -1,7 +1,7 @@
 object fAddDevice: TfAddDevice
-  Left = 332
+  Left = 347
   Height = 543
-  Top = 153
+  Top = 147
   Width = 773
   Caption = 'Gerät hinzufügen'
   ClientHeight = 543
@@ -16,7 +16,7 @@ object fAddDevice: TfAddDevice
     Top = 88
     Width = 248
     Anchors = [akTop, akLeft, akBottom]
-    DefaultItemHeight = 18
+    DefaultItemHeight = 16
     ReadOnly = True
     TabOrder = 0
     OnCustomDrawItem = tvMainCustomDrawItem
@@ -25,7 +25,7 @@ object fAddDevice: TfAddDevice
   end
   object eSearch: TEdit
     Left = 8
-    Height = 25
+    Height = 21
     Top = 32
     Width = 248
     Font.Color = clSilver
@@ -38,9 +38,9 @@ object fAddDevice: TfAddDevice
   end
   object Label1: TLabel
     Left = 8
-    Height = 15
+    Height = 13
     Top = 16
-    Width = 42
+    Width = 36
     Caption = 'Suche'
     Font.Style = [fsBold]
     ParentColor = False
@@ -48,17 +48,17 @@ object fAddDevice: TfAddDevice
   end
   object Label2: TLabel
     Left = 8
-    Height = 15
+    Height = 13
     Top = 72
-    Width = 43
+    Width = 39
     Caption = 'Module'
     ParentColor = False
     ParentFont = False
   end
   object ButtonPanel1: TButtonPanel
     Left = 6
-    Height = 42
-    Top = 495
+    Height = 34
+    Top = 503
     Width = 761
     OKButton.Name = 'OKButton'
     OKButton.DefaultCaption = True
@@ -76,7 +76,7 @@ object fAddDevice: TfAddDevice
   end
   object PageControl1: TPageControl
     Left = 264
-    Height = 489
+    Height = 497
     Top = 0
     Width = 509
     ActivePage = Allgemein
@@ -90,13 +90,13 @@ object fAddDevice: TfAddDevice
     end
     object Allgemein: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 456
-      ClientWidth = 503
+      ClientHeight = 471
+      ClientWidth = 501
       object Label3: TLabel
         Left = 11
         Height = 15
         Top = 15
-        Width = 492
+        Width = 490
         Anchors = [akTop, akLeft, akRight]
         AutoSize = False
         Caption = 'Gerätedefinition'
@@ -106,9 +106,9 @@ object fAddDevice: TfAddDevice
       end
       object ipHTML: TIpHtmlPanel
         Left = 11
-        Height = 344
+        Height = 359
         Top = 88
-        Width = 485
+        Width = 483
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderStyle = bsSingle
         FixedTypeface = 'Courier New'
@@ -123,18 +123,18 @@ object fAddDevice: TfAddDevice
       end
       object cbName: TRadioButton
         Left = 83
-        Height = 22
+        Height = 17
         Top = 434
-        Width = 107
+        Width = 93
         Caption = 'Beschreibung'
         OnClick = cbAllClick
         TabOrder = 1
       end
       object cbAll: TRadioButton
         Left = 11
-        Height = 22
+        Height = 17
         Top = 434
-        Width = 51
+        Width = 45
         Caption = 'Alles'
         Checked = True
         OnClick = cbAllClick
@@ -143,19 +143,20 @@ object fAddDevice: TfAddDevice
       end
       object Label4: TLabel
         Left = 11
-        Height = 15
+        Height = 13
         Top = 72
-        Width = 26
+        Width = 25
         Caption = 'Hilfe'
         ParentColor = False
       end
       inline eDefine: TMemo
         Cursor = crIBeam
         Left = 8
-        Height = 33
+        Height = 34
         Top = 32
-        Width = 488
+        Width = 486
         Anchors = [akTop, akLeft, akRight]
+        TabOrder = 3
       end
     end
   end
