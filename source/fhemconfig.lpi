@@ -47,7 +47,7 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="11">
+    <Units Count="12">
       <Unit0>
         <Filename Value="fhemconfig.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -125,6 +125,11 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uAttrEditor"/>
       </Unit10>
+      <Unit11>
+        <Filename Value="uicons.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uIcons"/>
+      </Unit11>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

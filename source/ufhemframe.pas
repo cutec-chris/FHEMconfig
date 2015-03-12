@@ -14,6 +14,7 @@ type
   private
     FClassType: string;
     FFound: Boolean;
+    FII: Integer;
     FName: string;
     FRoom: string;
     fStatus: string;
@@ -25,6 +26,8 @@ type
     property ClassType : string read FClassType write FClassType;
     property Found : Boolean read FFound write FFound;
     property Room : string read FRoom write SetRoom;
+    property ImageIndex : Integer read FII write FII;
+    constructor Create;
   end;
 
   { TFHEMFrame }
@@ -97,6 +100,11 @@ begin
   fStatus:=AValue;
 end;
 
+constructor TDevice.Create;
+begin
+  FII := -1;
+end;
+
 procedure TDevice.SetRoom(AValue: string);
 var
   aNode: TTreeNode;
@@ -113,6 +121,8 @@ var
       end;
     bNode := fMain.tvMain.Items.AddChild(Node,Self.Name);
     bNode.Data := Self;
+    bNode.ImageIndex:=Self.ImageIndex;
+    bNode.SelectedIndex:=Self.ImageIndex;
   end;
 
 begin

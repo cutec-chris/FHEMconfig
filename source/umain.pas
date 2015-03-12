@@ -57,7 +57,6 @@ type
     eSearch: TEdit;
     eServer: TComboBox;
     ImageList1: TImageList;
-    ImageList2: TImageList;
     Label3: TLabel;
     lbLog: TListBox;
     ListBox1: TListBox;
@@ -162,7 +161,7 @@ resourcestring
 
 implementation
 
-uses Utils,synautil,dateutils,LCLProc,SynEditTypes,RegExpr,uAddDevice;
+uses Utils,synautil,dateutils,LCLProc,SynEditTypes,RegExpr,uAddDevice,uIcons;
 
 {$R *.lfm}
 
@@ -784,6 +783,19 @@ var
     TDevice(aDevice.Data).Status := aStatus;
     TDevice(aDevice.Data).ClassType := Category.Text;
     TDevice(aDevice.Data).Found:=True;
+    tmp := DeviceIcons;
+    while pos(#10,tmp)>0 do
+      begin
+        if LowerCase(Category.Text)=copy(tmp,0,pos(':',tmp)-1) then
+          begin
+            tmp := copy(tmp,pos(':',tmp)+1,3);
+            tmp := copy(tmp,0,pos(#10,tmp)-1);
+            TDevice(aDevice.Data).ImageIndex :=StrToInt(tmp);
+            aDevice.ImageIndex:=TDevice(aDevice.Data).ImageIndex;
+            aDevice.SelectedIndex:=TDevice(aDevice.Data).ImageIndex;
+          end;
+        tmp := copy(tmp,pos(#10,tmp)+1,length(tmp));
+      end;
     for c := 0 to FRooms.Count-1 do
       if copy(FRooms[c],0,pos(' ',FRooms[c])-1)=aName then
         TDevice(aDevice.Data).Room := trim(copy(FRooms[c],pos(' ',FRooms[c])+1,length(FRooms[c])));
@@ -793,7 +805,11 @@ begin
   if tvMain.Items.Count=0 then
     begin
       FRNode := tvMain.Items.Add(nil,'Räume');
+      FRNode.ImageIndex:=5;
+      FRNode.SelectedIndex:=5;
       FDNode := tvMain.Items.Add(nil,'Geräte');
+      FDNode.ImageIndex:=6;
+      FDNode.SelectedIndex:=6;
     end;
   i := 0;
   while i < sl.Count do
