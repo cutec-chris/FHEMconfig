@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, SynMemo, synhighlighterunixshellscript,
   SynHighlighterPerl, SynEdit, SynGutterBase, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, StdCtrls, ComCtrls, ActnList, ValEdit, Buttons, Menus,
-  blcksock, httpsend, uFhemFrame, ssl_openssl, types, SynCompletion, LCLType;
+  blcksock, httpsend, uFhemFrame, ssl_openssl, types, LCLType;
 
 type
   TInfoEvent = procedure(aInfo : string) of object;
@@ -52,7 +52,7 @@ type
     bConnect2: TSpeedButton;
     bConnect3: TSpeedButton;
     cbFile: TComboBox;
-    eCommand: TSynMemo;
+    eCommand: TEdit;
     eSearchC: TEdit;
     eSearch: TEdit;
     eServer: TComboBox;
@@ -60,10 +60,12 @@ type
     ImageList2: TImageList;
     Label3: TLabel;
     lbLog: TListBox;
+    ListBox1: TListBox;
     mCommand: TMemo;
     MenuItem1: TMenuItem;
     Panel4: TPanel;
     Panel5: TPanel;
+    pComplete: TPanel;
     pcPages: TPageControl;
     Panel1: TPanel;
     Panel2: TPanel;
@@ -86,7 +88,6 @@ type
     procedure acSaveConfigExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure cbFileSelect(Sender: TObject);
-    procedure eCommandClick(Sender: TObject);
     procedure eCommandKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
       );
     procedure eConfigChange(Sender: TObject);
@@ -102,10 +103,6 @@ type
     procedure eServerSelect(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure FSynCompletionExecute(Sender: TObject);
-    procedure FSynCompletionSearchPosition(var APosition: integer);
-    procedure FSynCompletionUTF8KeyPress(Sender: TObject; var UTF8Key: TUTF8Char
-      );
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure tsCommandEnter(Sender: TObject);
@@ -120,15 +117,18 @@ type
     procedure tvMainEditing(Sender: TObject; Node: TTreeNode;
       var AllowEdit: Boolean);
     procedure tvMainSelectionChanged(Sender: TObject);
+    procedure tvMainShowHint(Sender: TObject; HintInfo: PHintInfo);
   private
     { private declarations }
     CmdHistory: TStringList;
     CmdHistoryIndex : Integer;
+    FDNode: TTreeNode;
     FFrame: TFHEMFrame;
+    FRNode: TTreeNode;
+    FRooms : TStringList;
     Server:THTTPSend;
     LogThread : TLogThread;
     LastLogTime : TDateTime;
-    FSynCompletion: TSynCompletion;
     ConnType : string;
     function Refresh: Boolean;
     procedure RefreshTree(sl: TStrings;SelectLast : Boolean = false);
@@ -146,12 +146,15 @@ type
     function GetDeviceList : TStrings;
     function GetDeviceParams(aDevice : string) : TStrings;
     function ListModules : string;
+    property RoomNode : TTreeNode read FRNode write FRNode;
+    property DeviceNode : TTreeNode read FDNode write FDNode;
   end;
 
 var
   fMain: TfMain;
 
   function StripHTML(input : string) : string;
+  function GetCurWord(Editor : TCustomEdit):string;
 
 resourcestring
     strSearch                       = '<suche>';
@@ -162,6 +165,26 @@ implementation
 uses Utils,synautil,dateutils,LCLProc,SynEditTypes,RegExpr,uAddDevice;
 
 {$R *.lfm}
+
+function GetCurWord(Editor : TCustomEdit):string;
+var
+  S:string;
+  i,j:integer;
+begin
+  Result:='';
+  with Editor do
+    begin
+      S:=Trim(Copy(Editor.Text, 1, Editor.SelStart+Editor.SelLength));
+      I:=Length(S);
+      while (i>0) and (S[i]<>':') and (S[i]<>' ') do Dec(I);
+      if (I>0) then
+      begin
+        J:=i-1;
+        Result:=trim(Copy(S, j+1, i-j-1));
+      end;
+    end;
+end;
+
 
 { TLogThread }
 
@@ -337,18 +360,13 @@ var
   Result: String;
 begin
   Result := ExecCommand('save',eServer.Text);
-  if Result = '' then
+  if pos('wrote',lowercase(Result))>0 then
     acSave.Enabled:=False;
 end;
 
 procedure TfMain.cbFileSelect(Sender: TObject);
 begin
   LoadFile(cbFile.Text);
-end;
-
-procedure TfMain.eCommandClick(Sender: TObject);
-begin
-  eCommand.SelEnd:=length(eCommand.Text);
 end;
 
 procedure TfMain.eCommandKeyDown(Sender: TObject; var Key: Word;
@@ -459,18 +477,14 @@ begin
   Server.Timeout:=2000;
   Server.Sock.OnStatus:=@ServerSockStatus;
   ConnType := 'http://';
+  FRooms := TStringList.Create;
   FindConfig;
-  FSynCompletion := TSynCompletion.Create(Self);
-  FSynCompletion.CaseSensitive := False;
-  FSynCompletion.AddEditor(eCommand);
-  FSynCompletion.OnExecute:=@FSynCompletionExecute;
-  FSynCompletion.OnUTF8KeyPress:=@FSynCompletionUTF8KeyPress;
-  FSynCompletion.OnSearchPosition:=@FSynCompletionSearchPosition;
 end;
 
 procedure TfMain.FormDestroy(Sender: TObject);
 begin
   Hide;
+  FRooms.Free;
   Application.ProcessMessages;
   if Assigned(LogThread) then
     begin
@@ -481,67 +495,6 @@ begin
     end;
   Server.Free;
   CmdHistory.Free;
-end;
-
-procedure TfMain.FSynCompletionExecute(Sender: TObject);
-function GetCurWord:string;
-var
-  S:string;
-  i,j:integer;
-begin
-  Result:='';
-  with TSynCompletion(Sender).Editor do
-    begin
-      S:=Trim(Copy(LineText, 1, CaretX));
-      I:=Length(S);
-      while (i>0) and (S[i]<>':') and (S[i]<>' ') do Dec(I);
-      if (I>0) then
-      begin
-        J:=i-1;
-        //Get table name
-        while (j>0) and (S[j] in ['A'..'z','"']) do Dec(j);
-        Result:=trim(Copy(S, j+1, i-j-1));
-      end;
-    end;
-end;
-var
-  sl: TStrings;
-  s: String;
-begin
-  with FSynCompletion.ItemList do
-    begin
-      Clear;
-      s := GetCurWord;
-      if s='' then
-        sl := GetDeviceList
-      else sl := GetDeviceParams(s);
-      FSynCompletion.ItemList.AddStrings(sl);
-      sl.Free;
-    end;
-end;
-
-procedure TfMain.FSynCompletionSearchPosition(var APosition: integer);
-var
-  i: Integer;
-begin
-  for i := 0 to FSynCompletion.ItemList.Count-1 do
-    if Uppercase(copy(FSynCompletion.ItemList[i],0,length(FSynCompletion.CurrentString))) = Uppercase(FSynCompletion.CurrentString) then
-      begin
-        aPosition := i;
-        FSynCompletion.TheForm.Position:=i-1;
-        FSynCompletion.TheForm.Position:=i;
-        exit;
-      end;
-end;
-
-procedure TfMain.FSynCompletionUTF8KeyPress(Sender: TObject;
-  var UTF8Key: TUTF8Char);
-begin
-  if (length(UTF8Key)=1) and (System.Pos(UTF8Key[1],FSynCompletion.EndOfTokenChr)>0) then
-    begin
-      FSynCompletion.TheForm.OnValidate(Sender,UTF8Key,[]);
-      UTF8Key:='';
-    end
 end;
 
 procedure TfMain.SpeedButton1Click(Sender: TObject);
@@ -668,6 +621,21 @@ begin
     end;
 end;
 
+procedure TfMain.tvMainShowHint(Sender: TObject; HintInfo: PHintInfo);
+var
+  aNode: TTreeNode;
+begin
+  HintInfo^.HintStr:='';
+  aNode := tvMain.GetNodeAt(HintInfo^.CursorPos.X,HintInfo^.CursorPos.Y);
+  if Assigned(aNode) and Assigned(aNode.Data) then
+    begin
+      HintInfo^.HintStr:='Gerät:'+TDevice(aNode.Data).Name+CRLF;
+      HintInfo^.HintStr:=HintInfo^.HintStr+'Status:'+TDevice(aNode.Data).Status+CRLF;
+      if TDevice(aNode.Data).Room<>'' then
+        HintInfo^.HintStr:=HintInfo^.HintStr+'Raum:'+TDevice(aNode.Data).Room+CRLF;
+    end;
+end;
+
 function TfMain.ExecCommand(aCommand: string; aServer: string): string;
 var
   sl: TStringList;
@@ -755,6 +723,7 @@ begin
         ConnType:='https://'
       else ConnType:='http://';
     end;
+  FRooms.Text:=ExecCommand('list .* room',eServer.Text);
   RefreshTree(sl);
   if tvMain.Items.Count>0 then
     SaveConfig;
@@ -776,8 +745,7 @@ var
     aItem: TTreeNode;
     a: Integer;
   begin
-    aItem := nil;
-    if tvMain.Items.Count>0 then aItem := tvMain.Items[0];
+    aItem := FDNode.GetFirstChild;
     while Assigned(aItem) do
       begin
         if aItem.Text=aCat then
@@ -791,13 +759,14 @@ var
         for a := 0 to Category.Count-1 do
           TDevice(Category.Items[a].Data).Found := False;
       end;
-    Category := tvMain.Items.Add(nil,aCat);
+    Category := tvMain.Items.AddChild(FDNode,aCat);
   end;
   procedure AddDevice(aDev : string);
   var
     aName: String;
     a: Integer;
     aStatus: String;
+    c: Integer;
   begin
     aName := copy(trim(aDev),0,pos(' ',trim(aDev))-1);
     aStatus := trim(copy(trim(aDev),pos(' ',trim(aDev))+1,length(aDev)));
@@ -815,9 +784,17 @@ var
     TDevice(aDevice.Data).Status := aStatus;
     TDevice(aDevice.Data).ClassType := Category.Text;
     TDevice(aDevice.Data).Found:=True;
+    for c := 0 to FRooms.Count-1 do
+      if copy(FRooms[c],0,pos(' ',FRooms[c])-1)=aName then
+        TDevice(aDevice.Data).Room := trim(copy(FRooms[c],pos(' ',FRooms[c])+1,length(FRooms[c])));
   end;
 begin
   tvMain.BeginUpdate;
+  if tvMain.Items.Count=0 then
+    begin
+      FRNode := tvMain.Items.Add(nil,'Räume');
+      FDNode := tvMain.Items.Add(nil,'Geräte');
+    end;
   i := 0;
   while i < sl.Count do
     if trim(sl[i])='' then sl.Delete(i)

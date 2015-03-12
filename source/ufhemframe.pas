@@ -5,7 +5,7 @@ unit uFhemFrame;
 interface
 
 uses
-  Classes, SysUtils, Forms, contnrs;
+  Classes, SysUtils, Forms, ComCtrls, contnrs;
 
 type
   { TDevice }
@@ -15,13 +15,16 @@ type
     FClassType: string;
     FFound: Boolean;
     FName: string;
+    FRoom: string;
     fStatus: string;
+    procedure SetRoom(AValue: string);
     procedure SetStatus(AValue: string);
   public
     property Status : string read fStatus write SetStatus;
     property Name : string read FName write FName;
     property ClassType : string read FClassType write FClassType;
     property Found : Boolean read FFound write FFound;
+    property Room : string read FRoom write SetRoom;
   end;
 
   { TFHEMFrame }
@@ -92,6 +95,42 @@ procedure TDevice.SetStatus(AValue: string);
 begin
   if fStatus=AValue then Exit;
   fStatus:=AValue;
+end;
+
+procedure TDevice.SetRoom(AValue: string);
+var
+  aNode: TTreeNode;
+
+  procedure CheckRoom(Node : TTreeNode);
+  var
+    bNode: TTreeNode;
+  begin
+    bNode := aNode.GetFirstChild;
+    while Assigned(bNode) do
+      begin
+        if bNode.Text=AValue then exit;
+        bNode := bNode.GetNextSibling;
+      end;
+    bNode := fMain.tvMain.Items.AddChild(Node,Self.Name);
+    bNode.Data := Self;
+  end;
+
+begin
+  if FRoom=AValue then Exit;
+  FRoom:=AValue;
+  aNode := fMain.RoomNode.GetFirstChild;
+  while Assigned(aNode) do
+    begin
+      if aNode.Text=aValue then
+        begin
+          CheckRoom(aNode);
+          exit;
+        end;
+      aNode := aNode.GetNextSibling;
+    end;
+  if AValue='hidden' then exit;
+  aNode := fMain.tvMain.Items.AddChild(fMain.RoomNode,AValue);
+  CheckRoom(aNode);
 end;
 
 { TFHEMFrame }
