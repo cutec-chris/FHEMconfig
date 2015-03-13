@@ -1104,6 +1104,15 @@ object frDOIF: TfrDOIF
       end
     end
   end
+  object bTest: TButton
+    Left = 531
+    Height = 25
+    Top = 64
+    Width = 75
+    Caption = 'Test'
+    OnClick = bTestClick
+    TabOrder = 3
+  end
   object Timer1: TTimer
     OnTimer = Timer1Timer
     left = 552

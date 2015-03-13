@@ -379,9 +379,8 @@ begin
   if Key=VK_RETURN then
     begin
       mCommand.Text:=StripHTML(ExecCommand(eCommand.Text,eServer.Text));
-      CmdHistory.Add(eCommand.Text);
+      CmdHistoryIndex:=CmdHistory.Add(eCommand.Text);
       eCommand.Text:='';
-      CmdHistoryIndex:=CmdHistory.Count-1;
     end;
   if Key=VK_UP then
     begin

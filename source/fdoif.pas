@@ -13,6 +13,7 @@ type
   { TfrDOIF }
 
   TfrDOIF = class(TFHEMFrame)
+    bTest: TButton;
     eName: TEdit;
     Label1: TLabel;
     Label2: TLabel;
@@ -27,6 +28,7 @@ type
     Timer1: TTimer;
     procedure bTestIfClick(Sender: TObject);
     procedure bSaveClick(Sender: TObject);
+    procedure bTestClick(Sender: TObject);
     procedure FSynCompletionExecute(Sender: TObject);
     procedure FSynCompletionSearchPosition(var APosition: integer);
     procedure FSynCompletionUTF8KeyPress(Sender: TObject; var UTF8Key: TUTF8Char
@@ -77,6 +79,14 @@ begin
   if aRes <> '' then
     Showmessage(aRes)
   else Change;
+end;
+
+procedure TfrDOIF.bTestClick(Sender: TObject);
+var
+  aCmd: String;
+begin
+  aCmd := 'IF ('+mEvent.Text+') ({''Bedingung wahr !''}) ELSE ({''Bedingung unwahr!''})';
+  Showmessage(ExecCommand(aCmd));
 end;
 
 procedure TfrDOIF.FSynCompletionExecute(Sender: TObject);
