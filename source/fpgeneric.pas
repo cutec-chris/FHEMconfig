@@ -166,7 +166,7 @@ begin
   TPanel(bList.Parent).Height := (bList.RowCount*bList.DefaultRowHeight)+Label1.Height+2;
   if TPanel(bList.Parent).Height>(Self.Height div 4) then
     TPanel(bList.Parent).Height := Self.Height div 4;
-  if (bList.RowCount=2) and bList.IsEmptyRow then
+  if ((bList.RowCount=2) and bList.IsEmptyRow) and (bList<>vAttributes) then
     begin
       TPanel(bList.Parent).Height := 0;
       TPanel(bList.Parent).Visible:=False;

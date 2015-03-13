@@ -50,7 +50,7 @@ const
                +'harmony:29'+#10
                +'remotecontrol:29'+#10
 
-               +'holiday':30'+#10
+               +'holiday:30'+#10
                +'mailcheck:31'+#10
 
                +'pilight:33'+#10

@@ -9,7 +9,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="11"/>
         <CursorPos Y="23"/>
-        <UsageCount Value="133"/>
+        <UsageCount Value="135"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -19,9 +19,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <TopLine Value="748"/>
-        <CursorPos Y="770"/>
-        <UsageCount Value="133"/>
+        <TopLine Value="609"/>
+        <CursorPos X="41" Y="620"/>
+        <UsageCount Value="135"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -31,16 +31,16 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="821"/>
         <CursorPos Y="845"/>
-        <UsageCount Value="130"/>
+        <UsageCount Value="132"/>
       </Unit2>
       <Unit3>
         <Filename Value="ufhemframe.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uFhemFrame"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="103"/>
-        <CursorPos Y="123"/>
-        <UsageCount Value="130"/>
+        <TopLine Value="76"/>
+        <CursorPos Y="91"/>
+        <UsageCount Value="132"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -53,7 +53,7 @@
         <EditorIndex Value="6"/>
         <TopLine Value="135"/>
         <CursorPos X="38" Y="170"/>
-        <UsageCount Value="129"/>
+        <UsageCount Value="131"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -63,11 +63,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fpGeneric"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="9"/>
-        <TopLine Value="59"/>
-        <CursorPos X="14" Y="107"/>
-        <UsageCount Value="128"/>
+        <TopLine Value="152"/>
+        <CursorPos X="71" Y="169"/>
+        <UsageCount Value="130"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit5>
       <Unit6>
         <Filename Value="fpresence.pas"/>
@@ -79,7 +81,7 @@
         <EditorIndex Value="3"/>
         <TopLine Value="7"/>
         <CursorPos X="42" Y="35"/>
-        <UsageCount Value="100"/>
+        <UsageCount Value="102"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -92,7 +94,7 @@
         <EditorIndex Value="2"/>
         <TopLine Value="54"/>
         <CursorPos Y="69"/>
-        <UsageCount Value="87"/>
+        <UsageCount Value="89"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit7>
@@ -106,7 +108,7 @@
         <EditorIndex Value="7"/>
         <TopLine Value="52"/>
         <CursorPos Y="72"/>
-        <UsageCount Value="59"/>
+        <UsageCount Value="61"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -119,7 +121,7 @@
         <EditorIndex Value="8"/>
         <TopLine Value="131"/>
         <CursorPos X="3" Y="136"/>
-        <UsageCount Value="58"/>
+        <UsageCount Value="60"/>
         <Loaded Value="True"/>
       </Unit9>
       <Unit10>
@@ -132,283 +134,278 @@
         <EditorIndex Value="10"/>
         <TopLine Value="23"/>
         <CursorPos X="10" Y="42"/>
-        <UsageCount Value="38"/>
+        <UsageCount Value="40"/>
         <Loaded Value="True"/>
       </Unit10>
       <Unit11>
+        <Filename Value="uicons.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uIcons"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="38"/>
+        <CursorPos X="25" Y="53"/>
+        <UsageCount Value="25"/>
+        <Loaded Value="True"/>
+      </Unit11>
+      <Unit12>
         <Filename Value="../../promet/promet/source/components/synapse/httpsend.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="793"/>
         <CursorPos X="59" Y="805"/>
         <UsageCount Value="19"/>
-      </Unit11>
-      <Unit12>
+      </Unit12>
+      <Unit13>
         <Filename Value="../../../lazarus/lcl/include/customform.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1815"/>
         <CursorPos X="35" Y="1827"/>
         <UsageCount Value="9"/>
-      </Unit12>
-      <Unit13>
+      </Unit13>
+      <Unit14>
         <Filename Value="../../../lazarus/lcl/include/treeview.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="4156"/>
         <CursorPos Y="4175"/>
         <UsageCount Value="23"/>
-      </Unit13>
-      <Unit14>
+      </Unit14>
+      <Unit15>
         <Filename Value="../../promet/promet/source/components/synapse/synautil.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1718"/>
         <CursorPos Y="1731"/>
         <UsageCount Value="10"/>
-      </Unit14>
-      <Unit15>
+      </Unit15>
+      <Unit16>
         <Filename Value="../../promet/promet/source/components/synapse/blcksock.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="2690"/>
         <CursorPos Y="2704"/>
         <UsageCount Value="9"/>
-      </Unit15>
-      <Unit16>
+      </Unit16>
+      <Unit17>
         <Filename Value="../../../lazarus/lcl/valedit.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="679"/>
         <CursorPos X="59" Y="688"/>
         <UsageCount Value="9"/>
-      </Unit16>
-      <Unit17>
-        <Filename Value="../../../lazarus/lcl/include/control.inc"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="3264"/>
-        <CursorPos Y="3278"/>
-        <UsageCount Value="10"/>
       </Unit17>
       <Unit18>
+        <Filename Value="../../../lazarus/lcl/include/control.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="2742"/>
+        <CursorPos X="51" Y="2755"/>
+        <UsageCount Value="10"/>
+      </Unit18>
+      <Unit19>
         <Filename Value="umain.lfm"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="168"/>
         <CursorPos Y="179"/>
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
-      </Unit18>
-      <Unit19>
+      </Unit19>
+      <Unit20>
         <Filename Value="../../../lazarus/components/synedit/syngutterbase.pp"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="767"/>
         <CursorPos Y="787"/>
         <UsageCount Value="8"/>
-      </Unit19>
-      <Unit20>
+      </Unit20>
+      <Unit21>
         <Filename Value="../../../lazarus/components/synedit/synedit.pp"/>
         <UnitName Value="SynEdit"/>
         <EditorIndex Value="5"/>
         <TopLine Value="2609"/>
         <CursorPos Y="2625"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
-      </Unit20>
-      <Unit21>
+      </Unit21>
+      <Unit22>
         <Filename Value="../../promet/promet/source/components/synapse/ssl_openssl.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="82"/>
         <CursorPos X="11" Y="98"/>
         <UsageCount Value="8"/>
-      </Unit21>
-      <Unit22>
+      </Unit22>
+      <Unit23>
         <Filename Value="../../promet/promet/source/components/synapse/ssl_openssl_lib.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="91"/>
         <UsageCount Value="8"/>
-      </Unit22>
-      <Unit23>
+      </Unit23>
+      <Unit24>
         <Filename Value="../../../lazarus/components/synedit/synedittypes.pp"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="94"/>
         <CursorPos X="7" Y="78"/>
         <UsageCount Value="8"/>
-      </Unit23>
-      <Unit24>
+      </Unit24>
+      <Unit25>
         <Filename Value="../../../lazarus/components/synedit/syneditsearch.pp"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="765"/>
         <CursorPos Y="789"/>
         <UsageCount Value="8"/>
-      </Unit24>
-      <Unit25>
+      </Unit25>
+      <Unit26>
         <Filename Value="../../../fpc/trunk/packages/regexpr/src/regexpr.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="604"/>
         <CursorPos X="21" Y="607"/>
         <UsageCount Value="12"/>
-      </Unit25>
-      <Unit26>
+      </Unit26>
+      <Unit27>
         <Filename Value="../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1978"/>
         <CursorPos X="15" Y="1991"/>
         <UsageCount Value="11"/>
-      </Unit26>
-      <Unit27>
+      </Unit27>
+      <Unit28>
         <Filename Value="../../../lazarus/components/fpvectorial/fpvectorial.pas"/>
         <EditorIndex Value="-1"/>
         <UsageCount Value="14"/>
-      </Unit27>
-      <Unit28>
+      </Unit28>
+      <Unit29>
         <Filename Value="../../../lazarus/components/lazutils/lazlogger.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="485"/>
         <CursorPos X="38" Y="547"/>
         <UsageCount Value="10"/>
-      </Unit28>
-      <Unit29>
+      </Unit29>
+      <Unit30>
         <Filename Value="uadddevice.lfm"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="133"/>
         <CursorPos Y="159"/>
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
-      </Unit29>
-      <Unit30>
+      </Unit30>
+      <Unit31>
         <Filename Value="../../../lazarus/components/lazutils/lazmethodlist.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="147"/>
         <CursorPos Y="162"/>
         <UsageCount Value="10"/>
-      </Unit30>
-      <Unit31>
-        <Filename Value="uicons.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="uIcons"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="37"/>
-        <CursorPos X="31" Y="65"/>
-        <UsageCount Value="23"/>
-        <Loaded Value="True"/>
       </Unit31>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
-        <Filename Value="uadddevice.pas"/>
-        <Caret Line="456" Column="113" TopLine="454"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="798" TopLine="778"/>
       </Position1>
       <Position2>
-        <Filename Value="uadddevice.pas"/>
-        <Caret Line="457" Column="113" TopLine="455"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="790" TopLine="778"/>
       </Position2>
       <Position3>
-        <Filename Value="uadddevice.pas"/>
-        <Caret Line="9" Column="61"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="792" TopLine="778"/>
       </Position3>
       <Position4>
-        <Filename Value="uadddevice.pas"/>
-        <Caret Line="81" TopLine="65"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="798" TopLine="778"/>
       </Position4>
       <Position5>
-        <Filename Value="uadddevice.pas"/>
-        <Caret Line="261" TopLine="234"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="790" TopLine="778"/>
       </Position5>
       <Position6>
         <Filename Value="umain.pas"/>
-        <Caret Line="363" Column="38" TopLine="357"/>
+        <Caret Line="792" TopLine="778"/>
       </Position6>
       <Position7>
-        <Filename Value="uicons.pas"/>
-        <Caret Line="12" Column="18"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="798" TopLine="778"/>
       </Position7>
       <Position8>
-        <Filename Value="umain.pas"/>
-        <Caret Line="254" Column="77" TopLine="234"/>
+        <Filename Value="ufhemframe.pas"/>
+        <Caret Line="29" Column="54" TopLine="7"/>
       </Position8>
       <Position9>
-        <Filename Value="umain.pas"/>
-        <Caret Line="312" Column="13" TopLine="288"/>
+        <Filename Value="ufhemframe.pas"/>
+        <Caret Line="30" Column="24" TopLine="7"/>
       </Position9>
       <Position10>
         <Filename Value="umain.pas"/>
-        <Caret Line="336" Column="27" TopLine="312"/>
+        <Caret Line="906" Column="105" TopLine="885"/>
       </Position10>
       <Position11>
         <Filename Value="umain.pas"/>
-        <Caret Line="796" Column="46" TopLine="778"/>
+        <Caret Line="164" Column="66" TopLine="149"/>
       </Position11>
       <Position12>
         <Filename Value="umain.pas"/>
-        <Caret Line="790" TopLine="778"/>
+        <Caret Line="311" Column="13" TopLine="288"/>
       </Position12>
       <Position13>
         <Filename Value="umain.pas"/>
-        <Caret Line="792" TopLine="778"/>
+        <Caret Line="336" Column="27" TopLine="312"/>
       </Position13>
       <Position14>
-        <Filename Value="umain.pas"/>
-        <Caret Line="798" TopLine="778"/>
+        <Filename Value="ufhemframe.pas"/>
+        <Caret Line="125" Column="41" TopLine="103"/>
       </Position14>
       <Position15>
         <Filename Value="umain.pas"/>
-        <Caret Line="790" TopLine="778"/>
+        <Caret Line="770" TopLine="748"/>
       </Position15>
       <Position16>
         <Filename Value="umain.pas"/>
-        <Caret Line="792" TopLine="778"/>
+        <Caret Line="769" TopLine="747"/>
       </Position16>
       <Position17>
         <Filename Value="umain.pas"/>
-        <Caret Line="798" TopLine="778"/>
+        <Caret Line="770" TopLine="748"/>
       </Position17>
       <Position18>
         <Filename Value="umain.pas"/>
-        <Caret Line="790" TopLine="778"/>
+        <Caret Line="771" TopLine="749"/>
       </Position18>
       <Position19>
         <Filename Value="umain.pas"/>
-        <Caret Line="792" TopLine="778"/>
+        <Caret Line="772" TopLine="750"/>
       </Position19>
       <Position20>
         <Filename Value="umain.pas"/>
-        <Caret Line="798" TopLine="778"/>
+        <Caret Line="773" TopLine="751"/>
       </Position20>
       <Position21>
         <Filename Value="umain.pas"/>
-        <Caret Line="790" TopLine="778"/>
+        <Caret Line="601" Column="32" TopLine="594"/>
       </Position21>
       <Position22>
         <Filename Value="umain.pas"/>
-        <Caret Line="792" TopLine="778"/>
+        <Caret Line="612" Column="19" TopLine="596"/>
       </Position22>
       <Position23>
-        <Filename Value="umain.pas"/>
-        <Caret Line="798" TopLine="778"/>
+        <Filename Value="uicons.pas"/>
+        <Caret Line="65" Column="31" TopLine="37"/>
       </Position23>
       <Position24>
-        <Filename Value="ufhemframe.pas"/>
-        <Caret Line="29" Column="54" TopLine="7"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="627" Column="41" TopLine="608"/>
       </Position24>
       <Position25>
-        <Filename Value="ufhemframe.pas"/>
-        <Caret Line="30" Column="24" TopLine="7"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="129" TopLine="120"/>
       </Position25>
       <Position26>
         <Filename Value="umain.pas"/>
-        <Caret Line="906" Column="105" TopLine="885"/>
+        <Caret Line="484" Column="21" TopLine="475"/>
       </Position26>
       <Position27>
         <Filename Value="umain.pas"/>
-        <Caret Line="164" Column="66" TopLine="149"/>
+        <Caret Line="631" Column="33" TopLine="616"/>
       </Position27>
       <Position28>
         <Filename Value="umain.pas"/>
-        <Caret Line="311" Column="13" TopLine="288"/>
+        <Caret Line="619" Column="41" TopLine="608"/>
       </Position28>
       <Position29>
-        <Filename Value="umain.pas"/>
-        <Caret Line="336" Column="27" TopLine="312"/>
+        <Filename Value="fpgeneric.pas"/>
+        <Caret Line="18" Column="13" TopLine="3"/>
       </Position29>
-      <Position30>
-        <Filename Value="ufhemframe.pas"/>
-        <Caret Line="125" Column="41" TopLine="103"/>
-      </Position30>
     </JumpHistory>
   </ProjectSession>
   <Debugging>

@@ -1,7 +1,7 @@
 object fMain: TfMain
-  Left = -316
+  Left = 59
   Height = 636
-  Top = 188
+  Top = 144
   Width = 985
   ActiveControl = pcPages
   Caption = 'FHEMconfig'
@@ -129,9 +129,9 @@ object fMain: TfMain
       Height = 580
       Top = 0
       Width = 625
-      ActivePage = tsCommand
+      ActivePage = tsSelected
       Align = alClient
-      TabIndex = 1
+      TabIndex = 0
       TabOrder = 0
       object tsSelected: TTabSheet
         Caption = 'Gerät'
@@ -145,8 +145,26 @@ object fMain: TfMain
           Width = 619
           Align = alClient
           BevelOuter = bvNone
-          Caption = 'lade...'
+          Caption = 'lade Daten...'
+          ClientHeight = 547
+          ClientWidth = 619
           TabOrder = 0
+          object pcDetails: TPageControl
+            Left = 0
+            Height = 547
+            Top = 0
+            Width = 619
+            ActivePage = tsSpecial
+            Align = alClient
+            TabIndex = 0
+            TabOrder = 0
+            object tsSpecial: TTabSheet
+              Caption = 'Einstellungen'
+            end
+            object tsCommon: TTabSheet
+              Caption = 'Allgemeine Einstellungen'
+            end
+          end
         end
       end
       object tsCommand: TTabSheet

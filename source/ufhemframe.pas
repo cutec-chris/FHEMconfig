@@ -88,8 +88,6 @@ begin
         Result := TFHEMFrameClass(Frames[i]);
       SelFrame.Free;
     end;
-  if Result=nil then
-    Result := fpGeneric.TfGeneric;
 end;
 
 { TDevice }

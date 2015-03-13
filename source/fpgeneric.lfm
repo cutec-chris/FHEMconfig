@@ -72,7 +72,6 @@ object fGeneric: TfGeneric
     Align = alTop
     BorderSpacing.Around = 8
     BevelOuter = bvNone
-    Caption = 'Panel2'
     ClientHeight = 127
     ClientWidth = 584
     TabOrder = 1

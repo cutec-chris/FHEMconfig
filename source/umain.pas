@@ -62,8 +62,9 @@ type
     ListBox1: TListBox;
     mCommand: TMemo;
     MenuItem1: TMenuItem;
-    Panel4: TPanel;
     Panel5: TPanel;
+    pcDetails: TPageControl;
+    Panel4: TPanel;
     pComplete: TPanel;
     pcPages: TPageControl;
     Panel1: TPanel;
@@ -76,6 +77,8 @@ type
     eConfig: TSynEdit;
     SynGutterPartList1: TSynGutterPartList;
     SynUNIXShellScriptSyn1: TSynUNIXShellScriptSyn;
+    tsCommon: TTabSheet;
+    tsSpecial: TTabSheet;
     tsConfig: TTabSheet;
     tsLog: TTabSheet;
     tsSelected: TTabSheet;
@@ -123,6 +126,7 @@ type
     CmdHistoryIndex : Integer;
     FDNode: TTreeNode;
     FFrame: TFHEMFrame;
+    FGenericFrame: TFHEMFrame;
     FRNode: TTreeNode;
     FRooms : TStringList;
     Server:THTTPSend;
@@ -161,7 +165,8 @@ resourcestring
 
 implementation
 
-uses Utils,synautil,dateutils,LCLProc,SynEditTypes,RegExpr,uAddDevice,uIcons;
+uses Utils,synautil,dateutils,LCLProc,SynEditTypes,RegExpr,uAddDevice,uIcons,
+  fpGeneric;
 
 {$R *.lfm}
 
@@ -477,6 +482,7 @@ begin
   Server.Sock.OnStatus:=@ServerSockStatus;
   ConnType := 'http://';
   FRooms := TStringList.Create;
+  FGenericFrame:=nil;
   FindConfig;
 end;
 
@@ -594,27 +600,41 @@ begin
         end
       else
         begin
+          sl := TStringList.Create;
           FreeAndNil(FFrame);
+          pcPages.ActivePage:=tsSelected;
+          tsSelected.TabVisible:=True;
+          pcDetails.Visible:=False;
+          tsSpecial.TabVisible:=False;
+          while sl.Text='' do
+            begin
+              Application.ProcessMessages;
+              sl.Text := ExecCommand('list '+TDevice(tvMain.Selected.Data).Name,eServer.Text);
+            end;
           aFrameClass := FindFrame(TDevice(tvMain.Selected.Data).ClassType);
           if aFrameClass<>nil then
             begin
-              pcPages.ActivePage:=tsSelected;
-              tsSelected.TabVisible:=True;
+              tsSpecial.TabVisible:=True;
               FFrame := aFrameClass.Create(Self);
               FFrame.Hide;
-              FFrame.Parent := tsSelected;
+              FFrame.Parent := tsSpecial;
               FFrame.Align:=alClient;
               FFrame.Device:=TDevice(tvMain.Selected.Data);
-              sl := TStringList.Create;
-              while sl.Text='' do
-                begin
-                  Application.ProcessMessages;
-                  sl.Text := ExecCommand('list '+TDevice(tvMain.Selected.Data).Name,eServer.Text);
-                end;
               FFrame.ProcessList(sl);
-              sl.Free;
               FFrame.Show;
+              tsSpecial.TabVisible:=True;
             end;
+          if not Assigned(FGenericFrame) then
+            begin
+              FGenericFrame := TfGeneric.Create(Self);
+              FGenericFrame.Parent := tsCommon;
+              FGenericFrame.Align:=alClient;
+              FGenericFrame.Show;
+            end;
+          FGenericFrame.Device:=TDevice(tvMain.Selected.Data);
+          FGenericFrame.ProcessList(sl);
+          pcDetails.Visible:=True;
+          sl.Free;
         end;
       acDelete.Enabled:=True;
     end;
