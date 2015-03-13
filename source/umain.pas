@@ -606,6 +606,7 @@ begin
           tsSelected.TabVisible:=True;
           pcDetails.Visible:=False;
           tsSpecial.TabVisible:=False;
+          pcDetails.ActivePage:=tsCommon;
           while sl.Text='' do
             begin
               Application.ProcessMessages;

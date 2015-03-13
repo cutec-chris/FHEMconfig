@@ -19,8 +19,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <TopLine Value="609"/>
-        <CursorPos X="41" Y="620"/>
+        <TopLine Value="600"/>
+        <CursorPos X="41" Y="609"/>
         <UsageCount Value="135"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -50,11 +50,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fDoIf"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
-        <TopLine Value="135"/>
+        <TopLine Value="141"/>
         <CursorPos X="38" Y="170"/>
         <UsageCount Value="131"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="fpgeneric.pas"/>
@@ -63,7 +65,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fpGeneric"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="9"/>
         <TopLine Value="152"/>
         <CursorPos X="71" Y="169"/>

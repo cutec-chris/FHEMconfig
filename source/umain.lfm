@@ -154,9 +154,9 @@ object fMain: TfMain
             Height = 547
             Top = 0
             Width = 619
-            ActivePage = tsSpecial
+            ActivePage = tsCommon
             Align = alClient
-            TabIndex = 0
+            TabIndex = 1
             TabOrder = 0
             object tsSpecial: TTabSheet
               Caption = 'Einstellungen'
