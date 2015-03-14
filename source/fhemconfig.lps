@@ -19,8 +19,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <TopLine Value="620"/>
-        <CursorPos X="41" Y="648"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="592"/>
+        <CursorPos X="3" Y="604"/>
         <UsageCount Value="142"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -64,10 +65,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fpGeneric"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="9"/>
         <TopLine Value="147"/>
-        <CursorPos X="17" Y="153"/>
+        <CursorPos X="18" Y="149"/>
         <UsageCount Value="137"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -93,8 +93,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uAddDevice"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="54"/>
-        <CursorPos Y="69"/>
+        <TopLine Value="165"/>
+        <CursorPos X="30" Y="180"/>
         <UsageCount Value="96"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -290,7 +290,7 @@
         <UsageCount Value="9"/>
       </Unit31>
     </Units>
-    <JumpHistory Count="20" HistoryIndex="19">
+    <JumpHistory Count="22" HistoryIndex="21">
       <Position1>
         <Filename Value="umain.pas"/>
         <Caret Line="508" Column="3" TopLine="506"/>
@@ -371,6 +371,14 @@
         <Filename Value="fpgeneric.pas"/>
         <Caret Line="59" Column="52" TopLine="37"/>
       </Position20>
+      <Position21>
+        <Filename Value="umain.pas"/>
+        <Caret Line="648" Column="41" TopLine="620"/>
+      </Position21>
+      <Position22>
+        <Filename Value="umain.pas"/>
+        <Caret Line="604" Column="3" TopLine="592"/>
+      </Position22>
     </JumpHistory>
   </ProjectSession>
   <Debugging>

@@ -1,7 +1,7 @@
 object fMain: TfMain
-  Left = 59
+  Left = 196
   Height = 636
-  Top = 144
+  Top = 134
   Width = 985
   ActiveControl = pcPages
   Caption = 'FHEMconfig'
@@ -228,10 +228,10 @@ object fMain: TfMain
           Left = 0
           Height = 547
           Top = 0
-          Width = 656
+          Width = 619
           Align = alClient
           ItemHeight = 0
-          ScrollWidth = 654
+          ScrollWidth = 617
           TabOrder = 0
           TopIndex = -1
         end
@@ -240,7 +240,6 @@ object fMain: TfMain
         Caption = 'Konfiguration'
         ClientHeight = 547
         ClientWidth = 619
-        OnHide = tvMainSelectionChanged
         OnShow = tsConfigShow
         TabVisible = False
         inline eConfig: TSynEdit
@@ -248,7 +247,7 @@ object fMain: TfMain
           Left = 0
           Height = 505
           Top = 42
-          Width = 656
+          Width = 619
           Align = alClient
           Font.Height = 13
           Font.Name = 'DejaVu Sans Mono'
@@ -751,14 +750,14 @@ object fMain: TfMain
           Left = 0
           Height = 42
           Top = 0
-          Width = 656
+          Width = 619
           Align = alTop
           BevelOuter = bvNone
           ClientHeight = 42
-          ClientWidth = 656
+          ClientWidth = 619
           TabOrder = 1
           object eSearchC: TEdit
-            Left = 328
+            Left = 291
             Height = 25
             Top = 8
             Width = 272
@@ -781,7 +780,7 @@ object fMain: TfMain
             ShowCaption = False
           end
           object SpeedButton1: TSpeedButton
-            Left = 624
+            Left = 587
             Height = 24
             Hint = 'weitersuchen'
             Top = 8
@@ -791,7 +790,7 @@ object fMain: TfMain
             OnClick = SpeedButton1Click
           end
           object SpeedButton2: TSpeedButton
-            Left = 600
+            Left = 563
             Height = 24
             Hint = 'weitersuchen'
             Top = 8
