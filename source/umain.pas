@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, SynMemo, synhighlighterunixshellscript,
   SynHighlighterPerl, SynEdit, SynGutterBase, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, StdCtrls, ComCtrls, ActnList, ValEdit, Buttons, Menus,
-  blcksock, httpsend, uFhemFrame, ssl_openssl, types, LCLType;
+  blcksock, httpsend, uFhemFrame, ssl_openssl, types, LCLType,Clipbrd;
 
 type
   TInfoEvent = procedure(aInfo : string) of object;
@@ -62,6 +62,7 @@ type
     ListBox1: TListBox;
     mCommand: TMemo;
     MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
     Panel5: TPanel;
     pcDetails: TPageControl;
     Panel4: TPanel;
@@ -105,6 +106,7 @@ type
     procedure eServerSelect(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure MenuItem2Click(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure tsCommandEnter(Sender: TObject);
@@ -501,6 +503,15 @@ begin
   CmdHistory.Free;
 end;
 
+procedure TfMain.MenuItem2Click(Sender: TObject);
+begin
+  if Assigned(tvMain.Selected) and Assigned(tvMain.Selected.Data) then
+    begin
+      Clipboard.AsText:=TDevice(tvMain.Selected.Data).Name;
+
+    end;
+end;
+
 procedure TfMain.SpeedButton1Click(Sender: TObject);
 begin
   eConfig.SearchReplace(eSearchC.Text,'',[ssoFindContinue]);
@@ -634,6 +645,7 @@ begin
           FGenericFrame.Device:=TDevice(tvMain.Selected.Data);
           FGenericFrame.ProcessList(sl);
           pcDetails.Visible:=True;
+          pcPages.ActivePage:=tsSelected;
           sl.Free;
         end;
       acDelete.Enabled:=True;

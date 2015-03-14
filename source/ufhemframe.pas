@@ -35,11 +35,11 @@ type
   TFHEMFrame = class(TFrame)
   private
     FDevice: TDevice;
-    procedure SetDevice(AValue: TDevice);
     procedure SetName(AValue: string);
   protected
     FName: string;
     function ExecCommand(aCmd : string) : string;
+    procedure SetDevice(AValue: TDevice);virtual;
     function ChangeValue(aValue : string) : string;
     function GetDeviceType: string;virtual;abstract;
   public

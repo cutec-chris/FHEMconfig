@@ -56,6 +56,7 @@ type
     procedure RefreshFValues;
   protected
     function GetDeviceType: string; override;
+    procedure SetDevice(AValue: TDevice); override;
   public
     { public declarations }
     procedure ProcessList(aList: TStrings); override;
@@ -142,6 +143,14 @@ end;
 function TfGeneric.GetDeviceType: string;
 begin
   Result := '';
+end;
+
+procedure TfGeneric.SetDevice(AValue: TDevice);
+begin
+  inherited SetDevice(AValue);
+  FAttrValues:='';
+  FGetValues:='';
+  FSetValues:='';
 end;
 
 procedure TfGeneric.ProcessList(aList: TStrings);

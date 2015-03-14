@@ -2152,6 +2152,10 @@ object fMain: TfMain
   object PopupMenu1: TPopupMenu
     left = 200
     top = 96
+    object MenuItem2: TMenuItem
+      Caption = 'Bezeichner kopieren'
+      OnClick = MenuItem2Click
+    end
     object MenuItem1: TMenuItem
       Action = acDelete
     end

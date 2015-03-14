@@ -1109,6 +1109,7 @@ object frDOIF: TfrDOIF
     Height = 25
     Top = 64
     Width = 75
+    Anchors = [akTop, akRight]
     Caption = 'Test'
     OnClick = bTestClick
     TabOrder = 3
