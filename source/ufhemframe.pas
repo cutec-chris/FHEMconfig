@@ -107,14 +107,14 @@ procedure TDevice.SetRoom(AValue: string);
 var
   aNode: TTreeNode;
 
-  procedure CheckRoom(Node : TTreeNode);
+  procedure CheckRoom(Node : TTreeNode;cValue : string);
   var
     bNode: TTreeNode;
   begin
     bNode := aNode.GetFirstChild;
     while Assigned(bNode) do
       begin
-        if bNode.Text=AValue then exit;
+        if bNode.Text=cValue then exit;
         bNode := bNode.GetNextSibling;
       end;
     bNode := fMain.tvMain.Items.AddChild(Node,Self.Name);
@@ -123,22 +123,32 @@ var
     bNode.SelectedIndex:=Self.ImageIndex;
   end;
 
+  procedure AddRoom(bValue : string);
+  begin
+    aNode := fMain.RoomNode.GetFirstChild;
+    while Assigned(aNode) do
+      begin
+        if aNode.Text=bValue then
+          begin
+            CheckRoom(aNode,bValue);
+            exit;
+          end;
+        aNode := aNode.GetNextSibling;
+      end;
+    if bValue='hidden' then exit;
+    aNode := fMain.tvMain.Items.AddChild(fMain.RoomNode,bValue);
+    CheckRoom(aNode,bValue);
+  end;
+
 begin
   if FRoom=AValue then Exit;
   FRoom:=AValue;
-  aNode := fMain.RoomNode.GetFirstChild;
-  while Assigned(aNode) do
+  AValue:=AValue+',';
+  while pos(',',AValue)>0 do
     begin
-      if aNode.Text=aValue then
-        begin
-          CheckRoom(aNode);
-          exit;
-        end;
-      aNode := aNode.GetNextSibling;
+      AddRoom(copy(AValue,0,pos(',',AValue)-1));
+      AValue:=copy(AValue,pos(',',AValue)+1,length(AValue));
     end;
-  if AValue='hidden' then exit;
-  aNode := fMain.tvMain.Items.AddChild(fMain.RoomNode,AValue);
-  CheckRoom(aNode);
 end;
 
 { TFHEMFrame }

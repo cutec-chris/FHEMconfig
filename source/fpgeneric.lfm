@@ -251,7 +251,7 @@ object fGeneric: TfGeneric
     object bSet: TSpeedButton
       Left = 164
       Height = 24
-      Hint = 'hier klicken um dne Wert zu setzen'
+      Hint = 'hier klicken um den Wert zu setzen'
       Top = 72
       Width = 28
       Caption = '<'
