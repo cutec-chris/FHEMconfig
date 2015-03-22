@@ -36,8 +36,11 @@ const
                +'webviewcontrol:22'+#10
                +'dummy:23'+#10
                +'httpmod:24'+#10
+
                +'emt7110:25'+#10
                +'esa2000:25'+#10
+               +'egpm2lan:25'+#10
+
                +'gpio4:26'+#10
 
                +'lacrosse:27'+#10

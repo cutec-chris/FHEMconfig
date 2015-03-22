@@ -27,25 +27,31 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="6">
+    <RequiredPackages Count="8">
       <Item1>
-        <PackageName Value="fpvectorialpkg"/>
+        <PackageName Value="ZVDateTimeCtrls"/>
       </Item1>
       <Item2>
-        <PackageName Value="TurboPowerIPro"/>
+        <PackageName Value="v103_lazarus"/>
       </Item2>
       <Item3>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="fpvectorialpkg"/>
       </Item3>
       <Item4>
-        <PackageName Value="LazControls"/>
+        <PackageName Value="TurboPowerIPro"/>
       </Item4>
       <Item5>
-        <PackageName Value="laz_synapse"/>
+        <PackageName Value="SynEdit"/>
       </Item5>
       <Item6>
-        <PackageName Value="LCL"/>
+        <PackageName Value="LazControls"/>
       </Item6>
+      <Item7>
+        <PackageName Value="laz_synapse"/>
+      </Item7>
+      <Item8>
+        <PackageName Value="LCL"/>
+      </Item8>
     </RequiredPackages>
     <Units Count="12">
       <Unit0>

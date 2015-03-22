@@ -1,15 +1,15 @@
 object frAt: TfrAt
-  Left = 540
+  Left = 493
   Height = 393
-  Top = 267
-  Width = 603
+  Top = 191
+  Width = 613
   ClientHeight = 393
-  ClientWidth = 603
+  ClientWidth = 613
   LCLVersion = '1.5'
   object Label1: TLabel
     Left = 8
     Height = 15
-    Top = 16
+    Top = 8
     Width = 27
     Caption = 'Zeit'
     Font.Style = [fsBold]
@@ -19,16 +19,34 @@ object frAt: TfrAt
   object Label2: TLabel
     Left = 96
     Height = 15
-    Top = 16
+    Top = 8
     Width = 254
     Caption = 'Wann soll das Ereignis ausgelöst werden ?'
     ParentColor = False
   end
-  object mEvent: TMemo
+  object Label3: TLabel
+    Left = 8
+    Height = 15
+    Top = 184
+    Width = 43
+    Caption = 'Befehl'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object Label4: TLabel
+    Left = 96
+    Height = 15
+    Top = 184
+    Width = 118
+    Caption = 'Was soll passieren ?'
+    ParentColor = False
+  end
+  object mCommand: TMemo
     Left = 24
     Height = 66
-    Top = 40
-    Width = 424
+    Top = 208
+    Width = 496
     Anchors = [akTop, akLeft, akRight]
     Font.Height = -15
     Font.Name = 'Courier'
@@ -39,87 +57,26 @@ object frAt: TfrAt
     ParentFont = False
     TabOrder = 0
   end
-  object Label3: TLabel
-    Left = 8
-    Height = 15
-    Top = 176
-    Width = 43
-    Caption = 'Befehl'
-    Font.Style = [fsBold]
-    ParentColor = False
-    ParentFont = False
-  end
-  object Label4: TLabel
-    Left = 96
-    Height = 15
-    Top = 176
-    Width = 118
-    Caption = 'Was soll passieren ?'
-    ParentColor = False
-  end
-  object Label5: TLabel
-    Left = 24
-    Height = 45
-    Top = 112
-    Width = 164
-    Caption = 'Beispiele:'#10'17:00:00 (17 Uhr)'#10'+00:00:10 (in 10 Minuten)'
-    ParentColor = False
-  end
-  object mCommand: TMemo
-    Left = 24
-    Height = 66
-    Top = 200
-    Width = 486
-    Anchors = [akTop, akLeft, akRight]
-    Font.Height = -15
-    Font.Name = 'Courier'
-    Font.Pitch = fpFixed
-    Lines.Strings = (
-      'Memo1'
-    )
-    ParentFont = False
-    TabOrder = 1
-  end
   object bTestCondition: TButton
-    Left = 518
+    Left = 528
     Height = 25
     Top = 200
     Width = 75
     Anchors = [akTop, akRight]
     Caption = 'Testen'
     OnClick = bTestConditionClick
-    TabOrder = 2
-  end
-  object Label6: TLabel
-    Left = 11
-    Height = 15
-    Top = 330
-    Width = 39
-    Caption = 'Name'
-    Font.Style = [fsBold]
-    ParentColor = False
-    ParentFont = False
-  end
-  object eName: TEdit
-    Left = 72
-    Height = 25
-    Top = 328
-    Width = 376
-    Anchors = [akTop, akLeft, akRight]
-    Enabled = False
-    TabOrder = 3
-    Text = 'eName'
+    TabOrder = 1
   end
   object Label7: TLabel
     Left = 24
     Height = 30
-    Top = 272
+    Top = 280
     Width = 75
     Caption = 'Beispiele:'#10'set Lamp on'
     ParentColor = False
   end
   object bSave: TSpeedButton
-    Left = 461
+    Left = 471
     Height = 48
     Top = 312
     Width = 132
@@ -164,24 +121,160 @@ object frAt: TfrAt
     OnClick = bSaveClick
   end
   object Label8: TLabel
-    Left = 472
+    Left = 480
     Height = 15
-    Top = 16
+    Top = 8
     Width = 131
     Anchors = [akTop, akRight]
     AutoSize = False
     Caption = 'nächstes Auftreten'
+    Font.Style = [fsBold]
     ParentColor = False
+    ParentFont = False
   end
   object lStatus: TLabel
-    Left = 472
+    Left = 482
     Height = 15
-    Top = 40
+    Top = 32
     Width = 131
     Anchors = [akTop, akRight]
     AutoSize = False
     Caption = 'unbekannt'
     ParentColor = False
+  end
+  object rbAt: TRadioButton
+    Left = 24
+    Height = 22
+    Top = 32
+    Width = 92
+    Caption = 'Immer um '
+    Checked = True
+    OnChange = rbAtChange
+    TabOrder = 2
+    TabStop = True
+  end
+  object dtAt: TZVDateTimePicker
+    AnchorSideLeft.Control = rbAt
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = rbAt
+    AnchorSideTop.Side = asrCenter
+    Left = 122
+    Height = 23
+    Top = 32
+    Width = 59
+    CenturyFrom = 1941
+    MaxDate = 2958465
+    MinDate = -53780
+    TabOrder = 3
+    BorderSpacing.Left = 6
+    TrailingSeparator = False
+    TextForNullDate = 'NULL'
+    LeadingZeros = True
+    Kind = dtkTime
+    TimeFormat = tf24
+    TimeDisplay = tdHM
+    DateMode = dmComboBox
+    Date = 42082
+    Time = 0.887860046299465
+    UseDefaultSeparators = True
+    OnChange = rbAtChange
+  end
+  object rbAll: TRadioButton
+    Left = 24
+    Height = 22
+    Top = 65
+    Width = 44
+    Caption = 'alle'
+    OnChange = rbAtChange
+    TabOrder = 4
+  end
+  object rbSunOn: TRadioButton
+    Left = 24
+    Height = 22
+    Top = 96
+    Width = 120
+    Caption = 'Sonnenaufgang'
+    OnChange = rbAtChange
+    TabOrder = 5
+  end
+  object rbSunOff: TRadioButton
+    Left = 24
+    Height = 22
+    Top = 120
+    Width = 134
+    Caption = 'Sonnenuntergang'
+    OnChange = rbAtChange
+    TabOrder = 6
+  end
+  object mEvent: TEdit
+    AnchorSideLeft.Side = asrBottom
+    Left = 224
+    Height = 25
+    Top = 144
+    Width = 296
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Left = 8
+    TabOrder = 7
+  end
+  object rbUserdefined: TRadioButton
+    Left = 24
+    Height = 22
+    Top = 144
+    Width = 194
+    Caption = 'Benutzerdefiniertes Ereignis'
+    OnChange = rbAtChange
+    TabOrder = 8
+  end
+  object Label5: TLabel
+    Left = 8
+    Height = 15
+    Top = 320
+    Width = 81
+    Caption = 'Ausführung'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object seCount: TSpinEdit
+    Left = 24
+    Height = 25
+    Top = 336
+    Width = 50
+    TabOrder = 9
+  end
+  object Label6: TLabel
+    Left = 80
+    Height = 15
+    Top = 340
+    Width = 173
+    Caption = 'mal ausführen (0 für immer)'
+    ParentColor = False
+  end
+  object dtAll: TZVDateTimePicker
+    AnchorSideLeft.Control = rbAll
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = rbAll
+    AnchorSideTop.Side = asrCenter
+    Left = 74
+    Height = 23
+    Top = 65
+    Width = 79
+    CenturyFrom = 1941
+    MaxDate = 2958465
+    MinDate = -53780
+    TabOrder = 10
+    BorderSpacing.Left = 6
+    TrailingSeparator = False
+    TextForNullDate = 'NULL'
+    LeadingZeros = True
+    Kind = dtkTime
+    TimeFormat = tf24
+    TimeDisplay = tdHMS
+    DateMode = dmComboBox
+    Date = 42082
+    Time = 0.887860046299465
+    UseDefaultSeparators = True
+    OnChange = rbAtChange
   end
   object Timer1: TTimer
     OnTimer = Timer1Timer

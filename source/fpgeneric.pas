@@ -151,6 +151,9 @@ begin
   FAttrValues:='';
   FGetValues:='';
   FSetValues:='';
+  vAttributes.Clear;
+  vReadings.Clear;
+  vInternals.Clear;
 end;
 
 procedure TfGeneric.ProcessList(aList: TStrings);

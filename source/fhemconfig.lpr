@@ -7,8 +7,9 @@ uses
   cthreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, lazcontrols, fpvectorialpkg, uMain, Utils, laz_synapse, uFhemFrame,
-  fDoIf, fpGeneric, fpresence, uAddDevice, fat, fnotify, uAttrEditor, uIcons
+  Forms, lazcontrols, fpvectorialpkg, uMain, Utils, laz_synapse,
+  zvdatetimectrls, v103_lazarus, uFhemFrame, fDoIf, fpGeneric, fpresence,
+  uAddDevice, fat, fnotify, uAttrEditor, uIcons
   { you can add units after this };
 
 {$R *.res}
