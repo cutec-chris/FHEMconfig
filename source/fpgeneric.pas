@@ -45,6 +45,7 @@ type
     vInternals: TValueListEditor;
     procedure acAddAttrExecute(Sender: TObject);
     procedure cbGetSelect(Sender: TObject);
+    procedure cbRoomSelect(Sender: TObject);
     procedure cbSetSelect(Sender: TObject);
     procedure vAttributesValidateEntry(sender: TObject; aCol, aRow: Integer;
       const OldValue: string; var NewValue: String);
@@ -64,7 +65,7 @@ type
 
 implementation
 
-uses fpvectorial,svgvectorialreader,uAttrEditor;
+uses fpvectorial,svgvectorialreader,uAttrEditor,uMain;
 
 {$R *.lfm}
 
@@ -94,6 +95,15 @@ begin
   tmp := ExecCommand('get '+FName+' '+cbGet.Text);
   if pos(#10,tmp)>0 then tmp := copy(tmp,0,pos(#10,tmp)-1);
   eSet.Text:=tmp;
+end;
+
+procedure TfGeneric.cbRoomSelect(Sender: TObject);
+begin
+  if trim(cbRoom.Text)<>'' then
+    begin
+      ExecCommand('attr '+FName+' room '+cbRoom.Text);
+      Change;
+    end;
 end;
 
 procedure TfGeneric.acAddAttrExecute(Sender: TObject);
@@ -154,6 +164,8 @@ begin
   vAttributes.Clear;
   vReadings.Clear;
   vInternals.Clear;
+  cbRoom.Clear;
+  cbRoom.Items.Assign(fMain.Rooms);
 end;
 
 procedure TfGeneric.ProcessList(aList: TStrings);
@@ -278,6 +290,8 @@ begin
                 begin
                   aVal := copy(aStr,0,pos(' ',aStr)-1);
                   bList.Values[aVal]:=trim(copy(aStr,pos(' ',aStr)+1,length(aStr)));
+                  if aVal='room' then
+                    cbRoom.Text:=trim(copy(aStr,pos(' ',aStr)+1,length(aStr)));
                   SelectEditor;
                 end;
             end;

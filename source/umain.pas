@@ -130,6 +130,7 @@ type
     FFrame: TFHEMFrame;
     FGenericFrame: TFHEMFrame;
     FRNode: TTreeNode;
+    FRoomList: TStringList;
     FRooms : TStringList;
     Server:THTTPSend;
     LogThread : TLogThread;
@@ -153,6 +154,7 @@ type
     function ListModules : string;
     property RoomNode : TTreeNode read FRNode write FRNode;
     property DeviceNode : TTreeNode read FDNode write FDNode;
+    property Rooms : TStringList read FRoomList;
   end;
 
 var
@@ -483,6 +485,7 @@ begin
   Server.Sock.OnStatus:=@ServerSockStatus;
   ConnType := 'http://';
   FRooms := TStringList.Create;
+  FRoomList := TStringList.Create;
   FGenericFrame:=nil;
   FindConfig;
 end;
@@ -491,6 +494,7 @@ procedure TfMain.FormDestroy(Sender: TObject);
 begin
   Hide;
   FRooms.Free;
+  FRoomList.Free;
   Application.ProcessMessages;
   if Assigned(LogThread) then
     begin
@@ -831,7 +835,11 @@ var
     aDevice.SelectedIndex:=TDevice(aDevice.Data).ImageIndex;
     for c := 0 to FRooms.Count-1 do
       if copy(FRooms[c],0,pos(' ',FRooms[c])-1)=aName then
-        TDevice(aDevice.Data).Room := trim(copy(FRooms[c],pos(' ',FRooms[c])+1,length(FRooms[c])));
+        begin
+          TDevice(aDevice.Data).Room := trim(copy(FRooms[c],pos(' ',FRooms[c])+1,length(FRooms[c])));
+          if FRoomList.IndexOf(TDevice(aDevice.Data).Room)=-1 then
+            FRoomList.Add(TDevice(aDevice.Data).Room);
+        end;
   end;
 begin
   tvMain.BeginUpdate;
