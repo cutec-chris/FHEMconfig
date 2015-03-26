@@ -15,6 +15,7 @@ type
   { TLogThread }
 
   TLogThread = class(TThread)
+    procedure FLogSockHeartbeat(Sender: TObject);
     procedure FLogSockStatus(Sender: TObject; Reason: THookSocketReason;
       const Value: String);
   private
@@ -32,6 +33,7 @@ type
   public
     constructor Create(aServer: string);
     procedure Execute; override;
+    procedure Abort;
     property ConnType : string read FConnType write FConnType;
     property Server : string read FServer;
     property OnInfo : TInfoEvent read FOnInfo write FOnInfo;
@@ -196,6 +198,36 @@ end;
 
 { TLogThread }
 
+procedure TLogThread.FLogSockHeartbeat(Sender: TObject);
+var
+  cnt: Integer;
+  tmp : string;
+begin
+  if Terminated then
+    begin
+      FLog.Abort;
+      exit;
+    end;
+  while FLog.Document.Size > FPos do
+    begin
+      FLog.Document.Position:=FPos;
+      cnt := FLog.Document.Size-FPos;
+      if cnt>255 then
+        cnt := 255;
+      Setlength(tmp,cnt);
+      cnt := FLog.Document.Read(tmp[1],cnt);
+      FPos := FPos+cnt;
+      FBuffer:=FBuffer+copy(tmp,0,cnt);
+    end;
+while pos(#10,FBuffer)>0 do
+  begin
+    FInfo := copy(FBuffer,0,pos(#10,FBuffer)-1);
+    FBuffer := copy(FBuffer,pos(#10,FBuffer)+1,length(FBuffer));
+    Synchronize(@Info);
+    RefreshTree;
+  end;
+end;
+
 procedure TLogThread.FLogSockStatus(Sender: TObject; Reason: THookSocketReason;
   const Value: String);
 var
@@ -272,21 +304,24 @@ var
 begin
   url := FServer+'/fhem?XHR=1&inform=type=raw;filter=.*';
   FLog.Sock.OnStatus:=@FLogSockStatus;
-  FLog.Timeout:=15000;
+  FLog.Sock.OnHeartbeat:=@FLogSockHeartbeat;
+  FLog.Timeout:=30000;
   FLog.KeepAlive:=True;
+  FLog.Sock.HeartbeatRate:=100;
   while not Terminated do
     begin
       try
         FLog.HTTPMethod('GET',url);
-        sleep(1000);
       except
-        begin
-          FLog.Free;
-          exit;
-        end;
       end;
+      FLog.Clear;
     end;
   FLog.Free;
+end;
+
+procedure TLogThread.Abort;
+begin
+  FLog.Abort;
 end;
 
 { TfMain }
@@ -296,6 +331,7 @@ begin
   if Assigned(LogThread) and (LogThread.Server<>eServer.Text) then
     begin
       LogThread.Terminate;
+      LogThread.Abort;
       LogThread.WaitFor;
       FreeAndNil(LogThread);
       lbLog.Clear;
@@ -499,9 +535,9 @@ begin
   if Assigned(LogThread) then
     begin
       LogThread.Terminate;
-      LogThread.FLog.Abort;
-      //LogThread.WaitFor;
-      //LogThread.Free;
+      LogThread.Abort;
+      LogThread.WaitFor;
+      LogThread.Free;
     end;
   Server.Free;
   CmdHistory.Free;

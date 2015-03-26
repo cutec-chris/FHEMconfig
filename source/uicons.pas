@@ -35,6 +35,7 @@ const
                +'dashboard:20'+#10
                +'webviewcontrol:22'+#10
                +'dummy:23'+#10
+               +'clonedummy:23'+#10
                +'httpmod:24'+#10
 
                +'emt7110:25'+#10
