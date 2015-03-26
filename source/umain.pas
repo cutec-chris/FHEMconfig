@@ -308,7 +308,7 @@ begin
   url := FServer+'/fhem?XHR=1&inform=type=raw;filter=.*';
   FLog.Sock.OnStatus:=@FLogSockStatus;
   FLog.Sock.OnHeartbeat:=@FLogSockHeartbeat;
-  FLog.Timeout:=30000;
+  FLog.Timeout:=120000;
   FLog.KeepAlive:=True;
   FLog.Sock.HeartbeatRate:=100;
   while not Terminated do
@@ -677,7 +677,6 @@ begin
               FFrame.ProcessList(sl);
               FFrame.Show;
               tsSpecial.TabVisible:=True;
-              pcPages.ActivePage:=tsSpecial;
             end;
           if not Assigned(FGenericFrame) then
             begin
@@ -691,6 +690,8 @@ begin
           pcDetails.Visible:=True;
           pcPages.ActivePage:=tsSelected;
           sl.Free;
+          if aFrameClass<>nil then
+            pcDetails.ActivePage:=tsSpecial;
         end;
       acDelete.Enabled:=True;
     end;
