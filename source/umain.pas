@@ -426,6 +426,7 @@ var
 begin
   aRegEx := eLogRegex.Text;
   if (aRegEx='') or (aRegEx=strFilter) then aRegEx:='.*';
+  aRegEx := StringReplace(aRegEx,':',' ',[]);
   try
     lbLog.Clear;
     for i := 0 to FLog.Count-1 do
@@ -636,6 +637,7 @@ var
 begin
   aRegEx := eLogRegex.Text;
   if (aRegEx='') or (aRegEx=strFilter) then aRegEx:='.*';
+  aRegEx := StringReplace(aRegEx,':',' ',[]);
   aItem := StringReplace(aInfo,'<br>','',[]);
   if RegExpr.ExecRegExpr(aRegEx,aInfo) then
     begin
