@@ -285,8 +285,11 @@ end;
 
 procedure TLogThread.DoRefreshTree;
 begin
-  fMain.RefreshTree(FList);
-  fMain.tvMain.Invalidate;
+  try
+    fMain.RefreshTree(FList);
+    fMain.tvMain.Invalidate;
+  except
+  end;
 end;
 
 constructor TLogThread.Create(aServer : string);
@@ -674,6 +677,7 @@ begin
               FFrame.ProcessList(sl);
               FFrame.Show;
               tsSpecial.TabVisible:=True;
+              pcPages.ActivePage:=tsSpecial;
             end;
           if not Assigned(FGenericFrame) then
             begin
