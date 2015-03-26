@@ -55,6 +55,7 @@ type
     bConnect3: TSpeedButton;
     cbFile: TComboBox;
     eCommand: TEdit;
+    eLogRegex: TEdit;
     eSearchC: TEdit;
     eSearch: TEdit;
     eServer: TComboBox;
@@ -93,11 +94,14 @@ type
     procedure acSaveConfigExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure cbFileSelect(Sender: TObject);
+    procedure eLogRegexChange(Sender: TObject);
     procedure eCommandKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
       );
     procedure eConfigChange(Sender: TObject);
     procedure eConfigMouseWheel(Sender: TObject; Shift: TShiftState;
       WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
+    procedure eLogRegexEnter(Sender: TObject);
+    procedure eLogRegexExit(Sender: TObject);
     procedure eSearchCChange(Sender: TObject);
     procedure eSearchCEnter(Sender: TObject);
     procedure eSearchCExit(Sender: TObject);
@@ -137,6 +141,7 @@ type
     Server:THTTPSend;
     LogThread : TLogThread;
     LastLogTime : TDateTime;
+    FLog : TStringList;
     ConnType : string;
     function Refresh: Boolean;
     procedure RefreshTree(sl: TStrings;SelectLast : Boolean = false);
@@ -167,6 +172,7 @@ var
 
 resourcestring
     strSearch                       = '<suche>';
+    strFilter                       = '<Filter>';
     strConnectionError              = 'Verbindungsfehler';
 
 implementation
@@ -219,13 +225,8 @@ begin
       FPos := FPos+cnt;
       FBuffer:=FBuffer+copy(tmp,0,cnt);
     end;
-while pos(#10,FBuffer)>0 do
-  begin
-    FInfo := copy(FBuffer,0,pos(#10,FBuffer)-1);
-    FBuffer := copy(FBuffer,pos(#10,FBuffer)+1,length(FBuffer));
+  if pos(#10,FBuffer)>0 then
     Synchronize(@Info);
-    RefreshTree;
-  end;
 end;
 
 procedure TLogThread.FLogSockStatus(Sender: TObject; Reason: THookSocketReason;
@@ -252,19 +253,20 @@ begin
         FPos := FPos+cnt;
         FBuffer:=FBuffer+copy(tmp,0,cnt);
       end;
-  while pos(#10,FBuffer)>0 do
-    begin
-      FInfo := copy(FBuffer,0,pos(#10,FBuffer)-1);
-      FBuffer := copy(FBuffer,pos(#10,FBuffer)+1,length(FBuffer));
-      Synchronize(@Info);
-      RefreshTree;
-    end;
+  if pos(#10,FBuffer)>0 then
+    Synchronize(@Info);
 end;
 
 procedure TLogThread.Info;
 begin
-  if Assigned(FOnInfo) then
-    FOnInfo(FInfo);
+  while pos(#10,FBuffer)>0 do
+    begin
+      FInfo := copy(FBuffer,0,pos(#10,FBuffer)-1);
+      FBuffer := copy(FBuffer,pos(#10,FBuffer)+1,length(FBuffer));
+      if Assigned(FOnInfo) then
+        FOnInfo(FInfo);
+    end;
+  RefreshTree;
 end;
 
 procedure TLogThread.RefreshTree;
@@ -338,6 +340,7 @@ begin
       LogThread.WaitFor;
       FreeAndNil(LogThread);
       lbLog.Clear;
+      FLog.Clear;
       tsLog.TabVisible:=False;
       tsConfig.TabVisible:=False;
     end;
@@ -416,6 +419,22 @@ begin
   LoadFile(cbFile.Text);
 end;
 
+procedure TfMain.eLogRegexChange(Sender: TObject);
+var
+  i: Integer;
+  aRegEx: TCaption;
+begin
+  aRegEx := eLogRegex.Text;
+  if (aRegEx='') or (aRegEx=strFilter) then aRegEx:='.*';
+  try
+    lbLog.Clear;
+    for i := 0 to FLog.Count-1 do
+      if RegExpr.ExecRegExpr(aRegEx,FLog[i]) then
+        lbLog.Items.Add(FLog[i]);
+  except
+  end;
+end;
+
 procedure TfMain.eCommandKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
@@ -455,6 +474,22 @@ begin
     eConfig.Font.Size:=round(eConfig.Font.Size+((-WheelDelta)/120));
 end;
 
+procedure TfMain.eLogRegexEnter(Sender: TObject);
+begin
+  if (trim(eLogRegex.Text)='') or (eLogRegex.Text=strFilter) then
+    eLogRegex.Clear;
+  eLogRegex.Font.Color:=clDefault;
+end;
+
+procedure TfMain.eLogRegexExit(Sender: TObject);
+begin
+  if (trim(eLogRegex.Text)='') or (eLogRegex.Text=strFilter) then
+    begin
+      eLogRegex.Text:=strFilter;
+      eLogRegex.Font.Color:=clSilver;
+    end;
+end;
+
 procedure TfMain.eSearchCChange(Sender: TObject);
 begin
   eConfig.SearchReplace(eSearchC.Text,'',[ssoEntireScope]);
@@ -480,8 +515,27 @@ begin
   aNode := tvMain.Items[0];
   while assigned(aNode) do
     begin
+      aNode.Collapse(False);
+      aNode.Visible := True;
+      aNode := aNode.GetNext;
+    end;
+  aNode := tvMain.Items[0];
+  while assigned(aNode) do
+    begin
       aNode.Visible := (Assigned(aNode.Data) and (pos(lowercase(eSearch.Text),lowercase(aNode.Text))>0)) or ((trim(eSearch.Text)='') or (eSearch.Text=strSearch) or (aNode.HasChildren));
-      if (aNode.Visible and Assigned(aNode.Parent)) and (not ((trim(eSearch.Text)='') or (eSearch.Text=strSearch) or (aNode.HasChildren))) then aNode.Parent.Expanded:=True;
+      if (aNode.Visible and Assigned(aNode.Parent)) and (not ((trim(eSearch.Text)='') or (eSearch.Text=strSearch) or (aNode.HasChildren))) then
+        begin
+          aNode.Parent.Expanded:=True;
+          if (aNode.Visible and Assigned(aNode.Parent.Parent)) and (not ((trim(eSearch.Text)='') or (eSearch.Text=strSearch) or (aNode.HasChildren))) then
+            aNode.Parent.Parent.Expanded:=True;
+        end;
+      aNode := aNode.GetNext;
+    end;
+  if (trim(eSearch.Text)='') or (eSearch.Text=strSearch) then exit;
+  aNode := tvMain.Items[0];
+  while assigned(aNode) do
+    begin
+      if aNode.HasChildren and (not aNode.Expanded) then aNode.Visible:=False;
       aNode := aNode.GetNext;
     end;
 end;
@@ -526,6 +580,7 @@ begin
   FRooms := TStringList.Create;
   FRoomList := TStringList.Create;
   FGenericFrame:=nil;
+  FLog := TStringList.Create;
   FindConfig;
 end;
 
@@ -544,6 +599,7 @@ begin
     end;
   Server.Free;
   CmdHistory.Free;
+  FLog.Free;
 end;
 
 procedure TfMain.MenuItem2Click(Sender: TObject);
@@ -567,16 +623,29 @@ end;
 
 procedure TfMain.tsCommandEnter(Sender: TObject);
 begin
-  eCommand.SetFocus;
+  try
+    eCommand.SetFocus;
+  except
+  end;
 end;
 
 procedure TfMain.LogThreadInfo(aInfo: string);
+var
+  aItem: String;
+  aRegEx: TCaption;
 begin
-  lbLog.AddItem(StringReplace(aInfo,'<br>','',[]),nil);
-  lbLog.ItemIndex:=lbLog.Count-1;
-  lbLog.MakeCurrentVisible;
+  aRegEx := eLogRegex.Text;
+  if (aRegEx='') or (aRegEx=strFilter) then aRegEx:='.*';
+  aItem := StringReplace(aInfo,'<br>','',[]);
+  if RegExpr.ExecRegExpr(aRegEx,aInfo) then
+    begin
+      lbLog.AddItem(aItem,nil);
+      lbLog.ItemIndex:=lbLog.Count-1;
+      lbLog.MakeCurrentVisible;
+    end;
+  FLog.Add(aItem);
   if Assigned(FFrame) then
-    FFrame.LogReceived(StringReplace(aInfo,'<br>','',[]));
+    FFrame.LogReceived(aItem);
 end;
 
 procedure TfMain.ServerSockStatus(Sender: TObject; Reason: THookSocketReason;
