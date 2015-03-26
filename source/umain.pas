@@ -115,10 +115,10 @@ type
     procedure MenuItem2Click(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
-    procedure tsCommandEnter(Sender: TObject);
     procedure LogThreadInfo(aInfo: string);
     procedure ServerSockStatus(Sender: TObject; Reason: THookSocketReason;
       const Value: String);
+    procedure tsCommandEnter(Sender: TObject);
     procedure tsConfigHide(Sender: TObject);
     procedure tsConfigShow(Sender: TObject);
     procedure tvMainAdvancedCustomDrawItem(Sender: TCustomTreeView;
@@ -355,8 +355,7 @@ begin
           tsConfig.TabVisible:=True;
           eConfig.Lines.Clear;
         end;
-      pcPages.ActivePage:=tsCommand;
-      tsCommandEnter(tsCommand);
+      pcPages.ActivePage:=tsLog;
       RefreshFileList;
       acAdd.Enabled:=True;
       fAddDevice.CreateUs;
@@ -622,14 +621,6 @@ begin
   eConfig.SearchReplace(eSearchC.Text,'',[ssoFindContinue,ssoBackwards]);
 end;
 
-procedure TfMain.tsCommandEnter(Sender: TObject);
-begin
-  try
-    eCommand.SetFocus;
-  except
-  end;
-end;
-
 procedure TfMain.LogThreadInfo(aInfo: string);
 var
   aItem: String;
@@ -658,6 +649,11 @@ begin
   HR_ResolvingEnd:debugln('Resolving end "'+Value+'"');
   HR_Error:debugln('Error:'+Value);
   end;
+end;
+
+procedure TfMain.tsCommandEnter(Sender: TObject);
+begin
+  eCommand.SetFocus;
 end;
 
 procedure TfMain.tsConfigHide(Sender: TObject);
