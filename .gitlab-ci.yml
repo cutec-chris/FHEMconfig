@@ -1,0 +1,16 @@
+build-windows:
+  script: 
+    - lazbuild fhemconfig.lpi
+  tags:
+    - windows-i386
+build-linux-i386:
+  script: 
+    - lazbuild fhemconfig.lpi
+  tags:
+    - linux-i386
+build-linux-x86-64:
+  script:
+    - lazbuild fhemconfig.lpi
+  tags:
+    - linux-x64
+
