@@ -1,16 +1,16 @@
 object frAt: TfrAt
-  Left = 493
+  Left = 492
   Height = 393
-  Top = 191
+  Top = 166
   Width = 613
   ClientHeight = 393
   ClientWidth = 613
-  LCLVersion = '1.5'
+  LCLVersion = '1.7'
   object Label1: TLabel
     Left = 8
-    Height = 15
+    Height = 17
     Top = 8
-    Width = 27
+    Width = 23
     Caption = 'Zeit'
     Font.Style = [fsBold]
     ParentColor = False
@@ -18,17 +18,17 @@ object frAt: TfrAt
   end
   object Label2: TLabel
     Left = 96
-    Height = 15
+    Height = 17
     Top = 8
-    Width = 254
+    Width = 235
     Caption = 'Wann soll das Ereignis ausgelöst werden ?'
     ParentColor = False
   end
   object Label3: TLabel
     Left = 8
-    Height = 15
+    Height = 17
     Top = 184
-    Width = 43
+    Width = 39
     Caption = 'Befehl'
     Font.Style = [fsBold]
     ParentColor = False
@@ -36,9 +36,9 @@ object frAt: TfrAt
   end
   object Label4: TLabel
     Left = 96
-    Height = 15
+    Height = 17
     Top = 184
-    Width = 118
+    Width = 112
     Caption = 'Was soll passieren ?'
     ParentColor = False
   end
@@ -69,9 +69,9 @@ object frAt: TfrAt
   end
   object Label7: TLabel
     Left = 24
-    Height = 30
+    Height = 34
     Top = 280
-    Width = 75
+    Width = 68
     Caption = 'Beispiele:'#10'set Lamp on'
     ParentColor = False
   end
@@ -146,7 +146,7 @@ object frAt: TfrAt
     Left = 24
     Height = 22
     Top = 32
-    Width = 92
+    Width = 86
     Caption = 'Immer um '
     Checked = True
     OnChange = rbAtChange
@@ -158,10 +158,10 @@ object frAt: TfrAt
     AnchorSideLeft.Side = asrBottom
     AnchorSideTop.Control = rbAt
     AnchorSideTop.Side = asrCenter
-    Left = 122
+    Left = 116
     Height = 23
     Top = 32
-    Width = 59
+    Width = 52
     CenturyFrom = 1941
     MaxDate = 2958465
     MinDate = -53780
@@ -177,6 +177,8 @@ object frAt: TfrAt
     Date = 42082
     Time = 0.887860046299465
     UseDefaultSeparators = True
+    HideDateTimeParts = []
+    MonthNames = 'Long'
     OnChange = rbAtChange
   end
   object rbAll: TRadioButton
@@ -192,7 +194,7 @@ object frAt: TfrAt
     Left = 24
     Height = 22
     Top = 96
-    Width = 120
+    Width = 112
     Caption = 'Sonnenaufgang'
     OnChange = rbAtChange
     TabOrder = 5
@@ -201,7 +203,7 @@ object frAt: TfrAt
     Left = 24
     Height = 22
     Top = 120
-    Width = 134
+    Width = 124
     Caption = 'Sonnenuntergang'
     OnChange = rbAtChange
     TabOrder = 6
@@ -209,7 +211,7 @@ object frAt: TfrAt
   object mEvent: TEdit
     AnchorSideLeft.Side = asrBottom
     Left = 224
-    Height = 25
+    Height = 27
     Top = 144
     Width = 296
     Anchors = [akTop, akLeft, akRight]
@@ -220,16 +222,16 @@ object frAt: TfrAt
     Left = 24
     Height = 22
     Top = 144
-    Width = 194
+    Width = 183
     Caption = 'Benutzerdefiniertes Ereignis'
     OnChange = rbAtChange
     TabOrder = 8
   end
   object Label5: TLabel
     Left = 8
-    Height = 15
+    Height = 17
     Top = 320
-    Width = 81
+    Width = 72
     Caption = 'Ausführung'
     Font.Style = [fsBold]
     ParentColor = False
@@ -237,16 +239,16 @@ object frAt: TfrAt
   end
   object seCount: TSpinEdit
     Left = 24
-    Height = 25
+    Height = 27
     Top = 336
     Width = 50
     TabOrder = 9
   end
   object Label6: TLabel
     Left = 80
-    Height = 15
+    Height = 17
     Top = 340
-    Width = 173
+    Width = 158
     Caption = 'mal ausführen (0 für immer)'
     ParentColor = False
   end
@@ -258,7 +260,7 @@ object frAt: TfrAt
     Left = 74
     Height = 23
     Top = 65
-    Width = 79
+    Width = 69
     CenturyFrom = 1941
     MaxDate = 2958465
     MinDate = -53780
@@ -274,6 +276,8 @@ object frAt: TfrAt
     Date = 42082
     Time = 0.887860046299465
     UseDefaultSeparators = True
+    HideDateTimeParts = []
+    MonthNames = 'Long'
     OnChange = rbAtChange
   end
   object Timer1: TTimer

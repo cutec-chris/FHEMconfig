@@ -27,33 +27,31 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="8">
+    <RequiredPackages Count="7">
       <Item1>
         <PackageName Value="ZVDateTimeCtrls"/>
+        <DefaultFilename Value="../components/zvdatetime/zvdatetimectrls.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="v103_lazarus"/>
+        <PackageName Value="fpvectorialpkg"/>
       </Item2>
       <Item3>
-        <PackageName Value="fpvectorialpkg"/>
+        <PackageName Value="TurboPowerIPro"/>
       </Item3>
       <Item4>
-        <PackageName Value="TurboPowerIPro"/>
+        <PackageName Value="SynEdit"/>
       </Item4>
       <Item5>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="LazControls"/>
       </Item5>
       <Item6>
-        <PackageName Value="LazControls"/>
+        <PackageName Value="laz_synapse"/>
       </Item6>
       <Item7>
-        <PackageName Value="laz_synapse"/>
-      </Item7>
-      <Item8>
         <PackageName Value="LCL"/>
-      </Item8>
+      </Item7>
     </RequiredPackages>
-    <Units Count="12">
+    <Units Count="11">
       <Unit0>
         <Filename Value="fhemconfig.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -113,7 +111,6 @@
         <ComponentName Value="frAt"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fat"/>
       </Unit8>
       <Unit9>
         <Filename Value="fnotify.pas"/>
@@ -124,18 +121,10 @@
         <UnitName Value="fNotify"/>
       </Unit9>
       <Unit10>
-        <Filename Value="uattreditor.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fAttrEditor"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uAttrEditor"/>
-      </Unit10>
-      <Unit11>
         <Filename Value="uicons.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uIcons"/>
-      </Unit11>
+      </Unit10>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

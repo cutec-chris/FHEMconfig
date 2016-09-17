@@ -65,7 +65,7 @@ type
 
 implementation
 
-uses fpvectorial,svgvectorialreader,uAttrEditor,uMain;
+uses fpvectorial,svgvectorialreader,uMain;
 
 {$R *.lfm}
 
@@ -108,6 +108,7 @@ end;
 
 procedure TfGeneric.acAddAttrExecute(Sender: TObject);
 begin
+  {
   if fAttrEditor.Execute(FAttrValues) then
     begin
       ExecCommand('attr '+FName+' '+fAttrEditor.cbType.Text+' '+fAttrEditor.cbValue.Text);
@@ -117,6 +118,7 @@ begin
         TPanel(vAttributes.Parent).Height := Self.Height div 4;
       Change;
     end;
+  }
 end;
 
 procedure TfGeneric.cbSetSelect(Sender: TObject);

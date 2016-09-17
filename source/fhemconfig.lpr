@@ -8,8 +8,8 @@ uses
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, lazcontrols, fpvectorialpkg, uMain, Utils, laz_synapse,
-  zvdatetimectrls, v103_lazarus, uFhemFrame, fDoIf, fpGeneric, fpresence,
-  uAddDevice, fat, fnotify, uAttrEditor, uIcons
+  zvdatetimectrls, uFhemFrame, fDoIf, fpGeneric, fpresence,
+  uAddDevice, fat, fnotify, uIcons
   { you can add units after this };
 
 {$R *.res}
@@ -19,7 +19,6 @@ begin
   RequireDerivedFormResource := True;
   Application.Initialize;
   Application.CreateForm(TfMain, fMain);
-  Application.CreateForm(TfAttrEditor, fAttrEditor);
   Application.Run;
 end.
 

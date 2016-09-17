@@ -1,12 +1,12 @@
 object fGeneric: TfGeneric
-  Left = 548
+  Left = 547
   Height = 512
-  Top = 243
+  Top = 218
   Width = 600
   ClientHeight = 512
   ClientWidth = 600
   Color = clWhite
-  LCLVersion = '1.5'
+  LCLVersion = '1.7'
   object Panel1: TPanel
     Left = 8
     Height = 105
@@ -21,7 +21,7 @@ object fGeneric: TfGeneric
     TabOrder = 0
     object Label1: TLabel
       Left = 0
-      Height = 15
+      Height = 17
       Top = 0
       Width = 584
       Align = alTop
@@ -32,8 +32,8 @@ object fGeneric: TfGeneric
     end
     object vAttributes: TValueListEditor
       Left = 0
-      Height = 90
-      Top = 15
+      Height = 88
+      Top = 17
       Width = 559
       Align = alClient
       BorderSpacing.Right = 25
@@ -77,8 +77,8 @@ object fGeneric: TfGeneric
     TabOrder = 1
     object vReadings: TValueListEditor
       Left = 0
-      Height = 112
-      Top = 15
+      Height = 110
+      Top = 17
       Width = 584
       Align = alClient
       DefaultColWidth = 200
@@ -98,7 +98,7 @@ object fGeneric: TfGeneric
     end
     object Label2: TLabel
       Left = 0
-      Height = 15
+      Height = 17
       Top = 0
       Width = 584
       Align = alTop
@@ -122,7 +122,7 @@ object fGeneric: TfGeneric
     TabOrder = 2
     object Label3: TLabel
       Left = 0
-      Height = 15
+      Height = 17
       Top = 0
       Width = 584
       Align = alTop
@@ -133,8 +133,8 @@ object fGeneric: TfGeneric
     end
     object vInternals: TValueListEditor
       Left = 0
-      Height = 73
-      Top = 15
+      Height = 71
+      Top = 17
       Width = 584
       Align = alClient
       DefaultColWidth = 200
@@ -165,15 +165,15 @@ object fGeneric: TfGeneric
     TabOrder = 3
     object Label4: TLabel
       Left = 8
-      Height = 15
+      Height = 17
       Top = 8
-      Width = 35
+      Width = 34
       Caption = 'Name'
       ParentColor = False
     end
     object eName: TEdit
       Left = 8
-      Height = 25
+      Height = 27
       Top = 24
       Width = 322
       Anchors = [akTop, akLeft, akRight]
@@ -191,7 +191,7 @@ object fGeneric: TfGeneric
     end
     object cbRoom: TComboBox
       Left = 338
-      Height = 27
+      Height = 29
       Top = 24
       Width = 176
       Anchors = [akTop, akRight]
@@ -202,7 +202,7 @@ object fGeneric: TfGeneric
     end
     object cbSet: TComboBox
       Left = 8
-      Height = 27
+      Height = 29
       Top = 72
       Width = 152
       ItemHeight = 0
@@ -211,7 +211,7 @@ object fGeneric: TfGeneric
     end
     object eSet: TEdit
       Left = 200
-      Height = 25
+      Height = 27
       Top = 72
       Width = 194
       Anchors = [akTop, akLeft, akRight]
@@ -219,7 +219,7 @@ object fGeneric: TfGeneric
     end
     object cbGet: TComboBox
       Left = 402
-      Height = 27
+      Height = 29
       Top = 72
       Width = 190
       Anchors = [akTop, akRight]
@@ -229,9 +229,9 @@ object fGeneric: TfGeneric
     end
     object lSet: TLabel
       Left = 8
-      Height = 15
+      Height = 17
       Top = 56
-      Width = 117
+      Width = 100
       Caption = 'Wert setzen (set)'
       Font.Style = [fsBold]
       ParentColor = False
@@ -277,10 +277,10 @@ object fGeneric: TfGeneric
       end
     end
     object Button1: TButton
-      Left = 570
-      Height = 27
+      Left = 573
+      Height = 29
       Top = 40
-      Width = 22
+      Width = 19
       Anchors = [akTop, akRight]
       AutoSize = True
       Caption = '...'
@@ -310,9 +310,9 @@ object fGeneric: TfGeneric
     end
     object Label6: TLabel
       Left = 8
-      Height = 15
+      Height = 17
       Top = 1
-      Width = 40
+      Width = 37
       Caption = 'Label6'
       ParentColor = False
     end

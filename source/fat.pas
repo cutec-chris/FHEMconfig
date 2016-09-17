@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, Buttons, uFhemFrame,
-  VpClock, ZVDateTimePicker, Dialogs, ExtCtrls, Spin;
+  ZVDateTimePicker, Dialogs, ExtCtrls, Spin;
 
 type
 
