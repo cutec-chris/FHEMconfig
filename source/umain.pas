@@ -659,7 +659,7 @@ end;
 procedure TfMain.tsConfigHide(Sender: TObject);
 begin
   if not eConfig.Modified then
-    eConfig.Clear;
+    eConfig.Text:='';
 end;
 
 procedure TfMain.tsConfigShow(Sender: TObject);
@@ -1146,7 +1146,7 @@ begin
           if Server.ResultCode=200 then
             begin
               acSaveConfig.Enabled:=False;
-              eConfig.Clear;
+              eConfig.Text:='';
               tsConfigShow(tsConfig);
             end;
         end;
