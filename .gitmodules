@@ -1,3 +1,6 @@
 [submodule "components/zvdatetime"]
 	path = components/zvdatetime
 	url = https://github.com/tcs-ulli/ZVDateTimeControls.git
+[submodule "components/synapse"]
+	path = components/synapse
+	url = https://github.com/cutec-chris/Ararat-Synapse.git
